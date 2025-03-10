@@ -1,0 +1,32 @@
+{
+  "name": "front-end",
+  "version": "1.0.0",
+  "description": "shared household grocery list",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "watch-ts": "tsc-watch --onSuccess \"echo 'TypeScript compiled'\"",
+    "start": "lite-server",
+    "dev": "concurrently \"npm run watch-ts\" \"npm run start\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/arsalan2708/comp4020-group7.git"
+  },
+  "keywords": [
+    "list"
+  ],
+  "author": "UoM HCI2 Group 7",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/arsalan2708/comp4020-group7/issues"
+  },
+  "homepage": "https://github.com/arsalan2708/comp4020-group7#readme",
+  "devDependencies": {
+    "@types/node": "^22.13.10",
+    "concurrently": "^9.1.2",
+    "lite-server": "^2.6.1",
+    "typescript": "^5.8.2"
+  }
+}

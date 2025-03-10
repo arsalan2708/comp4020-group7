@@ -1,0 +1,23 @@
+# Node.js dependencies
+node_modules/
+
+# TypeScript build outputs
+/dist/
+out/
+
+# Flask Python files
+*.pyc
+__pycache__/
+instance/
+*.env
+
+# IDE configuration files
+.vscode/
+.idea/
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Log files
+*.log
