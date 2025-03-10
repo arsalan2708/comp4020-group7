@@ -1,9 +1,5 @@
 {
   "server": {
-    "baseDir": "./",
-    "routes": {
-      "/node_modules": "node_modules"
-    }
-  },
-  "files": ["./dist/**/*", "./index.html", "./styles.css"]
+    "baseDir": "./"
+  }
 }
