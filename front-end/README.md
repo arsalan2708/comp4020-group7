@@ -19,14 +19,16 @@ npm install --save-dev concurrently tsc-watch lite-server
 Your project should have the following structure:
 
 ```
-my-project/
+front-end/
 ├── dist/                # Compiled JavaScript files
+│   └── index.js         # compiled javascript entry file
 ├── src/                 # Source files
-│   ├── index.ts         # TypeScript entry file
-│   └── style.css        # CSS file
+│   └── index.ts         # TypeScript entry file
 ├── index.html           # HTML file
 ├── tsconfig.json        # TypeScript configuration
-└── package.json         # Project configuration
+├── package.json         # Project configuration
+├── tsconfig.json        # typescript configuration files
+└── style.css            # CSS file
 ```
 
 ### 3. Scripts
