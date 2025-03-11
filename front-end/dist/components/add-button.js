@@ -4,7 +4,7 @@
  * @param onAddClick callback function on clicking the add button
  * @param onsuggestClick callback function on clicking the suggest button
  */
-export function mountAddButton(isIndexPage, onAddClick, onsuggestClick) {
+export function mountAddButton({ isIndexPage, onAddClick, onsuggestClick, }) {
     const buttonContainer = document.querySelector(".add-button__container");
     if (!buttonContainer)
         return;
