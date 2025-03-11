@@ -1,15 +1,11 @@
-import { mountAddButton } from "./components/add-button.js";
-import { mountNavBar } from "./components/nav-bar.js";
+import { mountPageWrapper } from "./components/page-wrapper.js";
 
 const IS_INDEX_PAGE = false;
 
-// create the top nav bar
-mountNavBar({ title: "List 1", isIndexPage: IS_INDEX_PAGE });
-
-// mount action button
-mountAddButton({
+// mount page wrapper
+mountPageWrapper({
+  title: "List 1",
   isIndexPage: IS_INDEX_PAGE,
-  //   TODO: action
   onAddClick: () => {
     const a = document.createElement("a");
     a.href = "/";
