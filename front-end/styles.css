@@ -97,7 +97,6 @@ ol {
 }
 
 .page-wrapper__top-bar {
-  background-color: red;
   position: relative;
   border-bottom: 2px solid black;
 }
@@ -113,7 +112,8 @@ ol {
   width: 75%;
   position: absolute;
   right: 0;
-  background-color: blue;
+  background-color: white;
+  border-left: 2px solid black;
   padding: var(--space-md) var(--space-xl);
   display: grid;
   grid-template-rows: auto 1fr auto;
