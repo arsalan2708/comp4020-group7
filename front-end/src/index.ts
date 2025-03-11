@@ -1,9 +1,4 @@
-import { createIconButton } from "./components/icon-button.js";
+import { createNavBar } from "./components/nav-bar.js";
 
-const tempBody = document.getElementById("body");
-
-if (tempBody) {
-  //create button and add styling
-  const component = createIconButton("/public/hamburgerIcon.png");
-  tempBody.appendChild(component);
-}
+// create the top nav bar
+createNavBar("Charles's List");

@@ -28,6 +28,31 @@
   --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.15);
 }
 
+/* ----- CSS reset ------- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+}
+
+html,
+body {
+  height: 100%;
+}
+
 /* --- Flexbox Utility Classes --- */
 
 /* Row Layouts */
@@ -140,8 +165,31 @@
   align-items: center;
 }
 
-.border-radius {
-  border-radius: 10px;
+/* --- page wrapper Utility Classes --- */
+
+.page-wrapper {
+  height: 100%;
+  display: grid;
+  grid-template-areas: "top-bar" "page-content";
+  grid-template-rows: 4.25rem 1fr;
+}
+
+.page-wrapper__top-bar {
+  grid-area: "top-bar";
+  background-color: red;
+  position: relative;
+  border-bottom: 2px solid black;
+}
+
+.page-wrapper__icon {
+  position: absolute;
+  top: 50%;
+  right: var(--space-sm);
+  transform: translateY(-50%);
+}
+
+.page-wrapper__page-content {
+  grid-area: "page-content";
 }
 
 /* --- Button Utility Classes --- */
@@ -163,4 +211,22 @@
 .icon-button__icon {
   width: 30px;
   height: 24px;
+}
+
+/* --- MSC --- */
+
+.height-full {
+  height: 100%;
+}
+
+.width-full {
+  width: 100%;
+}
+
+.pointable {
+  cursor: pointer;
+}
+
+.border-radius {
+  border-radius: 10px;
 }
