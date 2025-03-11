@@ -34,8 +34,11 @@ const sideBarItems = [
  */
 function createSideBar(isHome, userName) {
     // get modal
-    const modal = document.querySelector(".modal");
-    if (modal) {
+    const modal = document.createElement("div");
+    const body = document.getElementById("body");
+    if (body && modal) {
+        // append modal to body
+        body.appendChild(modal);
         // header text
         const h2 = document.createElement("h2");
         h2.innerText = "Options";
