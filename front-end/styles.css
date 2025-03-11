@@ -120,6 +120,12 @@ ol {
   transform: translateX(100%);
 }
 
+.side-bar__close-button {
+  position: absolute;
+  left: var(--space-sm);
+  top: var(--space-sm);
+}
+
 /* Open state */
 .side-bar--open {
   animation: slideIn 0.3s forwards;
@@ -149,10 +155,11 @@ ol {
 /* --- Button Utility Classes --- */
 
 .button,
-.icon-button {
+.icon-button,
+.close-button {
   outline: none;
   appearance: none;
-  background-color: none;
+  cursor: pointer;
 }
 
 /* icon button */
@@ -165,6 +172,15 @@ ol {
 .icon-button__icon {
   width: 30px;
   height: 24px;
+}
+
+.close-button {
+  border-radius: 50% !important;
+  font-size: var(--text-xl);
+  font-weight: 500;
+  text-align: center;
+  line-height: 100%;
+  height: 30px;
 }
 
 /* --- MSC --- */
@@ -188,6 +204,14 @@ ol {
 .modal {
   position: absolute;
   inset: 0;
+}
+
+.overflow-hidden {
+  overflow: hidden;
+}
+
+.background-blur {
+  backdrop-filter: blur(2px);
 }
 
 /* Keyframe for opening */
