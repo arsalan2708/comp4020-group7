@@ -1,12 +1,4 @@
-const tempBody = document.getElementById("body");
-
-if (tempBody) {
-  //create button and add styling
-  const component = createIconButton("/public/hamburgerIcon.png");
-  tempBody.appendChild(component);
-}
-
-function createIconButton(src: string) {
+export function createIconButton(src: string) {
   //create button and add styling
   const iconButton = document.createElement("button");
   iconButton.classList.add("icon-button", "border-radius", "center");

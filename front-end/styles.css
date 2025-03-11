@@ -28,10 +28,140 @@
   --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.15);
 }
 
-body {
-  font-family: Arial, sans-serif;
+/* --- Flexbox Utility Classes --- */
+
+/* Row Layouts */
+
+/* Centers items in a row (both horizontally and vertically) */
+.row-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-h1 {
-  color: blue;
+/* Aligns items to the start of the row (left) and centers vertically */
+.row-start {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+/* Aligns items to the end of the row (right) and centers vertically */
+.row-end {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+/* Distributes items evenly with space between them, aligns vertically in the center */
+.row-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Distributes items evenly with space around them, aligns vertically in the center */
+.row-around {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+/* Distributes items evenly with equal space between them, aligns vertically in the center */
+.row-evenly {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+/* Column Layouts */
+
+/* Centers items in a column (both horizontally and vertically) */
+.column-center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Aligns items to the top of the column and centers horizontally */
+.column-start {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+/* Aligns items to the bottom of the column and centers horizontally */
+.column-end {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+/* Distributes items evenly with space between them, centers horizontally */
+.column-between {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Distributes items evenly with space around them, centers horizontally */
+.column-around {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+/* Distributes items evenly with equal space, centers horizontally */
+.column-evenly {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+/* General Centered Layout */
+
+/* Centers the entire content horizontally and vertically within the container */
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Centers grid items both horizontally and vertically within the container */
+.center-grid {
+  display: grid;
+  justify-items: center;
+  align-items: center;
+}
+
+.border-radius {
+  border-radius: 10px;
+}
+
+/* --- Button Utility Classes --- */
+
+.button,
+.icon-button {
+  outline: none;
+  appearance: none;
+  background-color: none;
+}
+
+/* icon button */
+
+.icon-button {
+  height: 40px;
+  aspect-ratio: 1;
+}
+
+/* TODO: fix button width */
+.icon-button__icon {
+  width: 30px;
+  height: 24px;
 }
