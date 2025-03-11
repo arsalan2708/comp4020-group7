@@ -42,10 +42,16 @@ The following npm scripts are set up in `package.json`:
 
 ### 4. Start Development
 
-To start the development environment with hot-reloading:
+To start the development environment:
 
 ```bash
-npm run dev
+npm run start
+```
+
+To enable hot reloads, run this in a separate cli
+
+```bash
+npm run watch-ts
 ```
 
 This will:
