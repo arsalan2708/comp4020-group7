@@ -31,8 +31,8 @@ export interface CategoryType {
 
 export interface InitList {
   list: InitListItem[];
-  addItem: () => void;
-  getItem: (itemID: string) => void;
+  addItem: (item: InitListItem) => void;
+  getItem: (itemID: string) => InitListItem;
   updateItem: (itemID: string) => void;
   deleteItem: (itemID: string) => void;
 }
