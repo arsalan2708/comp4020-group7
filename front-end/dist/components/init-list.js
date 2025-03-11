@@ -5,17 +5,25 @@
 export function CreateList() {
     const list = {
         list: [],
-        addItem: function (item) {
-            throw new Error("Function not implemented.");
+        addList: function (list) {
+            this.list.push(list);
         },
-        getItem: function (itemID) {
-            throw new Error("Function not implemented.");
+        getList: function (listID) {
+            return this.list.find((list) => list.listID === listID);
         },
-        updateItem: function (itemID) {
-            throw new Error("Function not implemented.");
+        updateList: function (initListItem) {
+            //   find the index of the list
+            const index = this.list.findIndex((list) => list.listID === initListItem.listID);
+            //   if it doesnt exists end it here and return false
+            if (index < 0)
+                return false;
+            //   update item and return true
+            this.list[index] = initListItem;
+            return true;
         },
-        deleteItem: function (itemID) {
-            throw new Error("Function not implemented.");
+        deleteList: function (listID) {
+            this.list = this.list.filter((list) => list.listID !== listID);
+            return this.list.some((list) => list.listID === listID);
         },
     };
     return list;

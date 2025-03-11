@@ -7,17 +7,28 @@ import { InitList, InitListItem } from "../types/types";
 export function CreateList() {
   const list: InitList = {
     list: [],
-    addItem: function (item: InitListItem): void {
-      throw new Error("Function not implemented.");
+    addList: function (list: InitListItem) {
+      this.list.push(list);
     },
-    getItem: function (itemID: string): InitListItem {
-      throw new Error("Function not implemented.");
+    getList: function (listID: string) {
+      return this.list.find((list) => list.listID === listID);
     },
-    updateItem: function (itemID: string): void {
-      throw new Error("Function not implemented.");
+    updateList: function (initListItem: InitListItem): boolean {
+      //   find the index of the list
+      const index = this.list.findIndex(
+        (list) => list.listID === initListItem.listID
+      );
+
+      //   if it doesnt exists end it here and return false
+      if (index < 0) return false;
+
+      //   update item and return true
+      this.list[index] = initListItem;
+      return true;
     },
-    deleteItem: function (itemID: string): void {
-      throw new Error("Function not implemented.");
+    deleteList: function (listID: string): boolean {
+      this.list = this.list.filter((list) => list.listID !== listID);
+      return this.list.some((list) => list.listID === listID);
     },
   };
   return list;
