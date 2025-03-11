@@ -117,6 +117,17 @@ ol {
   padding: var(--space-md) var(--space-xl);
   display: grid;
   grid-template-rows: auto 1fr auto;
+  transform: translateX(100%);
+}
+
+/* Open state */
+.side-bar--open {
+  animation: slideIn 0.3s forwards;
+}
+
+/* Close state */
+.side-bar--close {
+  animation: slideOut 0.3s forwards;
 }
 
 .page-wrapper__side-bar > h2 {
@@ -177,4 +188,24 @@ ol {
 .modal {
   position: absolute;
   inset: 0;
+}
+
+/* Keyframe for opening */
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+/* Keyframe for closing */
+@keyframes slideOut {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(100%);
+  }
 }
