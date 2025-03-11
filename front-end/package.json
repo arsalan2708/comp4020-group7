@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "shared household grocery list",
   "main": "dist/index.js",
+  "type": "module",
   "scripts": {
     "build": "tsc",
     "watch-ts": "tsc --watch",
