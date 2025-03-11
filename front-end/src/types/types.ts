@@ -28,3 +28,11 @@ export interface CategoryType {
   categoryID: string;
   name: string;
 }
+
+export interface InitList {
+  list: InitListItem[];
+  addItem: () => void;
+  getItem: (itemID: string) => void;
+  updateItem: (itemID: string) => void;
+  deleteItem: (itemID: string) => void;
+}
