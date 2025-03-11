@@ -53,103 +53,26 @@ body {
   height: 100%;
 }
 
-/* --- Flexbox Utility Classes --- */
-
-/* Row Layouts */
-
-/* Centers items in a row (both horizontally and vertically) */
-.row-center {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+ul,
+ol {
+  list-style: none;
+  padding: unset;
 }
 
-/* Aligns items to the start of the row (left) and centers vertically */
-.row-start {
+/* ----- FLEX layout ------ */
+
+.display-row {
   display: flex;
-  justify-content: flex-start;
-  align-items: center;
 }
 
-/* Aligns items to the end of the row (right) and centers vertically */
-.row-end {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-}
-
-/* Distributes items evenly with space between them, aligns vertically in the center */
-.row-between {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-/* Distributes items evenly with space around them, aligns vertically in the center */
-.row-around {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-}
-
-/* Distributes items evenly with equal space between them, aligns vertically in the center */
-.row-evenly {
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-}
-
-/* Column Layouts */
-
-/* Centers items in a column (both horizontally and vertically) */
-.column-center {
+.display-col {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
 }
 
-/* Aligns items to the top of the column and centers horizontally */
-.column-start {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
+.no-wrap {
+  flex-wrap: nowrap;
 }
-
-/* Aligns items to the bottom of the column and centers horizontally */
-.column-end {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  align-items: center;
-}
-
-/* Distributes items evenly with space between them, centers horizontally */
-.column-between {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-}
-
-/* Distributes items evenly with space around them, centers horizontally */
-.column-around {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
-}
-
-/* Distributes items evenly with equal space, centers horizontally */
-.column-evenly {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  align-items: center;
-}
-
-/* General Centered Layout */
 
 /* Centers the entire content horizontally and vertically within the container */
 .center {
@@ -170,12 +93,10 @@ body {
 .page-wrapper {
   height: 100%;
   display: grid;
-  grid-template-areas: "top-bar" "page-content";
   grid-template-rows: 4.25rem 1fr;
 }
 
 .page-wrapper__top-bar {
-  grid-area: "top-bar";
   background-color: red;
   position: relative;
   border-bottom: 2px solid black;
@@ -188,9 +109,31 @@ body {
   transform: translateY(-50%);
 }
 
-.page-wrapper__page-content {
-  grid-area: "page-content";
+.page-wrapper__side-bar {
+  width: 75%;
+  position: absolute;
+  right: 0;
+  background-color: blue;
+  padding: var(--space-md) var(--space-xl);
+  display: grid;
+  grid-template-rows: auto 1fr auto;
 }
+
+.page-wrapper__side-bar > h2 {
+  text-align: center;
+  margin-bottom: var(--space-2xl);
+}
+
+.page-wrapper__side-bar > ul {
+  gap: var(--space-lg);
+}
+
+.page-wrapper__username {
+  margin-bottom: unset !important;
+}
+
+/* .page-wrapper__page-content {
+} */
 
 /* --- Button Utility Classes --- */
 
@@ -229,4 +172,9 @@ body {
 
 .border-radius {
   border-radius: 10px;
+}
+
+.modal {
+  position: absolute;
+  inset: 0;
 }
