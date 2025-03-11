@@ -15,6 +15,8 @@ export function createNavBar(title) {
         // create hamburger-icon
         const hamburgerIcon = createIconButton("../public/hamburgerIcon.png");
         hamburgerIcon.classList.add("page-wrapper__icon");
+        // TODO: configure event handlers
+        hamburgerIcon.onclick = () => console.log("clicked");
         nav.appendChild(hamburgerIcon);
         // TODO: finish side bar and its animations
         // create the side bar
