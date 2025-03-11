@@ -156,7 +156,8 @@ ol {
 
 .button,
 .icon-button,
-.close-button {
+.close-button,
+.add-button {
   outline: none;
   appearance: none;
   cursor: pointer;
@@ -181,6 +182,31 @@ ol {
   text-align: center;
   line-height: 100%;
   height: 30px;
+}
+
+.add-button__container {
+  display: flex;
+  gap: var(--space-sm);
+  align-items: flex-end;
+  flex-direction: row-reverse;
+  position: absolute;
+  bottom: var(--space-lg);
+  right: var(--space-lg);
+}
+
+.add-button {
+  width: 75px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.add-button__suggestion {
+  padding: var(--space-xs) var(--space-sm) !important;
+  border-radius: 10px;
+  cursor: pointer;
 }
 
 /* --- MSC --- */

@@ -5,7 +5,7 @@ import { createIconButton } from "./icon-button.js";
  * @param title page title
  * @param isIndexPage true meaning its being called for the index.html page
  */
-export function createNavBar(title: string, isIndexPage: boolean) {
+export function mountNavBar(title: string, isIndexPage: boolean) {
   const nav = document.querySelector(".page-wrapper__top-bar");
 
   if (!nav) return;
@@ -40,7 +40,7 @@ const sideBarItems: SideBarItemType[] = [
  *creates the side bar component and pairs it to the top bar
  * @param isIndexPage true meaning its being called for the index.html page
  */
-function createSideBar(isIndexPage: boolean, userName: string) {
+function mountSideBar(isIndexPage: boolean, userName: string) {
   const body = document.getElementById("body");
 
   // get modal
@@ -106,7 +106,7 @@ function createSideBar(isIndexPage: boolean, userName: string) {
 function onSideBarOpen() {
   // TODO: dynamic usernames
   //   mount the side ba component first
-  createSideBar(true, "Sally");
+  mountSideBar(true, "Sally");
   const sidebar = document.getElementById("side-bar");
   const modal = document.querySelector(".modal");
 
