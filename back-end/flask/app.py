@@ -24,7 +24,6 @@ app.users = ("Joe","Stu","Dent")
 
 
 
-
 # Register blueprints
 app.register_blueprint(main.bp)
 

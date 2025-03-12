@@ -26,9 +26,10 @@ yarn-error.log*
 
 # env files
 .env*
+env/
 
 # _pycache__ files
-/back-end/*/__pycache__*
+back-end/**/__pycache__/
 
 # vercel
 .vercel
