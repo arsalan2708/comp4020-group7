@@ -32,7 +32,12 @@ export function mountInitListItem({ listID, primaryID, checkedItems, totalItems,
     const dateElement = document.createElement("p");
     dateElement.innerText = date;
     // options button
-    const optionsButton = createIconButton({ src: getImage(Icon.Options) });
+    const optionsButton = createIconButton({
+        src: getImage(Icon.Options),
+        onClick: (ev) => {
+            ev.stopPropagation();
+        },
+    });
     // right side container
     const rightSide = document.createElement("div");
     rightSide.classList.add("initList__rightSide", "display-row");

@@ -49,7 +49,12 @@ export function mountInitListItem({
   dateElement.innerText = date;
 
   // options button
-  const optionsButton = createIconButton({ src: getImage(Icon.Options) });
+  const optionsButton = createIconButton({
+    src: getImage(Icon.Options),
+    onClick: (ev: MouseEvent) => {
+      ev.stopPropagation();
+    },
+  });
 
   // right side container
   const rightSide = document.createElement("div");

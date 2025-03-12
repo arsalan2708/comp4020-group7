@@ -8,7 +8,7 @@ export function createIconButton({
   onClick,
 }: {
   src: string;
-  onClick?: () => void;
+  onClick?: (ev: MouseEvent) => void;
 }) {
   //create button and add styling
   const iconButton = document.createElement("button");
