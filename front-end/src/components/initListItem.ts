@@ -66,7 +66,7 @@ export function mountInitListItem({
   container.classList.add(
     "initList__container",
     "display-row",
-    "display-row--center",
+    "align--center",
     "justify--between",
     "border-radius"
   );

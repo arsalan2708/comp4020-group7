@@ -64,10 +64,6 @@ ol {
   display: flex;
 }
 
-.display-row--center {
-  align-items: center;
-}
-
 .display-col {
   display: flex;
   flex-direction: column;
@@ -89,6 +85,10 @@ ol {
 
 .justify--between {
   justify-content: space-between;
+}
+
+.align--center {
+  align-items: center;
 }
 
 .no-wrap {
