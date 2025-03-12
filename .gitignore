@@ -28,12 +28,8 @@ yarn-error.log*
 .env*
 env/
 
-# pychace
-back-end/**/__pycache__/
-
-
 # _pycache__ files
-/back-end/*/__pycache__*
+back-end/**/__pycache__/
 
 # vercel
 .vercel
