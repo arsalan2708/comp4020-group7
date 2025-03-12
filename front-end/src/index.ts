@@ -1,4 +1,5 @@
 import { InitializeList } from "./components/initList.js";
+import { ListModalMode, mountListModal } from "./components/listModal.js";
 import { mountPageWrapper } from "./components/pageWrapper.js";
 import { generateID } from "./utils/generateID.js";
 
@@ -19,7 +20,8 @@ mountPageWrapper({
   title: "Shared List",
   isIndexPage: IS_INDEX_PAGE,
   onAddClick: () => {
-    list.addList(createListItem());
+    // list.addList(createListItem());
+    mountListModal({ mode: ListModalMode.Create });
   },
   onsuggestClick: () => {},
 });

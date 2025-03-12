@@ -163,6 +163,26 @@ ol {
   gap: var(--space-sm);
 }
 
+/* Keyframe for opening */
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+/* Keyframe for closing */
+@keyframes slideOut {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+
 /* --- Button Utility Classes --- */
 
 .button,
@@ -249,26 +269,6 @@ ol {
 
 .background-blur {
   backdrop-filter: blur(2px);
-}
-
-/* Keyframe for opening */
-@keyframes slideIn {
-  from {
-    transform: translateX(100%);
-  }
-  to {
-    transform: translateX(0);
-  }
-}
-
-/* Keyframe for closing */
-@keyframes slideOut {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(100%);
-  }
 }
 
 /* --- init list item classes --- */
