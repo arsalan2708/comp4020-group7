@@ -1,5 +1,5 @@
-import { mountAddButton } from "./add-button.js";
-import { mountNavBar } from "./nav-bar.js";
+import { mountAddButton } from "./addButton.js";
+import { mountNavBar } from "./navBar.js";
 
 interface PageWrapperProps {
   title: string;

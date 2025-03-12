@@ -1,5 +1,5 @@
-import { InitializeList } from "./components/init-list.js";
-import { mountPageWrapper } from "./components/page-wrapper.js";
+import { InitializeList } from "./components/initList.js";
+import { mountPageWrapper } from "./components/pageWrapper.js";
 import { generateID } from "./utils/generateID.js";
 
 const IS_INDEX_PAGE = true;

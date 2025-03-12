@@ -1,4 +1,4 @@
-import { mountInitListItem } from "./init-list-item.js";
+import { mountInitListItem } from "./initListItem.js";
 /**
  * factory method for lists. (ONLY USE ONCE)
  * @returns returns a list instance

@@ -1,6 +1,6 @@
-import { Icon, getImage } from "../utils/get-image.js";
+import { Icon, getImage } from "../utils/getImage.js";
 import { routeToList } from "../utils/routing.js";
-import { createIconButton } from "./icon-button.js";
+import { createIconButton } from "./iconButton.js";
 export function mountInitListItem({ listID, primaryID, checkedItems, totalItems, label, date, }) {
     // label for init list item
     const labelElement = document.createElement("p");

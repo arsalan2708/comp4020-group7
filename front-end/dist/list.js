@@ -1,4 +1,4 @@
-import { mountPageWrapper } from "./components/page-wrapper.js";
+import { mountPageWrapper } from "./components/pageWrapper.js";
 const IS_INDEX_PAGE = false;
 // mount page wrapper
 mountPageWrapper({

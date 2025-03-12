@@ -1,5 +1,5 @@
-import { Icon, getImage } from "../utils/get-image.js";
-import { createIconButton } from "./icon-button.js";
+import { Icon, getImage } from "../utils/getImage.js";
+import { createIconButton } from "./iconButton.js";
 /**
  * populates the top navigation bar. Nav bar has to have class ".page-wrapper__top-bar"
  * @param title page title

@@ -1,7 +1,7 @@
 import { InitListItem } from "../types/types";
-import { Icon, getImage } from "../utils/get-image.js";
+import { Icon, getImage } from "../utils/getImage.js";
 import { routeToList } from "../utils/routing.js";
-import { createIconButton } from "./icon-button.js";
+import { createIconButton } from "./iconButton.js";
 
 export function mountInitListItem({
   listID,
