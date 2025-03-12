@@ -48,7 +48,6 @@ svg {
   display: block;
 }
 
-html,
 body {
   height: 100%;
 }
@@ -201,7 +200,7 @@ ol {
   gap: var(--space-sm);
   align-items: flex-end;
   flex-direction: row-reverse;
-  position: absolute;
+  position: fixed;
   bottom: var(--space-lg);
   right: var(--space-lg);
 }
