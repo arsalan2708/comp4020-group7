@@ -1,3 +1,4 @@
+import { Icon, getImage } from "../utils/get-image.js";
 import { createIconButton } from "./icon-button.js";
 /**
  * populates the top navigation bar. Nav bar has to have class ".page-wrapper__top-bar"
@@ -14,9 +15,11 @@ export function mountNavBar({ title, isIndexPage, }) {
     heading.classList.add("center", "height-full");
     nav.appendChild(heading);
     // create hamburger-icon
-    const hamburgerIcon = createIconButton("../public/hamburgerIcon.png");
+    const hamburgerIcon = createIconButton({
+        src: getImage(Icon.Hamburger),
+        onClick: () => onSideBarOpen(isIndexPage),
+    });
     hamburgerIcon.classList.add("page-wrapper__icon");
-    hamburgerIcon.onclick = () => onSideBarOpen(isIndexPage);
     nav.appendChild(hamburgerIcon);
 }
 const sideBarItems = [
@@ -44,10 +47,9 @@ function mountSideBar({ isIndexPage, userName, }) {
     const h2 = document.createElement("h2");
     h2.innerText = "Options";
     // close button
-    const closeButton = createIconButton("");
+    const closeButton = createIconButton({ src: "", onClick: onSideBarClose });
     closeButton.classList.add("side-bar__close-button", "close-button");
     closeButton.innerText = "X";
-    closeButton.onclick = onSideBarClose; //closes sidebar
     // create list
     const ul = document.createElement("ul");
     ul.classList.add("display-col");

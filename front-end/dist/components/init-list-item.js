@@ -1,4 +1,5 @@
 import { Icon, getImage } from "../utils/get-image.js";
+import { routeToList } from "../utils/routing.js";
 import { createIconButton } from "./icon-button.js";
 export function mountInitListItem({ listID, primaryID, checkedItems, totalItems, label, date, }) {
     // label for init list item
@@ -31,7 +32,7 @@ export function mountInitListItem({ listID, primaryID, checkedItems, totalItems,
     const dateElement = document.createElement("p");
     dateElement.innerText = date;
     // options button
-    const optionsButton = createIconButton(getImage(Icon.Options));
+    const optionsButton = createIconButton({ src: getImage(Icon.Options) });
     // right side container
     const rightSide = document.createElement("div");
     rightSide.classList.add("initList__rightSide", "display-row");
@@ -40,5 +41,7 @@ export function mountInitListItem({ listID, primaryID, checkedItems, totalItems,
     const container = document.createElement("div");
     container.classList.add("initList__container", "display-row", "display-row--center", "justify--between", "border-radius");
     container.append(leftSide, rightSide);
+    container.id = listID;
+    container.onclick = () => routeToList(listID);
     return container;
 }

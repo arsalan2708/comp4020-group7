@@ -1,5 +1,6 @@
 import { InitListItem } from "../types/types";
 import { Icon, getImage } from "../utils/get-image.js";
+import { routeToList } from "../utils/routing.js";
 import { createIconButton } from "./icon-button.js";
 
 export function mountInitListItem({
@@ -48,7 +49,7 @@ export function mountInitListItem({
   dateElement.innerText = date;
 
   // options button
-  const optionsButton = createIconButton(getImage(Icon.Options));
+  const optionsButton = createIconButton({ src: getImage(Icon.Options) });
 
   // right side container
   const rightSide = document.createElement("div");
@@ -65,6 +66,8 @@ export function mountInitListItem({
     "border-radius"
   );
   container.append(leftSide, rightSide);
+  container.id = listID;
+  container.onclick = () => routeToList(listID);
 
   return container;
 }

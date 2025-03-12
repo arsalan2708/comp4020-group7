@@ -1,3 +1,4 @@
+import { Icon, getImage } from "../utils/get-image.js";
 import { createIconButton } from "./icon-button.js";
 
 /**
@@ -23,9 +24,11 @@ export function mountNavBar({
   nav.appendChild(heading);
 
   // create hamburger-icon
-  const hamburgerIcon = createIconButton("../public/hamburgerIcon.png");
+  const hamburgerIcon = createIconButton({
+    src: getImage(Icon.Hamburger),
+    onClick: () => onSideBarOpen(isIndexPage),
+  });
   hamburgerIcon.classList.add("page-wrapper__icon");
-  hamburgerIcon.onclick = () => onSideBarOpen(isIndexPage);
   nav.appendChild(hamburgerIcon);
 }
 
@@ -70,10 +73,9 @@ function mountSideBar({
   h2.innerText = "Options";
 
   // close button
-  const closeButton = createIconButton("");
+  const closeButton = createIconButton({ src: "", onClick: onSideBarClose });
   closeButton.classList.add("side-bar__close-button", "close-button");
   closeButton.innerText = "X";
-  closeButton.onclick = onSideBarClose; //closes sidebar
 
   // create list
   const ul = document.createElement("ul");

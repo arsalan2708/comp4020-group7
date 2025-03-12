@@ -3,10 +3,11 @@
  * @param src href for image
  * @returns HTMLButton element
  */
-export function createIconButton(src) {
+export function createIconButton({ src, onClick, }) {
     //create button and add styling
     const iconButton = document.createElement("button");
     iconButton.classList.add("icon-button", "border-radius", "center");
+    iconButton.onclick = onClick !== null && onClick !== void 0 ? onClick : null;
     // create image component, add styling and add to button
     const icon = document.createElement("img");
     icon.src = src;
