@@ -73,6 +73,8 @@ export function mountInitListItem({
   container.append(leftSide, rightSide);
   container.id = listID;
   container.onclick = () => routeToList(listID);
+  container.tabIndex = 0;
+  container.role = "button";
 
   return container;
 }
