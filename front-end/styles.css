@@ -157,8 +157,9 @@ ol {
   margin-bottom: unset !important;
 }
 
-/* .page-wrapper__page-content {
-} */
+.page-wrapper__list {
+  padding: var(--space-xl) var(--space-md) var(--space-md);
+}
 
 /* --- Button Utility Classes --- */
 
@@ -266,4 +267,24 @@ ol {
   to {
     transform: translateX(100%);
   }
+}
+
+/* --- init list item classes --- */
+
+.initList__container {
+  border: 1px solid black;
+  padding: var(--space-sm);
+}
+
+.initList__leftSide {
+  gap: var(--space-xs);
+}
+
+.initList__leftButtom {
+  gap: var(--space-sm);
+}
+
+.initList__rightSide {
+  align-items: flex-end;
+  gap: var(--space-md);
 }

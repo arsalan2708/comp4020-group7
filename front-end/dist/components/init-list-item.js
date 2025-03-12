@@ -38,7 +38,7 @@ export function mountInitListItem({ listID, primaryID, checkedItems, totalItems,
     rightSide.append(dateElement, optionsButton);
     // create the container for the item
     const container = document.createElement("div");
-    container.classList.add("initList__container", "display-row", "display-row--center", "justify--between");
+    container.classList.add("initList__container", "display-row", "display-row--center", "justify--between", "border-radius");
     container.append(leftSide, rightSide);
     return container;
 }

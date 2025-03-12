@@ -61,7 +61,8 @@ export function mountInitListItem({
     "initList__container",
     "display-row",
     "display-row--center",
-    "justify--between"
+    "justify--between",
+    "border-radius"
   );
   container.append(leftSide, rightSide);
 
