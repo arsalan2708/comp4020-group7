@@ -159,6 +159,9 @@ ol {
 
 .page-wrapper__list {
   padding: var(--space-xl) var(--space-md) var(--space-md);
+  display: flex;
+  flex-flow: column nowrap;
+  gap: var(--space-sm);
 }
 
 /* --- Button Utility Classes --- */

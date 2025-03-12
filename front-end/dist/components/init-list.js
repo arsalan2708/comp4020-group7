@@ -1,12 +1,19 @@
+import { mountInitListItem } from "./init-list-item.js";
 /**
- * factory method for lists
+ * factory method for lists. (ONLY USE ONCE)
  * @returns returns a list instance
  */
 export function CreateList() {
+    // get <ul> from page wrapper
+    const listElement = document.querySelector(".page-wrapper__list");
+    //   list instance returned
     const list = {
         list: [],
         addList: function (list) {
             this.list.push(list);
+            if (!listElement)
+                return;
+            listElement.appendChild(mountInitListItem(Object.assign({}, list)));
         },
         getList: function (listID) {
             return this.list.find((list) => list.listID === listID);

@@ -1,14 +1,23 @@
 import { InitList, InitListItem } from "../types/types";
+import { mountInitListItem } from "./init-list-item.js";
 
 /**
- * factory method for lists
+ * factory method for lists. (ONLY USE ONCE)
  * @returns returns a list instance
  */
 export function CreateList() {
+  // get <ul> from page wrapper
+  const listElement = document.querySelector(".page-wrapper__list");
+
+  //   list instance returned
   const list: InitList = {
     list: [],
     addList: function (list: InitListItem) {
       this.list.push(list);
+
+      if (!listElement) return;
+
+      listElement.appendChild(mountInitListItem({ ...list }));
     },
     getList: function (listID: string) {
       return this.list.find((list) => list.listID === listID);
@@ -31,5 +40,6 @@ export function CreateList() {
       return this.list.some((list) => list.listID === listID);
     },
   };
+
   return list;
 }
