@@ -1,4 +1,6 @@
 import { createInput } from "../utils/createInput.js";
+import { mountConfirmationButton } from "./confirmationButtons.js";
+import { mountModalContainer, unmountModalContainer, } from "./modalContainer.js";
 export var ListModalMode;
 (function (ListModalMode) {
     ListModalMode[ListModalMode["Create"] = 0] = "Create";
@@ -6,17 +8,14 @@ export var ListModalMode;
 })(ListModalMode || (ListModalMode = {}));
 export function mountListModal({ mode }) {
     // mount the modal and return it
-    //   const modal = mountModalContainer({});
-    //   modal?.classList.add("center");
-    //   stop if the modal mounting failed
-    //   if (!modal) return;
-    //   TODO: temporary remove this after figureing out form
-    const body = document.getElementById("body");
-    if (!body)
+    const modal = mountModalContainer({});
+    modal === null || modal === void 0 ? void 0 : modal.classList.add("center"); //center the window inside
+    // stop if the modal mounting failed
+    if (!modal)
         return;
     //   title for the component
     const title = document.createElement("p");
-    title.classList.add("listModal__title");
+    title.classList.add("listModal__title", "text--xl");
     title.innerText = mode === ListModalMode.Create ? "Create List" : "Edit List";
     //   create label input
     const { inputNode: labelInput, container: labelContainer } = createInput({
@@ -45,12 +44,21 @@ export function mountListModal({ mode }) {
     inputContainer.append(labelContainer, dateContainer);
     //   TODO: add recurring items
     //   const recurringItemsContainer = document.createElement("div");
-    const buttonsContainer = document.createElement("div");
+    //   confirmation buttons
+    const { cancelButton, confirmButton, buttonsContainer } = mountConfirmationButton({
+        onCancelClick: unmountModalContainer,
+        onConfirmClick: () => { },
+    });
+    // button types
+    cancelButton.type = "button";
+    confirmButton.type = "submit";
+    //   styling for button container
+    buttonsContainer.classList.add("listModal__buttonsContainer", "display-row");
+    //   form element
     const form = document.createElement("form");
     form.append(title, inputContainer, buttonsContainer);
     form.classList.add("listModal", "border-radius", "display-col", "align--center");
     //   append the form to the modal container
-    body.appendChild(form);
-    //   TODO: return modal
-    return form;
+    modal.appendChild(form);
+    return modal;
 }
