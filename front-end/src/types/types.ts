@@ -36,3 +36,28 @@ export interface InitList {
   updateList: (initListItem: InitListItem) => boolean;
   deleteList: (listID: string) => boolean;
 }
+
+export const RecurringItems = [
+  "Milk",
+  "Eggs",
+  "Bread",
+  "Butter",
+  "Cheese",
+  "Chicken",
+  "Ground Beef",
+  "Lettuce",
+  "Tomatoes",
+  "Cucumbers",
+  "Apples",
+  "Bananas",
+  "Oranges",
+  "Potatoes",
+  "Onions",
+  "Rice",
+  "Pasta",
+  "Cereal",
+  "Yogurt",
+  "Toilet Paper",
+] as const;
+
+export type RecurringItemType = (typeof RecurringItems)[number];

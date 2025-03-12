@@ -1,3 +1,4 @@
+import { RecurringItems } from "../types/types.js";
 import { addClasses } from "../utils/addClasses.js";
 import { createInput } from "../utils/createInput.js";
 import { extractFormData } from "../utils/extractFormData.js";
@@ -8,6 +9,7 @@ import {
   mountModalContainer,
   unmountModalContainer,
 } from "./modalContainer.js";
+import { mountRecurringItem } from "./recurringItem.js";
 
 export enum ListModalMode {
   Create,
@@ -21,7 +23,6 @@ interface ListModalProps {
 export function mountListModal({ mode }: ListModalProps) {
   // mount the modal and return it
   const modal = mountModalContainer({});
-  modal?.classList.add("center"); //center the window inside
 
   // stop if the modal mounting failed
   if (!modal) return;
@@ -74,17 +75,30 @@ export function mountListModal({ mode }: ListModalProps) {
   const summary = document.createElement("summary");
   summary.innerText = "Show Recurring Items";
 
+  // generate recurring items
+  const recurringItemsList = RecurringItems.map((label) =>
+    mountRecurringItem({ label })
+  );
+
   // container for recurring items
   const summaryBody = document.createElement("div");
+  addClasses(summaryBody, "listModal__recurringbody");
+  summaryBody.append(...recurringItemsList);
 
   //   TODO: add recurring items
   const recurringItemsContainer = document.createElement("details");
-  recurringItemsContainer.append(summary, summaryBody);
   addClasses(
     recurringItemsContainer,
     "listModal__recurringContainer",
     "border-radius"
   );
+  recurringItemsContainer.append(summary, summaryBody);
+
+  // toggling detail label
+  recurringItemsContainer.addEventListener("toggle", (ev: Event) => {
+    const label = recurringItemsContainer.open ? "Hide" : "Show";
+    summary.innerText = `${label} Recurring Items`;
+  });
 
   //   confirmation buttons
   const { cancelButton, confirmButton, buttonsContainer } =

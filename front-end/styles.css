@@ -293,6 +293,18 @@ ol {
   cursor: pointer;
 }
 
+.recurring {
+  border-radius: var(--space-2xl);
+  width: auto;
+  white-space: nowrap;
+  padding: var(--space-sm) var(--space-md);
+}
+
+.recurring--selected {
+  background-color: black;
+  color: white;
+}
+
 /* --- MSC --- */
 
 .height-full {
@@ -351,6 +363,11 @@ ol {
   padding: var(--space-sm) var(--space-md) var(--space-lg);
   width: 100%;
   max-width: 22.25rem;
+  background-color: white;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 15%;
 }
 
 .listModal__title {
@@ -375,6 +392,14 @@ ol {
   width: 100%;
   margin-bottom: var(--space-xl);
   padding: var(--space-sm) var(--space-md);
+}
+
+.listModal__recurringbody {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  width: 100%;
+  padding: var(--space-md) 0;
 }
 
 /* --- input classes --- */

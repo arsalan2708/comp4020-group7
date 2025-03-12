@@ -1,1 +1,22 @@
-export {};
+export const RecurringItems = [
+    "Milk",
+    "Eggs",
+    "Bread",
+    "Butter",
+    "Cheese",
+    "Chicken",
+    "Ground Beef",
+    "Lettuce",
+    "Tomatoes",
+    "Cucumbers",
+    "Apples",
+    "Bananas",
+    "Oranges",
+    "Potatoes",
+    "Onions",
+    "Rice",
+    "Pasta",
+    "Cereal",
+    "Yogurt",
+    "Toilet Paper",
+];
