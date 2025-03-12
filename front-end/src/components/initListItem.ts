@@ -46,7 +46,7 @@ export function mountInitListItem({
 
   // date
   const dateElement = document.createElement("p");
-  dateElement.innerText = date;
+  date && (dateElement.innerText = date);
 
   // options button
   const optionsButton = createIconButton({

@@ -30,7 +30,7 @@ export function mountInitListItem({ listID, primaryID, checkedItems, totalItems,
     leftSide.append(label, leftButtom);
     // date
     const dateElement = document.createElement("p");
-    dateElement.innerText = date;
+    date && (dateElement.innerText = date);
     // options button
     const optionsButton = createIconButton({
         src: getImage(Icon.Options),

@@ -16,7 +16,7 @@ export interface InitListItem {
   checkedItems: number;
   totalItems: number;
   label: string;
-  date: string;
+  date?: string;
 }
 
 export interface ListContributors {

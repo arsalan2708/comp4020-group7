@@ -1,5 +1,8 @@
 import { createInput } from "../utils/createInput.js";
+import { extractFormData } from "../utils/extractFormData.js";
+import { generateID } from "../utils/generateID.js";
 import { mountConfirmationButton } from "./confirmationButtons.js";
+import { InitializeList } from "./initList.js";
 import { mountModalContainer, unmountModalContainer, } from "./modalContainer.js";
 export var ListModalMode;
 (function (ListModalMode) {
@@ -58,7 +61,32 @@ export function mountListModal({ mode }) {
     const form = document.createElement("form");
     form.append(title, inputContainer, buttonsContainer);
     form.classList.add("listModal", "border-radius", "display-col", "align--center");
+    form.onsubmit = formSubmitHandler;
     //   append the form to the modal container
     modal.appendChild(form);
     return modal;
+}
+function formSubmitHandler(ev) {
+    ev.preventDefault(); //prevent default bahavior (dont route anywhere)
+    // get the form element
+    const form = ev.currentTarget;
+    // stop if form element is unavailable
+    if (!form)
+        return;
+    // extract data into the store
+    const data = extractFormData(form);
+    // list of lists
+    const list = InitializeList();
+    list.addList({
+        listID: generateID(),
+        primaryID: generateID(),
+        checkedItems: 0,
+        totalItems: 0,
+        label: data.label,
+        date: data.date,
+    });
+    // unmount the modal
+    unmountModalContainer();
+    // log form data
+    console.log(data);
 }

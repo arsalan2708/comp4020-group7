@@ -2,7 +2,7 @@ import { InitList, InitListItem } from "../types/types";
 import { mountInitListItem } from "./initListItem.js";
 
 /**
- * factory method for lists. (ONLY USE ONCE)
+ * factory method for lists. Uses the same instance no matter where this is called from
  * @returns returns a list instance
  */
 export function InitializeList() {
