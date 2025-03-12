@@ -12,11 +12,11 @@ def home():
     return render_template("index.html")
 
 
-@bp.route('/test', methods = ["POST"])
+@bp.route('/test')
 def testFunc():  
     return current_app.a
 
-@bp.route('/buttonPress/<var>', methods = ["POST"])
+@bp.route('/buttonPress/<var>')
 def buttonPress(var):
     current_app.a.append(var)
     socketio.emit("data_added")
