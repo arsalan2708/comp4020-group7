@@ -5,41 +5,53 @@ import { mountInitListItem } from "./init-list-item.js";
  * factory method for lists. (ONLY USE ONCE)
  * @returns returns a list instance
  */
-export function CreateList() {
-  // get <ul> from page wrapper
-  const listElement = document.querySelector(".page-wrapper__list");
+export function InitializeList() {
+  return LIST;
+}
 
-  //   list instance returned
-  const list: InitList = {
-    list: [],
-    addList: function (list: InitListItem) {
-      this.list.push(list);
+// get <ul> from page wrapper
+const listElement = document.querySelector(".page-wrapper__list");
 
-      if (!listElement) return;
+//   list instance returned
+const LIST: InitList = {
+  list: [],
+  addList,
+  getList,
+  updateList,
+  deleteList,
+};
 
-      listElement.appendChild(mountInitListItem({ ...list }));
-    },
-    getList: function (listID: string) {
-      return this.list.find((list) => list.listID === listID);
-    },
-    updateList: function (initListItem: InitListItem): boolean {
-      //   find the index of the list
-      const index = this.list.findIndex(
-        (list) => list.listID === initListItem.listID
-      );
+// add item to list
+function addList(this: InitList, list: InitListItem) {
+  this.list.push(list);
 
-      //   if it doesnt exists end it here and return false
-      if (index < 0) return false;
+  if (!listElement) return;
 
-      //   update item and return true
-      this.list[index] = initListItem;
-      return true;
-    },
-    deleteList: function (listID: string): boolean {
-      this.list = this.list.filter((list) => list.listID !== listID);
-      return this.list.some((list) => list.listID === listID);
-    },
-  };
+  listElement.appendChild(mountInitListItem({ ...list }));
+}
 
-  return list;
+// get item from list
+function getList(this: InitList, listID: string) {
+  return this.list.find((list) => list.listID === listID);
+}
+
+// update list item
+function updateList(this: InitList, initListItem: InitListItem): boolean {
+  //   find the index of the list
+  const index = this.list.findIndex(
+    (list) => list.listID === initListItem.listID
+  );
+
+  //   if it doesnt exists end it here and return false
+  if (index < 0) return false;
+
+  //   update item and return true
+  this.list[index] = initListItem;
+  return true;
+}
+
+// delete item from list
+function deleteList(this: InitList, listID: string): boolean {
+  this.list = this.list.filter((list) => list.listID !== listID);
+  return this.list.some((list) => list.listID === listID);
 }

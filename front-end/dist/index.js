@@ -1,4 +1,4 @@
-import { CreateList } from "./components/init-list.js";
+import { InitializeList } from "./components/init-list.js";
 import { mountPageWrapper } from "./components/page-wrapper.js";
 import { generateID } from "./utils/generateID.js";
 const IS_INDEX_PAGE = true;
@@ -21,4 +21,4 @@ mountPageWrapper({
     onsuggestClick: () => { },
 });
 // list of lists
-const list = CreateList();
+const list = InitializeList();
