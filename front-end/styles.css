@@ -65,13 +65,13 @@ ol {
   display: flex;
 }
 
+.display-row--center {
+  align-items: center;
+}
+
 .display-col {
   display: flex;
   flex-direction: column;
-}
-
-.no-wrap {
-  flex-wrap: nowrap;
 }
 
 /* Centers the entire content horizontally and vertically within the container */
@@ -86,6 +86,14 @@ ol {
   display: grid;
   justify-items: center;
   align-items: center;
+}
+
+.justify--between {
+  justify-content: space-between;
+}
+
+.no-wrap {
+  flex-wrap: nowrap;
 }
 
 /* --- page wrapper Utility Classes --- */
