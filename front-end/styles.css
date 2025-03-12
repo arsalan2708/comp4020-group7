@@ -290,3 +290,21 @@ ol {
   align-items: flex-end;
   gap: var(--space-md);
 }
+
+/* --- create/edit list classes --- */
+
+.listModal {
+  border: 1px solid black;
+  padding: var(--space-sm) var(--space-md) var(--space-lg);
+}
+
+.listModal__inputContainer {
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  padding: var(--space-lg) var(--space-md);
+  gap: var(--space-md);
+}
+
+/* --- input classes --- */
+.input {
+  border-radius: 5px;
+}
