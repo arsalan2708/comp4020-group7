@@ -1,3 +1,4 @@
+import { addClasses } from "../utils/addClasses.js";
 import { createInput } from "../utils/createInput.js";
 import { extractFormData } from "../utils/extractFormData.js";
 import { generateID } from "../utils/generateID.js";
@@ -45,8 +46,15 @@ export function mountListModal({ mode }) {
     const inputContainer = document.createElement("div");
     inputContainer.classList.add("listModal__inputContainer", "display-col", "border-radius");
     inputContainer.append(labelContainer, dateContainer);
+    // summary for drop down
+    const summary = document.createElement("summary");
+    summary.innerText = "Show Recurring Items";
+    // container for recurring items
+    const summaryBody = document.createElement("div");
     //   TODO: add recurring items
-    //   const recurringItemsContainer = document.createElement("div");
+    const recurringItemsContainer = document.createElement("details");
+    recurringItemsContainer.append(summary, summaryBody);
+    addClasses(recurringItemsContainer, "listModal__recurringContainer", "border-radius");
     //   confirmation buttons
     const { cancelButton, confirmButton, buttonsContainer } = mountConfirmationButton({
         onCancelClick: unmountModalContainer,
@@ -59,7 +67,7 @@ export function mountListModal({ mode }) {
     buttonsContainer.classList.add("listModal__buttonsContainer", "display-row");
     //   form element
     const form = document.createElement("form");
-    form.append(title, inputContainer, buttonsContainer);
+    form.append(title, inputContainer, recurringItemsContainer, buttonsContainer);
     form.classList.add("listModal", "border-radius", "display-col", "align--center");
     form.onsubmit = formSubmitHandler;
     //   append the form to the modal container

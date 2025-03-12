@@ -362,12 +362,19 @@ ol {
   padding: var(--space-lg) var(--space-md);
   gap: var(--space-md);
   width: 100%;
-  margin-bottom: var(--space-xl);
+  margin-bottom: var(--space-md);
 }
 
 .listModal__buttonsContainer {
   width: 100%;
   gap: var(--space-md);
+}
+
+.listModal__recurringContainer {
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  width: 100%;
+  margin-bottom: var(--space-xl);
+  padding: var(--space-sm) var(--space-md);
 }
 
 /* --- input classes --- */
