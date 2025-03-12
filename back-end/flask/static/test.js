@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const container = document.getElementById('listContainer')
         while(container.hasChildNodes()){container.removeChild(container.lastChild)}
 
-    load(`/test`,'POST',0).then((res)=>{
+    load(`/test`,'GET',0).then((res)=>{
        
         
         for( val of res)
@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
     button.addEventListener('click', () => {
         const inputValue = document.getElementById('itemName').value
         addListItem(inputValue)
-        fetch(`/buttonPress/${inputValue}`, { method: `POST` })
+        fetch(`/buttonPress/${inputValue}`)
     });
 
 });
@@ -62,7 +62,7 @@ const socket = io();
 
 socket.on('data_added',()=>{
 
-    load(`/test`,'POST',0).then((res)=>{
+    load(`/test`,'GET',0).then((res)=>{
         const container = document.getElementById('listContainer')
         while(container.hasChildNodes()){container.removeChild(container.lastChild)}
         for( val of res)

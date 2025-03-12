@@ -1,9 +1,11 @@
 from flask import Flask, render_template, request
+from flask_cors import CORS
 from ext import socketio
 from routes import main
 
 
 app = Flask(__name__)
+CORS(app)
 app.config['SECRET_KEY'] = 'comp4020'
 socketio.init_app(app)
 
@@ -29,5 +31,3 @@ app.register_blueprint(main.bp)
 
 if __name__ == '__main__':
     socketio.run(app,debug=True, port=4020, host = '0.0.0.0')
-
-
