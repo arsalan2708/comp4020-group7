@@ -29,11 +29,11 @@ export interface CategoryType {
   name: string;
 }
 
-export interface InitList {
-  list: InitListItem[];
-  addList: (initListItem: InitListItem) => void;
-  getList: (listID: string) => InitListItem | undefined;
-  updateList: (initListItem: InitListItem) => boolean;
+export interface List<T> {
+  list: T[];
+  addList: (initListItem: T) => void;
+  getList: (listID: string) => T | undefined;
+  updateList: (initListItem: T) => boolean;
   deleteList: (listID: string) => boolean;
 }
 
