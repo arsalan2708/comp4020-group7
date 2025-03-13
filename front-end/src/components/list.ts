@@ -51,6 +51,8 @@ function getItem(this: List<ListItem>, itemID: string) {
   return this.list.find((item) => item.itemID === itemID);
 }
 
+// TODO: handle updating the list. only the html is getting uptdated rn
+//(use getItem to get the item to pass to this)
 // update list item
 function updateItem(this: List<ListItem>, item: ListItem): boolean {
   //   find the index of the list
