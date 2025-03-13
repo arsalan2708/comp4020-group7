@@ -11,16 +11,17 @@ function createMenuItem({ label, icon, onClick }) {
     // the icon for the menu item
     const icon_ = document.createElement("img");
     icon && (icon_.src = getImage(icon));
-    addClasses(icon_);
+    addClasses(icon_, "menu__icon");
     //   the label
     const label_ = document.createElement("p");
     label_.innerText = label;
     addClasses(label_);
     //   the button container
     const button = document.createElement("button");
-    addClasses(button);
+    addClasses(button, "button", "menu__button", "display-row", "align--center");
     onClick && button.addEventListener("click", onClick);
-    button.append(icon_, label_);
+    icon && button.append(icon_);
+    button.append(label_);
     //   create a li and append button to it
     const li = document.createElement("li");
     li.append(button);
@@ -34,7 +35,7 @@ function createMenuItem({ label, icon, onClick }) {
 export function createMenu(items) {
     // create list
     const ul = document.createElement("ul");
-    addClasses(ul);
+    addClasses(ul, "menu", "border-radius");
     //   add all menu items to it
     items.forEach((item) => {
         ul.append(createMenuItem(Object.assign({}, item)));

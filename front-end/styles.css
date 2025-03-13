@@ -436,3 +436,33 @@ ol {
 .input {
   border-radius: 5px;
 }
+
+/* --- menu classes --- */
+
+.menu {
+  border: 1px solid black;
+  padding: var(--space-sm) 0;
+  min-width: 11.125rem;
+  width: fit-content;
+}
+
+.menu > li {
+  border-bottom: 1px solid black;
+}
+
+.menu > li:first-child {
+  border-top: 1px solid black;
+}
+
+.menu__icon {
+  width: 18px;
+}
+
+.menu__button {
+  width: 100%;
+  padding: var(--space-sm) var(--space-md);
+  outline: none;
+  border: none;
+  text-transform: capitalize;
+  gap: var(--space-sm);
+}
