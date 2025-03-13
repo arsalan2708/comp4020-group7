@@ -2,6 +2,16 @@ import { InitListItem } from "../types/types";
 import { Icon, getImage } from "../utils/getImage.js";
 import { routeToList } from "../utils/routing.js";
 import { createIconButton } from "./iconButton.js";
+import { mountMenu } from "./menu.js";
+
+// options menu data
+const menuItems = [
+  { label: "edit" },
+  { label: "share" },
+  { label: "export" },
+  { label: "select" },
+  { label: "delete" },
+];
 
 export function mountInitListItem({
   listID,
@@ -53,6 +63,7 @@ export function mountInitListItem({
     src: getImage(Icon.Options),
     onClick: (ev: MouseEvent) => {
       ev.stopPropagation();
+      mountMenu({ trigger: optionsButton, items: menuItems });
     },
   });
 

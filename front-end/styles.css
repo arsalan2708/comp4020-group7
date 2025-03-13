@@ -444,6 +444,8 @@ ol {
   padding: var(--space-sm) 0;
   min-width: 11.125rem;
   width: fit-content;
+  position: fixed;
+  background-color: white;
 }
 
 .menu > li {

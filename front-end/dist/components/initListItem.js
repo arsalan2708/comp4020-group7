@@ -1,6 +1,15 @@
 import { Icon, getImage } from "../utils/getImage.js";
 import { routeToList } from "../utils/routing.js";
 import { createIconButton } from "./iconButton.js";
+import { mountMenu } from "./menu.js";
+// options menu data
+const menuItems = [
+    { label: "edit" },
+    { label: "share" },
+    { label: "export" },
+    { label: "select" },
+    { label: "delete" },
+];
 export function mountInitListItem({ listID, primaryID, checkedItems, totalItems, label, date, }) {
     // label for init list item
     const labelElement = document.createElement("p");
@@ -36,6 +45,7 @@ export function mountInitListItem({ listID, primaryID, checkedItems, totalItems,
         src: getImage(Icon.Options),
         onClick: (ev) => {
             ev.stopPropagation();
+            mountMenu({ trigger: optionsButton, items: menuItems });
         },
     });
     // right side container

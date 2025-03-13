@@ -1,5 +1,7 @@
 import { addClasses } from "../utils/addClasses.js";
 import { getImage } from "../utils/getImage.js";
+import { mountModalContainer, unmountModalContainer, } from "./modalContainer.js";
+const THRESHOLD = window.innerHeight - 250; // Threshold for switching position
 /**
  * creates a menu
  * @param label the label to display
@@ -32,7 +34,7 @@ function createMenuItem({ label, icon, onClick }) {
  * @param items list of menu item data to create menu for
  * @returns menu as a ul element
  */
-export function createMenu(items) {
+function createMenu(items) {
     // create list
     const ul = document.createElement("ul");
     addClasses(ul, "menu", "border-radius");
@@ -47,4 +49,34 @@ export function createMenu(items) {
  * @param trigger html element that triggers the menu
  * @param items menu item data to display
  */
-export function mountMenu({ trigger, items, }) { }
+export function mountMenu({ trigger, items, }) {
+    // get the page wrapper. we mount to this
+    const modalContainer = mountModalContainer({
+        onModalClick: unmountMenu,
+        backgroundBlur: false,
+    });
+    if (!modalContainer)
+        return;
+    const rect = trigger.getBoundingClientRect();
+    // Decide whether to position the square below or above
+    const topPosition = rect.top; // Default position (below)
+    const adjustedTop = rect.top - 210; // Position above if near bottom
+    //   create menu align it to the right of trigger
+    const menu = createMenu(items);
+    menu.style.right = `${window.innerWidth - rect.right}px`;
+    //   if buttom of the trigger if below threshold
+    if (rect.bottom > THRESHOLD) {
+        menu.style.top = `${adjustedTop}px`;
+    }
+    else {
+        menu.style.top = `${topPosition}px`;
+    }
+    modalContainer.append(menu);
+}
+/**
+ * unmount the menu from the page if one exists
+ */
+function unmountMenu() {
+    const menu = document.querySelector(".menu");
+    menu && unmountModalContainer();
+}
