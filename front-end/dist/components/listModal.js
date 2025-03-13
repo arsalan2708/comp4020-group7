@@ -20,7 +20,7 @@ export function mountListModal({ mode }) {
         return;
     //   title for the component
     const title = document.createElement("p");
-    title.classList.add("listModal__title", "text--xl");
+    title.classList.add("listModal__title", "text-lg");
     title.innerText = mode === ListModalMode.Create ? "Create List" : "Edit List";
     //   create label input
     const { inputNode: labelInput, container: labelContainer } = createInput({
@@ -50,6 +50,7 @@ export function mountListModal({ mode }) {
     // summary for drop down
     const summary = document.createElement("summary");
     summary.innerText = "Show Recurring Items";
+    addClasses(summary, "text-md");
     // generate recurring items
     const recurringItemsList = RecurringItems.map((label) => mountRecurringItem({ label }));
     // container for recurring items
@@ -58,12 +59,15 @@ export function mountListModal({ mode }) {
     summaryBody.append(...recurringItemsList);
     //   TODO: add recurring items
     const recurringItemsContainer = document.createElement("details");
-    addClasses(recurringItemsContainer, "listModal__recurringContainer", "border-radius");
+    addClasses(recurringItemsContainer, "listModal__recurringContainer", "border-radius", "display-row", "align--center");
     recurringItemsContainer.append(summary, summaryBody);
     // toggling detail label
     recurringItemsContainer.addEventListener("toggle", (ev) => {
-        const label = recurringItemsContainer.open ? "Hide" : "Show";
+        const isOpen = recurringItemsContainer.open;
+        const label = isOpen ? "Hide" : "Show";
         summary.innerText = `${label} Recurring Items`;
+        recurringItemsContainer.classList.toggle("display-row");
+        recurringItemsContainer.classList.toggle("align--center");
     });
     //   confirmation buttons
     const { cancelButton, confirmButton, buttonsContainer } = mountConfirmationButton({

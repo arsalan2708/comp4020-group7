@@ -24,7 +24,7 @@ export function mountInitListItem({
   // label for init list item
   const labelElement = document.createElement("p");
   labelElement.innerText = label;
-  labelElement.classList.add("initList__label");
+  labelElement.classList.add("initList__label", "item__label", "text-lg");
 
   // current number of items in the list chekced
   const amountCurrent = document.createElement("p");
@@ -36,7 +36,11 @@ export function mountInitListItem({
 
   // [current/max] text
   const amountContainer = document.createElement("div");
-  amountContainer.classList.add("initList__amountContainer", "display-row");
+  amountContainer.classList.add(
+    "initList__amountContainer",
+    "display-row",
+    "text-md"
+  );
   amountContainer.append(amountCurrent, "/", amountMax);
 
   // TODO: figure out how to get primary vs secondary shoppers
@@ -52,7 +56,7 @@ export function mountInitListItem({
   // left side container
   const leftSide = document.createElement("div");
   leftSide.classList.add("initList__leftSide", "display-col");
-  leftSide.append(label, leftButtom);
+  leftSide.append(labelElement, leftButtom);
 
   // date
   const dateElement = document.createElement("p");

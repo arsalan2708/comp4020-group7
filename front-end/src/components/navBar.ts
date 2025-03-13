@@ -1,3 +1,4 @@
+import { addClasses } from "../utils/addClasses.js";
 import { Icon, getImage } from "../utils/getImage.js";
 import { createIconButton } from "./iconButton.js";
 
@@ -20,7 +21,7 @@ export function mountNavBar({
   // create heading and append it to nav
   const heading = document.createElement("h1");
   heading.innerText = title;
-  heading.classList.add("center", "height-full");
+  heading.classList.add("center", "height-full", "text-xl");
   nav.appendChild(heading);
 
   // create hamburger-icon
@@ -71,6 +72,7 @@ function mountSideBar({
   // header text
   const h2 = document.createElement("h2");
   h2.innerText = "Options";
+  addClasses(h2, "text-md");
 
   // close button
   const closeButton = createIconButton({ src: "", onClick: onSideBarClose });
@@ -86,14 +88,15 @@ function mountSideBar({
     if ((isIndexPage && displayHome) || !isIndexPage) {
       const li = document.createElement("li");
       li.innerText = label;
+      addClasses(li, "text-md");
       ul.appendChild(li);
     }
   });
 
   // user name
-  const username = document.createElement("h2");
+  const username = document.createElement("p");
   username.innerText = userName;
-  username.classList.add("page-wrapper__username");
+  username.classList.add("page-wrapper__username", "text-xl");
 
   // create sidebar and append list to it
   const sidebar = document.createElement("aside");

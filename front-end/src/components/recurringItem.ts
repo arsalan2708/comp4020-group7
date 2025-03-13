@@ -11,6 +11,7 @@ interface Props {
  */
 export function mountRecurringItem({ label }: Props) {
   const button = document.createElement("button");
+  button.type = "button";
   addClasses(button, "button", "recurring");
   button.innerText = label;
   button.addEventListener("click", () => {

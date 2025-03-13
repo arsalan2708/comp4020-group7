@@ -6,6 +6,7 @@ import { addClasses } from "../utils/addClasses.js";
  */
 export function mountRecurringItem({ label }) {
     const button = document.createElement("button");
+    button.type = "button";
     addClasses(button, "button", "recurring");
     button.innerText = label;
     button.addEventListener("click", () => {
