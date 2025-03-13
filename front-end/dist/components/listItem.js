@@ -7,6 +7,7 @@ import { mountMenu } from "./menu.js";
 const menuItems = [{ label: "edit" }, { label: "delete" }];
 /**
  * mounts a list item.
+ * @param itemID id for the item
  * @param classNames classess to add to the container element
  * @param label label for the item
  * @param isRecurring true if its a recurring item
@@ -19,7 +20,7 @@ const menuItems = [{ label: "edit" }, { label: "delete" }];
  * @param actionButtonType type of action button to display, checkbox by default [checkbox]
  * @param expandable true if item is expandable
  */
-export function mountListItem({ classNames, label, isRecurring, amount, checked, description, category, onActionButtonClick, onClick, actionButtonType = "checkbox", expandable, }) {
+export function mountListItem({ itemID, classNames, label, isRecurring, amount, checked, description, category, onActionButtonClick, onClick, actionButtonType = "checkbox", expandable, }) {
     // label
     const label_ = document.createElement("p");
     label_.innerText = label;
@@ -86,7 +87,8 @@ export function mountListItem({ classNames, label, isRecurring, amount, checked,
     addClasses(topContainer, "item__topContainer", "display-row", "align--center", "justify--between");
     topContainer.append(labelContainer, actionButtonContainer);
     //   container for the item component
-    const container = document.createElement("div");
+    const container = document.createElement("li");
+    container.id = itemID;
     addClasses(container, "item", "border-radius", "display-col", ...(classNames || []));
     onClick && container.addEventListener("click", onClick);
     container.append(topContainer);

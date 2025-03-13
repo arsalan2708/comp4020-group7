@@ -1,4 +1,5 @@
 import { List, ListItem } from "../types/types";
+import { generateID } from "../utils/generateID.js";
 import { mountListItem } from "./listItem.js";
 
 /**
@@ -23,11 +24,14 @@ const listElement = document.querySelector(".page-wrapper__list");
 
 // add item to list
 function addItem(this: List<ListItem>, item: ListItem, expandable?: boolean) {
+  const id = generateID();
+  item.itemID = id;
   this.list.push(item);
 
   if (!listElement) return;
 
   const { container: li } = mountListItem({
+    itemID: item.itemID,
     label: item.label,
     isRecurring: item.isRecurring,
     amount: item.amount,

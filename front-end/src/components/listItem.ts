@@ -6,6 +6,7 @@ import { createIconButton } from "./iconButton.js";
 import { mountMenu } from "./menu.js";
 
 interface Props {
+  itemID: string;
   classNames?: string[];
   label: string;
   isRecurring?: boolean;
@@ -24,6 +25,7 @@ const menuItems = [{ label: "edit" }, { label: "delete" }];
 
 /**
  * mounts a list item.
+ * @param itemID id for the item
  * @param classNames classess to add to the container element
  * @param label label for the item
  * @param isRecurring true if its a recurring item
@@ -37,6 +39,7 @@ const menuItems = [{ label: "edit" }, { label: "delete" }];
  * @param expandable true if item is expandable
  */
 export function mountListItem({
+  itemID,
   classNames,
   label,
   isRecurring,
@@ -141,7 +144,8 @@ export function mountListItem({
   topContainer.append(labelContainer, actionButtonContainer);
 
   //   container for the item component
-  const container = document.createElement("div");
+  const container = document.createElement("li");
+  container.id = itemID;
   addClasses(
     container,
     "item",
