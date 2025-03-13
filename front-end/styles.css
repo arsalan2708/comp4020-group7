@@ -368,6 +368,17 @@ ol {
   gap: var(--space-md);
 }
 
+.initList__amountContainer {
+  opacity: 0.75;
+}
+
+.initList__tag {
+  background-color: #86ff86;
+  border-radius: 5px;
+  width: 1.75rem;
+  height: 1rem;
+}
+
 .item {
   gap: var(--space-md);
 }
@@ -376,10 +387,6 @@ ol {
   text-transform: capitalize;
   white-space: nowrap;
   font-weight: 500;
-}
-
-.initList__amountContainer {
-  opacity: 0.75;
 }
 
 .item__labelContainer {
@@ -485,4 +492,5 @@ ol {
   border: none;
   text-transform: capitalize;
   gap: var(--space-sm);
+  background: unset;
 }

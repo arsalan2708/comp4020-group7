@@ -50,7 +50,7 @@ function mountSideBar({ isIndexPage, userName, }) {
     addClasses(h2, "text-md");
     // close button
     const closeButton = createIconButton({ src: "", onClick: onSideBarClose });
-    closeButton.classList.add("side-bar__close-button", "close-button");
+    closeButton.classList.add("side-bar__close-button", "close-button", "text-xs");
     closeButton.innerText = "X";
     // create list
     const ul = document.createElement("ul");

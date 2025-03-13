@@ -63,7 +63,7 @@ export function mountMenu({ trigger, items, }) {
         return;
     const rect = trigger.getBoundingClientRect();
     // Decide whether to position the square below or above
-    const topPosition = rect.top; // Default position (below)
+    const topPosition = rect.bottom + 4; // Default position (below)
     const adjustedTop = rect.top - 210; // Position above if near bottom
     //   create menu align it to the right of trigger
     const menu = createMenu(items);

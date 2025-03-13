@@ -1,4 +1,5 @@
 import { InitListItem } from "../types/types";
+import { addClasses } from "../utils/addClasses.js";
 import { Icon, getImage } from "../utils/getImage.js";
 import { routeToList } from "../utils/routing.js";
 import { createIconButton } from "./iconButton.js";
@@ -47,10 +48,15 @@ export function mountInitListItem({
   // primary vs secondary shopper
   const tag = document.createElement("p");
   tag.innerText = "Pri";
+  addClasses(tag, "initList__tag", "text-xs", "center");
 
   // left buttom container [flex-row]
   const leftButtom = document.createElement("div");
-  leftButtom.classList.add("initList__leftButtom", "display-row");
+  leftButtom.classList.add(
+    "initList__leftButtom",
+    "display-row",
+    "align--center"
+  );
   leftButtom.append(amountContainer, tag);
 
   // left side container
