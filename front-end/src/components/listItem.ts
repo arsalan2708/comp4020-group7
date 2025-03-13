@@ -3,6 +3,7 @@ import { ActionButtonType } from "../types/types";
 import { addClasses } from "../utils/addClasses.js";
 import { createInput } from "../utils/createInput.js";
 import { Icon, getImage } from "../utils/getImage.js";
+import { onLongPress } from "../utils/longPress.js";
 import { createIconButton } from "./iconButton.js";
 import { mountMenu } from "./menu.js";
 
@@ -20,8 +21,6 @@ interface Props {
   actionButtonType?: ActionButtonType;
   expandable: boolean;
 }
-
-const LONG_PRESS_TIMER = 500; //ms
 
 /**
  * mounts a list item.
@@ -78,12 +77,20 @@ export function mountListItem({
   labelInput.addEventListener("click", (ev) => ev.stopPropagation());
 
   //   handle label submit
-  labelInput.addEventListener("change", (ev) => {
-    label_.innerText = (ev.target as HTMLInputElement).value;
+  labelInput.addEventListener("change", () => {
+    labelInput.value && (label_.innerText = labelInput.value);
+    swapLabel();
+  });
+
+  // swap label and input
+  function swapLabel() {
     labelInput.classList.toggle("hidden");
     label_.classList.toggle("hidden");
     star.classList.toggle("hidden");
-  });
+  }
+
+  // on long press of label, swap it with input
+  onLongPress(label_, swapLabel);
 
   //   label container
   const labelContainer = document.createElement("div");
@@ -175,23 +182,8 @@ export function mountListItem({
     swapDescription();
   });
 
-  /** -----Long press to trigger editing ------ */
-
-  // set time out for long press
-  let longPressTimeout: NodeJS.Timeout;
-  description_.addEventListener("touchstart", () => {
-    longPressTimeout = setTimeout(() => {
-      console.log("long pressed");
-      swapDescription();
-    }, LONG_PRESS_TIMER); // 500ms long press
-  });
-
-  // Clean up if the user lifts the finger or moves off the item
-  document.addEventListener("touchmove", () => clearTimeout(longPressTimeout));
-  document.addEventListener("touchend", () => clearTimeout(longPressTimeout));
-  document.addEventListener("touchcancel", () =>
-    clearTimeout(longPressTimeout)
-  );
+  // on longpress of description swap it out with text box
+  onLongPress(description_, swapDescription);
 
   // handles long press action (swaps text area and description)
   function swapDescription() {
