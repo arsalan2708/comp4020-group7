@@ -13,13 +13,13 @@ export function createInput({
   type,
 }: {
   id: string;
-  label: string;
+  label?: string;
   name?: string;
   type?: string;
 }) {
   //   label for input
   const labelNode = document.createElement("label");
-  labelNode.innerText = label;
+  label && (labelNode.innerText = label);
   labelNode.htmlFor = id;
   labelNode.classList.add("input__label");
 
@@ -32,7 +32,8 @@ export function createInput({
 
   const container = document.createElement("div");
   container.classList.add("input__container", "display-col");
-  container.append(labelNode, inputNode);
+  label && container.append(labelNode);
+  container.append(inputNode);
 
   return { labelNode, inputNode, container };
 }

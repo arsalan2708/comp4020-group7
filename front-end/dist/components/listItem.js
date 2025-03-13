@@ -1,4 +1,5 @@
 import { addClasses } from "../utils/addClasses.js";
+import { createInput } from "../utils/createInput.js";
 import { Icon, getImage } from "../utils/getImage.js";
 import { createIconButton } from "./iconButton.js";
 /**
@@ -19,21 +20,37 @@ export function mountListItem({ classNames, label, isRecurring, amount, checked,
     // label
     const label_ = document.createElement("p");
     label_.innerText = label;
-    addClasses(label_, "item__label");
+    addClasses(label_, "item__label", "hidden");
     //   recurring
     const star = document.createElement("p");
     star.innerText = "⭐";
-    addClasses(star, "item__recurring");
+    addClasses(star, "item__recurring", "hidden");
     !isRecurring && star.remove(); // if its not a recurring item remove it
+    //   text input for intering data
+    const { inputNode: labelInput } = createInput({
+        id: "label--input",
+        name: "label",
+    });
+    addClasses(labelInput, "item__labelInput");
+    labelInput.autofocus = true;
+    //   prevent click from expanding item
+    labelInput.addEventListener("click", (ev) => ev.stopPropagation());
+    //   handle label submit
+    labelInput.addEventListener("change", (ev) => {
+        label_.innerText = ev.target.value;
+        labelInput.classList.toggle("hidden");
+        label_.classList.toggle("hidden");
+        star.classList.toggle("hidden");
+    });
     //   label container
     const labelContainer = document.createElement("div");
     addClasses(labelContainer, "item__labelContainer", "display-row", "align--center");
-    isRecurring
-        ? labelContainer.append(label_, star)
-        : labelContainer.append(label_); // if its a recurring item add star or else only label
+    labelContainer.append(label_, labelInput);
+    isRecurring && labelContainer.append(star);
+    //   TODO: fix amounts
     // amount of item
     const amount_ = document.createElement("p");
-    amount_.innerText = "x" + amount;
+    //   amount_.innerText = "x" + amount;
     addClasses(amount_, "item__amount");
     !amount && amount_.remove(); // if no amount remove the element
     //   get action button

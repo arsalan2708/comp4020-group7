@@ -9,7 +9,7 @@
 export function createInput({ id, label, name, type, }) {
     //   label for input
     const labelNode = document.createElement("label");
-    labelNode.innerText = label;
+    label && (labelNode.innerText = label);
     labelNode.htmlFor = id;
     labelNode.classList.add("input__label");
     //   input for list label
@@ -20,6 +20,7 @@ export function createInput({ id, label, name, type, }) {
     type && (inputNode.type = type);
     const container = document.createElement("div");
     container.classList.add("input__container", "display-col");
-    container.append(labelNode, inputNode);
+    label && container.append(labelNode);
+    container.append(inputNode);
     return { labelNode, inputNode, container };
 }
