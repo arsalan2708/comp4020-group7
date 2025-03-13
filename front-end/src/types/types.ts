@@ -1,10 +1,10 @@
 export interface ListItem {
   listID: string;
   itemID: string;
-  name: string;
+  label: string;
   isRecurring: boolean;
   amount: number;
-  isChecked: boolean;
+  checked: boolean;
   description: string;
   categoryID: string;
   posterID: string;
@@ -31,10 +31,10 @@ export interface CategoryType {
 
 export interface List<T> {
   list: T[];
-  addItem: (initListItem: T) => void;
-  getItem: (listID: string) => T | undefined;
-  updateItem: (initListItem: T) => boolean;
-  deleteItem: (listID: string) => boolean;
+  addItem: (item: T, expandable?: boolean) => void;
+  getItem: (itemID: string) => T | undefined;
+  updateItem: (item: T) => boolean;
+  deleteItem: (itemID: string) => boolean;
 }
 
 export const RecurringItems = [
