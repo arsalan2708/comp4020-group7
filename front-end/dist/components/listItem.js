@@ -1,4 +1,6 @@
 import { addClasses } from "../utils/addClasses.js";
+import { Icon, getImage } from "../utils/getImage.js";
+import { createIconButton } from "./iconButton.js";
 /**
  * mounts a list item.
  * @param classNames classess to add to the container element
@@ -10,10 +12,10 @@ import { addClasses } from "../utils/addClasses.js";
  * @param category item category
  * @param onActionButtonClick call back function for clicking the action button
  * @param onClick call back function for clicking the list item iteself
- * @param mode "compact" for compact mode | "expanded" for expand mode, compact by default
  * @param actionButtonType type of action button to display, checkbox by default [checkbox]
+ * @param expandable true if item is expandable
  */
-export function mountListItem({ classNames, label, isRecurring, amount, checked, description, category, onActionButtonClick, onClick, mode = "compact", actionButtonType = "checkbox", }) {
+export function mountListItem({ classNames, label, isRecurring, amount, checked, description, category, onActionButtonClick, onClick, actionButtonType = "checkbox", expandable, }) {
     // label
     const label_ = document.createElement("p");
     label_.innerText = label;
@@ -47,6 +49,9 @@ export function mountListItem({ classNames, label, isRecurring, amount, checked,
                 actionButton.addEventListener("click", onActionButtonClick);
             break;
     }
+    actionButton.addEventListener("click", (ev) => {
+        ev.stopPropagation();
+    });
     //   container for action button
     const actionButtonContainer = document.createElement("div");
     addClasses(actionButtonContainer, "item__buttonContainer", "display-row", "align--center");
@@ -59,10 +64,33 @@ export function mountListItem({ classNames, label, isRecurring, amount, checked,
     topContainer.append(labelContainer, actionButtonContainer);
     //   container for the item component
     const container = document.createElement("div");
-    addClasses(container, "item", "border-radius", ...(classNames || []));
+    addClasses(container, "item", "border-radius", "display-col", ...(classNames || []));
     onClick && container.addEventListener("click", onClick);
     container.append(topContainer);
-    //   if compact mode go no further
-    //   if (mode === "compact") return { container };
-    return container;
+    //   if item is not expandle stop here
+    if (!expandable)
+        return { container };
+    //   item description
+    const description_ = document.createElement("p");
+    description && (description_.innerText = description);
+    addClasses(description_, "item__description", "hidden");
+    //   category area
+    const category_ = document.createElement("p");
+    category && (category_.innerText = category);
+    addClasses(category_, "item__category");
+    //   options button for expanded displays
+    const optionsButton = createIconButton({ src: getImage(Icon.Options) });
+    optionsButton.addEventListener("click", (ev) => {
+        ev.stopPropagation();
+    });
+    const buttomContainer = document.createElement("div");
+    addClasses(buttomContainer, "item__bottomContainer", "display-row", "justify--between", "align--end", "hidden");
+    buttomContainer.append(category_, optionsButton);
+    //   add description and buttom cont to container and add event listener
+    container.append(description_, buttomContainer);
+    container.addEventListener("click", (ev) => {
+        description_.classList.toggle("hidden");
+        buttomContainer.classList.toggle("hidden");
+    });
+    return { container };
 }

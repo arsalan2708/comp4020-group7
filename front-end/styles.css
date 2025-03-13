@@ -132,8 +132,16 @@ ol {
   align-items: center;
 }
 
+.align--end {
+  align-items: flex-end;
+}
+
 .no-wrap {
   flex-wrap: nowrap;
+}
+
+.hidden {
+  display: none;
 }
 
 /* --- page wrapper Utility Classes --- */
@@ -354,6 +362,10 @@ ol {
 
 .initList__rightSide {
   align-items: flex-end;
+  gap: var(--space-md);
+}
+
+.item {
   gap: var(--space-md);
 }
 
