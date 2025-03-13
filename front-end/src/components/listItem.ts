@@ -21,6 +21,8 @@ interface Props {
   expandable: boolean;
 }
 
+const LONG_PRESS_TIMER = 500; //ms
+
 /**
  * mounts a list item.
  * @param itemID id for the item
@@ -159,10 +161,45 @@ export function mountListItem({
 
   //   item description
   const description_ = document.createElement("p");
-  description_.innerText = description || "Enter item description";
+  description_.innerText = description || "Enter description...";
   addClasses(description_, "item__description", "hidden");
 
-  //   category area
+  // text area
+  const textArea = document.createElement("textarea");
+  textArea.value = description || "";
+  textArea.placeholder = "Editing description...";
+  addClasses(textArea, "item__descriptionInput", "hidden");
+
+  textArea.addEventListener("blur", (e) => {
+    textArea.value && (description_.innerText = textArea.value);
+    swapDescription();
+  });
+
+  /** -----Long press to trigger editing ------ */
+
+  // set time out for long press
+  let longPressTimeout: NodeJS.Timeout;
+  description_.addEventListener("touchstart", () => {
+    longPressTimeout = setTimeout(() => {
+      console.log("long pressed");
+      swapDescription();
+    }, LONG_PRESS_TIMER); // 500ms long press
+  });
+
+  // Clean up if the user lifts the finger or moves off the item
+  document.addEventListener("touchmove", () => clearTimeout(longPressTimeout));
+  document.addEventListener("touchend", () => clearTimeout(longPressTimeout));
+  document.addEventListener("touchcancel", () =>
+    clearTimeout(longPressTimeout)
+  );
+
+  // handles long press action (swaps text area and description)
+  function swapDescription() {
+    textArea.classList.toggle("hidden");
+    description_.classList.toggle("hidden");
+  }
+
+  // category area
   const category_ = document.createElement("p");
   category && (category_.innerText = category);
   addClasses(category_, "item__category");
@@ -176,7 +213,7 @@ export function mountListItem({
     },
   ];
 
-  //   options button for expanded displays
+  // options button for expanded displays
   const optionsButton = createIconButton({ src: getImage(Icon.Options) });
   optionsButton.addEventListener("click", (ev) => {
     ev.stopPropagation();
@@ -194,12 +231,15 @@ export function mountListItem({
   );
   buttomContainer.append(category_, optionsButton);
 
-  //   add description and buttom cont to container and add event listener
-  container.append(description_, buttomContainer);
-  container.addEventListener("click", (ev) => {
+  // add description and buttom cont to container and add event listener
+  container.append(description_, textArea, buttomContainer);
+  container.addEventListener("click", expandItem);
+
+  // expand the expandable item, revealing description and buttom container
+  function expandItem() {
     description_.classList.toggle("hidden");
     buttomContainer.classList.toggle("hidden");
-  });
+  }
 
   return { container };
 }
