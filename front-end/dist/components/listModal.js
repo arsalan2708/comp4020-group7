@@ -4,7 +4,7 @@ import { createInput } from "../utils/createInput.js";
 import { extractFormData } from "../utils/extractFormData.js";
 import { generateID } from "../utils/generateID.js";
 import { mountConfirmationButton } from "./confirmationButtons.js";
-import { InitializeList } from "./initList.js";
+import { InitializeInitList } from "./initList.js";
 import { mountModalContainer, unmountModalContainer, } from "./modalContainer.js";
 import { mountRecurringItem } from "./recurringItem.js";
 export var ListModalMode;
@@ -94,7 +94,7 @@ function formSubmitHandler(ev) {
     // extract data into the store
     const data = extractFormData(form);
     // list of lists
-    const list = InitializeList();
+    const list = InitializeInitList();
     list.addList({
         listID: generateID(),
         primaryID: generateID(),

@@ -4,7 +4,7 @@ import { createInput } from "../utils/createInput.js";
 import { extractFormData } from "../utils/extractFormData.js";
 import { generateID } from "../utils/generateID.js";
 import { mountConfirmationButton } from "./confirmationButtons.js";
-import { InitializeList } from "./initList.js";
+import { InitializeInitList } from "./initList.js";
 import {
   mountModalContainer,
   unmountModalContainer,
@@ -149,7 +149,7 @@ function formSubmitHandler(ev: SubmitEvent) {
   const data = extractFormData(form) as FormValues;
 
   // list of lists
-  const list = InitializeList();
+  const list = InitializeInitList();
   list.addList({
     listID: generateID(),
     primaryID: generateID(),
