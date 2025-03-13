@@ -54,8 +54,17 @@ function updateItem(item) {
     this.list[index] = item;
     return true;
 }
-// delete item from list
+/**
+ * deletes an item from the list
+ * @param itemID item ID to delete from list
+ * @returns true if item was deleted false otherwise
+ */
 function deleteItem(itemID) {
     this.list = this.list.filter((item) => item.itemID !== itemID);
-    return this.list.some((item) => item.itemID === itemID);
+    // get list item element
+    const li = document.getElementById(itemID);
+    if (!li)
+        return false;
+    li.remove();
+    return true;
 }

@@ -1,3 +1,4 @@
+import { List } from "../list.js";
 import { ActionButtonType } from "../types/types";
 import { addClasses } from "../utils/addClasses.js";
 import { createInput } from "../utils/createInput.js";
@@ -19,9 +20,6 @@ interface Props {
   actionButtonType?: ActionButtonType;
   expandable: boolean;
 }
-
-// options menu data
-const menuItems = [{ label: "edit" }, { label: "delete" }];
 
 /**
  * mounts a list item.
@@ -168,6 +166,15 @@ export function mountListItem({
   const category_ = document.createElement("p");
   category && (category_.innerText = category);
   addClasses(category_, "item__category");
+
+  // options menu data
+  const menuItems = [
+    { label: "edit" },
+    {
+      label: "delete",
+      onClick: () => List.deleteItem(itemID),
+    },
+  ];
 
   //   options button for expanded displays
   const optionsButton = createIconButton({ src: getImage(Icon.Options) });

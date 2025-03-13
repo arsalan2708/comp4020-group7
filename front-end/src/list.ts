@@ -1,27 +1,17 @@
 import { InitializeList } from "./components/list.js";
 import { mountPageWrapper } from "./components/pageWrapper.js";
-import { ListItem } from "./types/types";
+import { TemplateItem } from "./types/types.js";
 
 const IS_INDEX_PAGE = false;
-
-const temp: ListItem = {
-  listID: "",
-  itemID: "",
-  label: "",
-  isRecurring: false,
-  amount: 3,
-  checked: false,
-  description: "",
-  categoryID: "",
-  posterID: "",
-};
+const IS_EXPANDABLE = true;
 
 // mount page wrapper
 mountPageWrapper({
   title: "List 1",
   isIndexPage: IS_INDEX_PAGE,
-  onAddClick: () => List.addItem(temp, true),
+  onAddClick: () => List.addItem(TemplateItem, IS_EXPANDABLE),
   onsuggestClick: () => {},
 });
 
-const List = InitializeList();
+// exportable to make it global
+export const List = InitializeList();

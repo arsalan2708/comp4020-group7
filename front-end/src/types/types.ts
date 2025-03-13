@@ -63,3 +63,15 @@ export const RecurringItems = [
 export type RecurringItemType = (typeof RecurringItems)[number];
 
 export type ActionButtonType = "checkbox";
+
+export const TemplateItem: ListItem = {
+  listID: "",
+  itemID: "",
+  label: "",
+  isRecurring: false,
+  amount: 0,
+  checked: false,
+  description: "",
+  categoryID: "",
+  posterID: "",
+};

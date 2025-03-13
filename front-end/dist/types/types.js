@@ -20,3 +20,14 @@ export const RecurringItems = [
     "Yogurt",
     "Toilet Paper",
 ];
+export const TemplateItem = {
+    listID: "",
+    itemID: "",
+    label: "",
+    isRecurring: false,
+    amount: 0,
+    checked: false,
+    description: "",
+    categoryID: "",
+    posterID: "",
+};

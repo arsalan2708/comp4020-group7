@@ -1,10 +1,9 @@
+import { List } from "../list.js";
 import { addClasses } from "../utils/addClasses.js";
 import { createInput } from "../utils/createInput.js";
 import { Icon, getImage } from "../utils/getImage.js";
 import { createIconButton } from "./iconButton.js";
 import { mountMenu } from "./menu.js";
-// options menu data
-const menuItems = [{ label: "edit" }, { label: "delete" }];
 /**
  * mounts a list item.
  * @param itemID id for the item
@@ -103,6 +102,14 @@ export function mountListItem({ itemID, classNames, label, isRecurring, amount, 
     const category_ = document.createElement("p");
     category && (category_.innerText = category);
     addClasses(category_, "item__category");
+    // options menu data
+    const menuItems = [
+        { label: "edit" },
+        {
+            label: "delete",
+            onClick: () => List.deleteItem(itemID),
+        },
+    ];
     //   options button for expanded displays
     const optionsButton = createIconButton({ src: getImage(Icon.Options) });
     optionsButton.addEventListener("click", (ev) => {
