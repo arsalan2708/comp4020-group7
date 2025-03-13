@@ -150,7 +150,7 @@ function formSubmitHandler(ev: SubmitEvent) {
 
   // list of lists
   const list = InitializeInitList();
-  list.addList({
+  list.addItem({
     listID: generateID(),
     primaryID: generateID(),
     checkedItems: 0,

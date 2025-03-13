@@ -11,10 +11,10 @@ const listElement = document.querySelector(".page-wrapper__list");
 //   list instance returned
 const LIST = {
     list: [],
-    addList,
-    getList,
-    updateList,
-    deleteList,
+    addItem: addList,
+    getItem: getList,
+    updateItem: updateList,
+    deleteItem: deleteList,
 };
 // add item to list
 function addList(list) {

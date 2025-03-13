@@ -95,7 +95,7 @@ function formSubmitHandler(ev) {
     const data = extractFormData(form);
     // list of lists
     const list = InitializeInitList();
-    list.addList({
+    list.addItem({
         listID: generateID(),
         primaryID: generateID(),
         checkedItems: 0,

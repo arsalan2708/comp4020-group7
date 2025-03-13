@@ -31,10 +31,10 @@ export interface CategoryType {
 
 export interface List<T> {
   list: T[];
-  addList: (initListItem: T) => void;
-  getList: (listID: string) => T | undefined;
-  updateList: (initListItem: T) => boolean;
-  deleteList: (listID: string) => boolean;
+  addItem: (initListItem: T) => void;
+  getItem: (listID: string) => T | undefined;
+  updateItem: (initListItem: T) => boolean;
+  deleteItem: (listID: string) => boolean;
 }
 
 export const RecurringItems = [
