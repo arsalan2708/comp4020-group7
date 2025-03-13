@@ -1,13 +1,22 @@
+import { InitializeList } from "./components/list.js";
 import { mountPageWrapper } from "./components/pageWrapper.js";
 const IS_INDEX_PAGE = false;
+const temp = {
+    listID: "",
+    itemID: "",
+    label: "",
+    isRecurring: false,
+    amount: 3,
+    checked: false,
+    description: "",
+    categoryID: "",
+    posterID: "",
+};
 // mount page wrapper
 mountPageWrapper({
     title: "List 1",
     isIndexPage: IS_INDEX_PAGE,
-    onAddClick: () => {
-        const a = document.createElement("a");
-        a.href = "/";
-        a.click();
-    },
+    onAddClick: () => List.addItem(temp, true),
     onsuggestClick: () => { },
 });
+const List = InitializeList();

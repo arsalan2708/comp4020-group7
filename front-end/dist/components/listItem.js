@@ -33,6 +33,9 @@ export function mountListItem({ classNames, label, isRecurring, amount, checked,
     });
     addClasses(labelInput, "item__labelInput");
     labelInput.autofocus = true;
+    labelInput.placeholder = "Enter item name";
+    labelInput.required = true;
+    labelInput.maxLength = 150;
     //   prevent click from expanding item
     labelInput.addEventListener("click", (ev) => ev.stopPropagation());
     //   handle label submit
@@ -89,7 +92,7 @@ export function mountListItem({ classNames, label, isRecurring, amount, checked,
         return { container };
     //   item description
     const description_ = document.createElement("p");
-    description && (description_.innerText = description);
+    description_.innerText = description || "Enter item description";
     addClasses(description_, "item__description", "hidden");
     //   category area
     const category_ = document.createElement("p");
