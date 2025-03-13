@@ -34,7 +34,12 @@ function createMenuItem({ label, icon, onClick }: Props) {
   //   the button container
   const button = document.createElement("button");
   addClasses(button, "button", "menu__button", "display-row", "align--center");
-  onClick && button.addEventListener("click", onClick);
+  button.addEventListener("click", () => {
+    onClick && onClick();
+    unmountMenu();
+  });
+
+  button.addEventListener("click", () => console.log("clicked 2"));
   icon && button.append(icon_);
   button.append(label_);
 
