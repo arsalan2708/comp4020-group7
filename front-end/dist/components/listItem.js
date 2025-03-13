@@ -2,6 +2,9 @@ import { addClasses } from "../utils/addClasses.js";
 import { createInput } from "../utils/createInput.js";
 import { Icon, getImage } from "../utils/getImage.js";
 import { createIconButton } from "./iconButton.js";
+import { mountMenu } from "./menu.js";
+// options menu data
+const menuItems = [{ label: "edit" }, { label: "delete" }];
 /**
  * mounts a list item.
  * @param classNames classess to add to the container element
@@ -102,6 +105,7 @@ export function mountListItem({ classNames, label, isRecurring, amount, checked,
     const optionsButton = createIconButton({ src: getImage(Icon.Options) });
     optionsButton.addEventListener("click", (ev) => {
         ev.stopPropagation();
+        mountMenu({ trigger: optionsButton, items: menuItems });
     });
     const buttomContainer = document.createElement("div");
     addClasses(buttomContainer, "item__bottomContainer", "display-row", "justify--between", "align--end", "hidden");

@@ -3,6 +3,7 @@ import { addClasses } from "../utils/addClasses.js";
 import { createInput } from "../utils/createInput.js";
 import { Icon, getImage } from "../utils/getImage.js";
 import { createIconButton } from "./iconButton.js";
+import { mountMenu } from "./menu.js";
 
 interface Props {
   classNames?: string[];
@@ -17,6 +18,9 @@ interface Props {
   actionButtonType?: ActionButtonType;
   expandable: boolean;
 }
+
+// options menu data
+const menuItems = [{ label: "edit" }, { label: "delete" }];
 
 /**
  * mounts a list item.
@@ -165,6 +169,7 @@ export function mountListItem({
   const optionsButton = createIconButton({ src: getImage(Icon.Options) });
   optionsButton.addEventListener("click", (ev) => {
     ev.stopPropagation();
+    mountMenu({ trigger: optionsButton, items: menuItems });
   });
 
   const buttomContainer = document.createElement("div");
