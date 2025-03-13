@@ -338,9 +338,10 @@ ol {
 
 /* --- init list item classes --- */
 
-.initList__container {
+.initList__container,
+.item {
   border: 1px solid black;
-  padding: var(--space-sm);
+  padding: var(--space-sm) var(--space-md);
 }
 
 .initList__leftSide {
@@ -354,6 +355,23 @@ ol {
 .initList__rightSide {
   align-items: flex-end;
   gap: var(--space-md);
+}
+
+.item__label {
+  text-transform: capitalize;
+  white-space: nowrap;
+}
+
+.item__labelContainer {
+  gap: var(--space-xs);
+}
+
+.item__buttonContainer {
+  gap: var(--space-md);
+}
+
+.item__button--checkbox {
+  transform: scale(1.5);
 }
 
 /* --- create/edit list classes --- */

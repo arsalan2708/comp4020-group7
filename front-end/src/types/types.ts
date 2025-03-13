@@ -61,3 +61,7 @@ export const RecurringItems = [
 ] as const;
 
 export type RecurringItemType = (typeof RecurringItems)[number];
+
+export type ItemMode = "compact" | "expanded";
+
+export type ActionButtonType = "checkbox";
