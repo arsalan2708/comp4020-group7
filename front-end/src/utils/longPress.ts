@@ -1,7 +1,11 @@
 const LONG_PRESS_TIMER = 500; //ms
 
 // call back function for handling the long press of a HTMLELEMENT
-export function onLongPress(elem: HTMLElement, handleLongPress: () => void) {
+export function onLongPress(
+  elem: HTMLElement,
+  handleLongPress: () => void,
+  timer?: number
+) {
   // set time out for long press
   let longPressTimeout: NodeJS.Timeout;
   elem.addEventListener("touchstart", touchStartCallback);
@@ -10,7 +14,7 @@ export function onLongPress(elem: HTMLElement, handleLongPress: () => void) {
     longPressTimeout = setTimeout(() => {
       console.log("long pressed");
       handleLongPress();
-    }, LONG_PRESS_TIMER); // 500ms long press
+    }, timer || LONG_PRESS_TIMER); // 500ms long press
   }
 
   // Clean up if the user lifts the finger or moves off the item

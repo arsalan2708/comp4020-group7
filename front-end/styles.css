@@ -312,7 +312,7 @@ ol {
 }
 
 .recurring--selected {
-  background-color: black;
+  background-color: black !important;
   color: white;
 }
 
@@ -327,11 +327,24 @@ ol {
   background-color: white;
 }
 
+.filter--expanded {
+  height: 100%;
+  max-height: 25vh;
+  flex-wrap: wrap;
+  padding-right: unset;
+  padding: var(--space-sm);
+}
+
 .filter__buttonCont {
   position: sticky;
   left: 0;
   padding: var(--space-sm) var(--space-sm);
   background-color: white;
+}
+
+.filter__buttonCont--expanded {
+  padding: unset;
+  background-color: transparent;
 }
 
 .filter__button {
