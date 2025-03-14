@@ -45,13 +45,17 @@ export function mountListItem({ itemID, classNames, label, isRecurring, amount, 
     labelInput.addEventListener("click", (ev) => ev.stopPropagation());
     //   handle label submit
     labelInput.addEventListener("change", () => {
+        const isValid = labelInput.checkValidity();
+        if (!isValid) {
+            labelInput.focus();
+            return;
+        }
         labelInput.value && (label_.innerText = labelInput.value);
         swapLabel();
     });
     // on blur if the input is invalid refocus the input
     labelInput.addEventListener("blur", () => {
-        const isValid = labelInput.checkValidity();
-        if (!isValid) {
+        if (!labelInput.checkValidity()) {
             labelInput.focus();
             return;
         }
@@ -61,6 +65,10 @@ export function mountListItem({ itemID, classNames, label, isRecurring, amount, 
         labelInput.classList.toggle("hidden");
         label_.classList.toggle("hidden");
         star.classList.toggle("hidden");
+        if (expandable && !label_.classList.contains("hidden"))
+            container.addEventListener("click", expandItem);
+        else
+            container.removeEventListener("click", expandItem);
     }
     // on long press of label, swap it with input
     onLongPress(label_, swapLabel);
@@ -154,7 +162,6 @@ export function mountListItem({ itemID, classNames, label, isRecurring, amount, 
     buttomContainer.append(category_, optionsButton);
     // add description and buttom cont to container and add event listener
     container.append(description_, textArea, buttomContainer);
-    container.addEventListener("click", expandItem);
     // expand the expandable item, revealing description and buttom container
     function expandItem() {
         description_.classList.toggle("hidden");
