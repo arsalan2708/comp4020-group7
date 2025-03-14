@@ -31,7 +31,15 @@ export interface CategoryType {
 
 export interface List<T> {
   list: T[];
-  addItem: (item: T, expandable?: boolean) => void;
+  addItem: ({
+    item,
+    expandable,
+    list,
+  }: {
+    item: T;
+    expandable?: boolean;
+    list?: List<T>;
+  }) => void;
   getItem: (itemID: string) => T | undefined;
   updateItem: (item: T) => boolean;
   deleteItem: (itemID: string) => boolean;

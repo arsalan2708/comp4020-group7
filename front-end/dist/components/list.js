@@ -18,12 +18,13 @@ export function InitializeList() {
 const listElement = document.querySelector(".page-wrapper__list");
 //   list instance returned
 // add item to list
-function addItem(item, expandable) {
+function addItem({ item, expandable, list, }) {
+    // if there if no list element or the list obj isnt passed, end here
+    if (!list || !listElement)
+        return;
     const id = generateID();
     item.itemID = id;
     this.list.push(item);
-    if (!listElement)
-        return;
     const { container: li } = mountListItem({
         itemID: item.itemID,
         label: item.label,
@@ -36,6 +37,7 @@ function addItem(item, expandable) {
         //   onClick?: () => void,
         actionButtonType: "checkbox",
         expandable: expandable || false,
+        list,
     });
     listElement.appendChild(li);
 }

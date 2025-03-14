@@ -1,10 +1,8 @@
-import { List } from "../list.js";
 import { addClasses } from "../utils/addClasses.js";
 import { createInput } from "../utils/createInput.js";
 import { Icon, getImage } from "../utils/getImage.js";
 import { onLongPress } from "../utils/longPress.js";
 import { createIconButton } from "./iconButton.js";
-import { mountMenu } from "./menu.js";
 /**
  * mounts a list item.
  * @param itemID id for the item
@@ -19,8 +17,9 @@ import { mountMenu } from "./menu.js";
  * @param onClick call back function for clicking the list item iteself
  * @param actionButtonType type of action button to display, checkbox by default [checkbox]
  * @param expandable true if item is expandable
+ * @param list list object for page this item is associated with
  */
-export function mountListItem({ itemID, classNames, label, isRecurring, amount, checked, description, category, onActionButtonClick, onClick, actionButtonType = "checkbox", expandable, }) {
+export function mountListItem({ itemID, classNames, label, isRecurring, amount, checked, description, category, onActionButtonClick, onClick, actionButtonType = "checkbox", expandable, list, }) {
     // label
     const label_ = document.createElement("p");
     label_.innerText = label;
@@ -143,23 +142,16 @@ export function mountListItem({ itemID, classNames, label, isRecurring, amount, 
     const category_ = document.createElement("p");
     category && (category_.innerText = category);
     addClasses(category_, "item__category", "text-sm");
-    // options menu data
-    const menuItems = [
-        { label: "edit" },
-        {
-            label: "delete",
-            onClick: () => List.deleteItem(itemID),
-        },
-    ];
     // options button for expanded displays
-    const optionsButton = createIconButton({ src: getImage(Icon.Options) });
-    optionsButton.addEventListener("click", (ev) => {
+    const deleteButton = createIconButton({ src: getImage(Icon.Delete) });
+    deleteButton.addEventListener("click", (ev) => {
         ev.stopPropagation();
-        mountMenu({ trigger: optionsButton, items: menuItems });
+        list.deleteItem(itemID);
     });
+    addClasses(deleteButton, "item__bottomButton");
     const buttomContainer = document.createElement("div");
     addClasses(buttomContainer, "item__bottomContainer", "display-row", "justify--between", "align--end", "hidden");
-    buttomContainer.append(category_, optionsButton);
+    buttomContainer.append(category_, deleteButton);
     // add description and buttom cont to container and add event listener
     container.append(description_, textArea, buttomContainer);
     // expand the expandable item, revealing description and buttom container

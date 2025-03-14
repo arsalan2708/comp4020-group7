@@ -3,6 +3,7 @@ export enum Icon {
   AddButton = "addButtonIcon",
   Hamburger = "hamburgerIcon",
   Options = "optionsIcon",
+  Delete = "deleteIcon",
 }
 
 // TODO: make this work for any starting directory

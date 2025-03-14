@@ -23,12 +23,20 @@ const listElement = document.querySelector(".page-wrapper__list");
 //   list instance returned
 
 // add item to list
-function addItem(this: List<ListItem>, item: ListItem, expandable?: boolean) {
+function addItem(
+  this: List<ListItem>,
+  {
+    item,
+    expandable,
+    list,
+  }: { item: ListItem; expandable?: boolean; list?: List<ListItem> }
+) {
+  // if there if no list element or the list obj isnt passed, end here
+  if (!list || !listElement) return;
+
   const id = generateID();
   item.itemID = id;
   this.list.push(item);
-
-  if (!listElement) return;
 
   const { container: li } = mountListItem({
     itemID: item.itemID,
@@ -42,6 +50,7 @@ function addItem(this: List<ListItem>, item: ListItem, expandable?: boolean) {
     //   onClick?: () => void,
     actionButtonType: "checkbox",
     expandable: expandable || false,
+    list,
   });
   listElement.appendChild(li);
 }

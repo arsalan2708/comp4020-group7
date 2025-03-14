@@ -411,6 +411,10 @@ ol {
   opacity: 1;
 }
 
+.item__bottomButton {
+  background-color: #ffd3d3;
+}
+
 /* --- create/edit list classes --- */
 
 .listModal {
