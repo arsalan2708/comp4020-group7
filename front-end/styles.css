@@ -349,8 +349,7 @@ ol {
 
 /* --- init list item classes --- */
 
-.initList__container,
-.item {
+.initList__container {
   border: 1px solid black;
   padding: var(--space-sm) var(--space-md);
 }
@@ -381,6 +380,8 @@ ol {
 
 .item {
   gap: var(--space-md);
+  border: 1px solid black;
+  padding: var(--space-md) var(--space-lg);
 }
 
 .item__label {
@@ -399,6 +400,10 @@ ol {
 
 .item__button--checkbox {
   transform: scale(2.25);
+}
+
+.item__descriptionInput {
+  padding: var(--space-md);
 }
 
 .item__category {
@@ -465,6 +470,18 @@ ol {
 
 .input__label {
   margin-bottom: var(--space-xs);
+}
+
+.input--subtle {
+  border: none;
+  border-bottom: 1px solid black;
+  border-radius: unset !important;
+  background-color: rgba(0, 0, 0, 0.1);
+  font-weight: 500;
+}
+
+.input--subtle:focus-visible {
+  outline: unset;
 }
 
 /* --- menu classes --- */

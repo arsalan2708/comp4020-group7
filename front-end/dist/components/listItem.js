@@ -35,17 +35,26 @@ export function mountListItem({ itemID, classNames, label, isRecurring, amount, 
         id: "label--input",
         name: "label",
     });
-    addClasses(labelInput, "item__labelInput");
+    addClasses(labelInput, "item__labelInput", "input--subtle");
     labelInput.autofocus = true;
+    labelInput.tabIndex = 0;
     labelInput.placeholder = "Enter item name";
     labelInput.required = true;
-    labelInput.maxLength = 150;
+    labelInput.maxLength = 50;
     //   prevent click from expanding item
     labelInput.addEventListener("click", (ev) => ev.stopPropagation());
     //   handle label submit
     labelInput.addEventListener("change", () => {
         labelInput.value && (label_.innerText = labelInput.value);
         swapLabel();
+    });
+    // on blur if the input is invalid refocus the input
+    labelInput.addEventListener("blur", () => {
+        const isValid = labelInput.checkValidity();
+        if (!isValid) {
+            labelInput.focus();
+            return;
+        }
     });
     // swap label and input
     function swapLabel() {
@@ -109,7 +118,8 @@ export function mountListItem({ itemID, classNames, label, isRecurring, amount, 
     const textArea = document.createElement("textarea");
     textArea.value = description || "";
     textArea.placeholder = "Editing description...";
-    addClasses(textArea, "item__descriptionInput", "hidden");
+    addClasses(textArea, "item__descriptionInput", "hidden", "input--subtle");
+    textArea.maxLength = 150;
     textArea.addEventListener("blur", (e) => {
         textArea.value && (description_.innerText = textArea.value);
         swapDescription();

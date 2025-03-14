@@ -27,7 +27,7 @@ export function mountAddButton({ isIndexPage, onAddClick, onsuggestClick, }) {
     //   create suggest item button
     const suggestButton = document.createElement("button");
     suggestButton.classList.add("add-button__suggestion");
-    suggestButton.innerText = "Suggest Items";
+    suggestButton.innerText = "Suggested Items";
     suggestButton.onclick = onsuggestClick !== null && onsuggestClick !== void 0 ? onsuggestClick : null;
     buttonContainer.appendChild(suggestButton);
 }

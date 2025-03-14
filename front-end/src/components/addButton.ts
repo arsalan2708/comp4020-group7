@@ -39,7 +39,7 @@ export function mountAddButton({
   //   create suggest item button
   const suggestButton = document.createElement("button");
   suggestButton.classList.add("add-button__suggestion");
-  suggestButton.innerText = "Suggest Items";
+  suggestButton.innerText = "Suggested Items";
   suggestButton.onclick = onsuggestClick ?? null;
 
   buttonContainer.appendChild(suggestButton);
