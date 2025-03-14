@@ -65,7 +65,7 @@ function addItem(
     list,
     showInputDefault,
   });
-  listElement.appendChild(li);
+  listElement.prepend(li);
 }
 
 // get item from list

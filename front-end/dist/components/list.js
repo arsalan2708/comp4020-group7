@@ -40,7 +40,7 @@ function addItem({ item, expandable, list, actionButtonType, onActionButtonClick
         list,
         showInputDefault,
     });
-    listElement.appendChild(li);
+    listElement.prepend(li);
 }
 // get item from list
 function getItem(itemID) {
