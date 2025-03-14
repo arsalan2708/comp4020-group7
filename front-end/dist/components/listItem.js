@@ -185,6 +185,9 @@ export function mountListItem({ itemID, classNames, label, isRecurring, amount, 
     buttomContainer.append(categoryContainer, deleteButton);
     // add description and buttom cont to container and add event listener
     container.append(description_, textArea, buttomContainer);
+    !showInputDefault &&
+        expandable &&
+        container.addEventListener("click", expandItem);
     // expand the expandable item, revealing description and buttom container
     function expandItem() {
         description_.classList.toggle("hidden");

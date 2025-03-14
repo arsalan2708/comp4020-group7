@@ -282,6 +282,9 @@ export function mountListItem<T>({
 
   // add description and buttom cont to container and add event listener
   container.append(description_, textArea, buttomContainer);
+  !showInputDefault &&
+    expandable &&
+    container.addEventListener("click", expandItem);
 
   // expand the expandable item, revealing description and buttom container
   function expandItem() {
