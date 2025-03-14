@@ -27,7 +27,6 @@ yarn-error.log*
 # env files
 .env*
 env/
-back-end/env
 
 # pychace
 back-end/**/__pycache__/
