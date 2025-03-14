@@ -7,6 +7,9 @@ import { mountConfirmationButton } from "./confirmationButtons.js";
 import { InitializeInitList } from "./initList.js";
 import { mountModalContainer, unmountModalContainer, } from "./modalContainer.js";
 import { mountRecurringItem } from "./recurringItem.js";
+
+import { socket } from "./../socket.js";
+
 export var ListModalMode;
 (function (ListModalMode) {
     ListModalMode[ListModalMode["Create"] = 0] = "Create";
@@ -117,4 +120,5 @@ function formSubmitHandler(ev) {
     unmountModalContainer();
     // log form data
     console.log(data);
+
 }

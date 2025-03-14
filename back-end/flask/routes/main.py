@@ -11,7 +11,7 @@ def testFunc():
 
 @socketio.on("openList")
 def openList(data):
-    print("data recieved")
+    print("data recieved",data)
     emit('server_response',{'status': 'success'})
 
 @bp.route('/buttonPress/<var>')
