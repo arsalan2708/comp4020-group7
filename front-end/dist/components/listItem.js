@@ -142,6 +142,24 @@ export function mountListItem({ itemID, classNames, label, isRecurring, amount, 
     const category_ = document.createElement("p");
     category && (category_.innerText = category);
     addClasses(category_, "item__category", "text-sm");
+    // edit category icon
+    const editIcon = document.createElement("img");
+    editIcon.src = getImage(Icon.Edit);
+    addClasses(editIcon, "item__categoryIcon");
+    // poster <p>
+    const poster = document.createElement("p");
+    poster.innerText = `Posted By: ${"sally"}`;
+    addClasses(poster, "item__poster", "text-xs");
+    // div containing category and its icon for flex
+    const categoryIconContainer = document.createElement("div");
+    addClasses(categoryIconContainer, "item__categoryIconContainer", "display-row", "align--center");
+    categoryIconContainer.append(category_, editIcon);
+    // div containing category and poster for flex
+    const categoryContainer = document.createElement("div");
+    addClasses(categoryContainer, "item__categoryContainer");
+    categoryContainer.append(categoryIconContainer, poster);
+    // TODO: add event for editing category
+    categoryContainer.addEventListener("click", () => { });
     // options button for expanded displays
     const deleteButton = createIconButton({ src: getImage(Icon.Delete) });
     deleteButton.addEventListener("click", (ev) => {
@@ -149,9 +167,10 @@ export function mountListItem({ itemID, classNames, label, isRecurring, amount, 
         list.deleteItem(itemID);
     });
     addClasses(deleteButton, "item__bottomButton");
+    // flex container for category/poster and button
     const buttomContainer = document.createElement("div");
     addClasses(buttomContainer, "item__bottomContainer", "display-row", "justify--between", "align--end", "hidden");
-    buttomContainer.append(category_, deleteButton);
+    buttomContainer.append(categoryContainer, deleteButton);
     // add description and buttom cont to container and add event listener
     container.append(description_, textArea, buttomContainer);
     // expand the expandable item, revealing description and buttom container

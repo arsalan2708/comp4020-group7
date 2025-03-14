@@ -406,9 +406,27 @@ ol {
   padding: var(--space-md);
 }
 
+.item__categoryContainer {
+  text-transform: capitalize;
+}
+
+.item__categoryIconContainer {
+  margin-bottom: var(--space-xxs);
+  gap: var(--space-xs);
+}
+
 .item__category {
   font-weight: 500;
   opacity: 1;
+}
+
+.item__categoryIcon {
+  width: 16px;
+}
+
+.item__poster {
+  letter-spacing: 0.5px;
+  opacity: 0.75;
 }
 
 .item__bottomButton {

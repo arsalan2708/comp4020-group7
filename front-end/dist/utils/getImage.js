@@ -5,6 +5,7 @@ export var Icon;
     Icon["Hamburger"] = "hamburgerIcon";
     Icon["Options"] = "optionsIcon";
     Icon["Delete"] = "deleteIcon";
+    Icon["Edit"] = "editIcon";
 })(Icon || (Icon = {}));
 // TODO: make this work for any starting directory
 /**
