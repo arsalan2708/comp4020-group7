@@ -7,7 +7,7 @@ from routes import main
 app = Flask(__name__)
 CORS(app)
 app.config['SECRET_KEY'] = 'comp4020'
-socketio.init_app(app)
+socketio.init_app(app, cors_allowed_origins = "*")
 
 
 from ds import Item, List
