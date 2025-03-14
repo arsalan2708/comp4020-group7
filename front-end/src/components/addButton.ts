@@ -8,10 +8,12 @@ export function mountAddButton({
   isIndexPage,
   onAddClick,
   onsuggestClick,
+  showSuggested,
 }: {
   isIndexPage: boolean;
   onAddClick?: () => void;
   onsuggestClick?: () => void;
+  showSuggested: boolean;
 }) {
   const buttonContainer = document.querySelector(".add-button__container");
 
@@ -34,7 +36,7 @@ export function mountAddButton({
   buttonContainer.appendChild(addButton);
 
   //   if its the index page stop here
-  if (isIndexPage) return;
+  if (isIndexPage || !showSuggested) return;
 
   //   create suggest item button
   const suggestButton = document.createElement("button");

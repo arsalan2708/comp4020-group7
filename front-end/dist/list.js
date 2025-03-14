@@ -3,11 +3,17 @@ import { mountPageWrapper } from "./components/pageWrapper.js";
 import { TemplateItem } from "./types/types.js";
 const IS_INDEX_PAGE = false;
 const IS_EXPANDABLE = true;
+const actionButtonType = "checkbox";
 // mount page wrapper
 mountPageWrapper({
     title: "List 1",
     isIndexPage: IS_INDEX_PAGE,
-    onAddClick: () => List.addItem({ item: TemplateItem, expandable: IS_EXPANDABLE, list: List }),
+    onAddClick: () => List.addItem({
+        item: TemplateItem,
+        expandable: IS_EXPANDABLE,
+        list: List,
+        actionButtonType,
+    }),
     onsuggestClick: () => { },
 });
 // exportable to make it global

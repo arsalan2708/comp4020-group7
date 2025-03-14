@@ -4,7 +4,7 @@
  * @param onAddClick callback function on clicking the add button
  * @param onsuggestClick callback function on clicking the suggest button
  */
-export function mountAddButton({ isIndexPage, onAddClick, onsuggestClick, }) {
+export function mountAddButton({ isIndexPage, onAddClick, onsuggestClick, showSuggested, }) {
     const buttonContainer = document.querySelector(".add-button__container");
     if (!buttonContainer)
         return;
@@ -22,7 +22,7 @@ export function mountAddButton({ isIndexPage, onAddClick, onsuggestClick, }) {
     addButton.appendChild(icon);
     buttonContainer.appendChild(addButton);
     //   if its the index page stop here
-    if (isIndexPage)
+    if (isIndexPage || !showSuggested)
         return;
     //   create suggest item button
     const suggestButton = document.createElement("button");

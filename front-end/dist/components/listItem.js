@@ -85,19 +85,27 @@ export function mountListItem({ itemID, classNames, label, isRecurring, amount, 
     //   get action button
     let actionButton;
     switch (actionButtonType) {
+        // delete case
+        case "delete":
+            actionButton = createIconButton({
+                src: getImage(Icon.Delete),
+                onClick: () => list.deleteItem(itemID),
+            });
+            addClasses(actionButton, "item__button--delete");
+            break;
         // default action button is checkbox
         default:
             actionButton = document.createElement("input");
             actionButton.type = "checkbox";
             addClasses(actionButton, "item__button--checkbox");
             checked && (actionButton.checked = checked); //assigned checked
-            onActionButtonClick &&
-                actionButton.addEventListener("click", onActionButtonClick);
             break;
     }
     actionButton.addEventListener("click", (ev) => {
         ev.stopPropagation();
     });
+    onActionButtonClick &&
+        actionButton.addEventListener("click", onActionButtonClick);
     //   container for action button
     const actionButtonContainer = document.createElement("div");
     addClasses(actionButtonContainer, "item__buttonContainer", "display-row", "align--center");

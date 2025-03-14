@@ -402,6 +402,10 @@ ol {
   transform: scale(2.25);
 }
 
+.item__button--delete {
+  background-color: #ffd3d3;
+}
+
 .item__descriptionInput {
   padding: var(--space-md);
 }

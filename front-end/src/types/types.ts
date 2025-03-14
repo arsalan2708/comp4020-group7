@@ -35,10 +35,16 @@ export interface List<T> {
     item,
     expandable,
     list,
+    actionButtonType,
+    onActionButtonClick,
+    onClick,
   }: {
     item: T;
     expandable?: boolean;
     list?: List<T>;
+    actionButtonType: ActionButtonType;
+    onActionButtonClick?: () => void;
+    onClick?: () => void;
   }) => void;
   getItem: (itemID: string) => T | undefined;
   updateItem: (item: T) => boolean;
@@ -70,7 +76,7 @@ export const RecurringItems = [
 
 export type RecurringItemType = (typeof RecurringItems)[number];
 
-export type ActionButtonType = "checkbox";
+export type ActionButtonType = "checkbox" | "delete";
 
 export const TemplateItem: ListItem = {
   listID: "",

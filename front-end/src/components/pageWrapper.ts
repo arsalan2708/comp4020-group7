@@ -6,6 +6,7 @@ interface PageWrapperProps {
   isIndexPage: boolean;
   onAddClick?: () => void;
   onsuggestClick?: () => void;
+  showSuggested?: boolean; //false and suggested items button doesnt show. TRUE on default
 }
 
 export function mountPageWrapper({
@@ -13,6 +14,7 @@ export function mountPageWrapper({
   isIndexPage,
   onAddClick,
   onsuggestClick,
+  showSuggested = true,
 }: PageWrapperProps) {
   // create the top nav bar
   mountNavBar({ title, isIndexPage });
@@ -22,5 +24,6 @@ export function mountPageWrapper({
     isIndexPage,
     onAddClick: onAddClick, //   TODO: action
     onsuggestClick: onsuggestClick, //   TODO: action
+    showSuggested,
   });
 }

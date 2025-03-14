@@ -5,12 +5,13 @@ import { TemplateItem } from "./types/types.js";
 import { ActionButtonType } from "./types/types";
 
 const IS_INDEX_PAGE = false;
-const IS_EXPANDABLE = true;
-const actionButtonType: ActionButtonType = "checkbox";
+const IS_EXPANDABLE = false;
+const showSuggestedButton = false;
+const actionButtonType: ActionButtonType = "delete";
 
 // mount page wrapper
 mountPageWrapper({
-  title: "List 1",
+  title: "Categories",
   isIndexPage: IS_INDEX_PAGE,
   onAddClick: () =>
     List.addItem({
@@ -19,7 +20,7 @@ mountPageWrapper({
       list: List,
       actionButtonType,
     }),
-  onsuggestClick: () => {},
+  showSuggested: showSuggestedButton,
 });
 
 // exportable to make it global
@@ -29,15 +30,15 @@ export const List = InitializeList();
 // const { container } = mountListItem({
 //   itemID: TemplateItem.itemID,
 //   label: TemplateItem.label,
-//   isRecurring: TemplateItem.isRecurring,
-//   amount: TemplateItem.amount,
-//   checked: TemplateItem.checked,
-//   description: TemplateItem.description,
-//   category: "Category",
+//   //   isRecurring: TemplateItem.isRecurring,
+//   //   amount: TemplateItem.amount,
+//   //   checked: TemplateItem.checked,
+//   //   description: TemplateItem.description,
+//   //   category: "",
 //   //   onActionButtonClick?: () => void,
 //   //   onClick?: () => void,
-//   actionButtonType: "checkbox",
-//   expandable: true,
+//   actionButtonType: actionButtonType,
+//   expandable: IS_EXPANDABLE,
 //   list: List,
 // });
 
