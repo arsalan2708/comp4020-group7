@@ -3,18 +3,16 @@ from flask_socketio import  emit
 from ext import socketio
 
 bp = Blueprint('main', __name__)  # Create a Blueprint
-
-
-
-@bp.route('/')
-def home():
-    print("blueprint loaded!")
-    return render_template("index.html")
-
+a = list()
 
 @bp.route('/test')
 def testFunc():  
     return current_app.a
+
+@socketio.on("openList")
+def openList(data):
+    print("data recieved")
+    emit('server_response',{'status': 'success'})
 
 @bp.route('/buttonPress/<var>')
 def buttonPress(var):

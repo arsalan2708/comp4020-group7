@@ -18,6 +18,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
   </head>
   <body id="body">
     <div class="page-wrapper">
@@ -27,6 +28,7 @@
         <div class="add-button__container"></div>
       </div>
     </div>
-    <script id="script" type="module" src="dist/index.js"></script>
+    <script id="socketio_mod" type="module" src="dist/socket.js"></script>
+    <script id="script" type="module" src="dist/index.js"></script> 
   </body>
 </html>
