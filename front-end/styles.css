@@ -578,3 +578,16 @@ ol {
   gap: var(--space-sm);
   background: unset;
 }
+
+.username {
+  padding: var(--space-lg);
+  border: 1px solid black;
+  gap: var(--space-xl);
+}
+
+.username__button {
+  border-radius: 10px;
+  padding: var(--space-sm) 0;
+  font-size: var(--text-md);
+  background-color: #daffeb;
+}
