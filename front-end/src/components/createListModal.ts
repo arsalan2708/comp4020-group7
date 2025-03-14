@@ -157,15 +157,20 @@ function formSubmitHandler(ev: SubmitEvent) {
   // extract data into the store
   const data = extractFormData(form) as FormValues;
 
-  // list of lists
-  const list = InitializeInitList();
-  list.addItem({
+  const template = {
     listID: generateID(),
     primaryID: generateID(),
     checkedItems: 0,
     totalItems: 0,
     label: data.label,
     date: data.date,
+  };
+
+  // list of lists
+  const list = InitializeInitList();
+  list.addItem({
+    item: template,
+    list: InitializeInitList(),
   });
 
   // unmount the modal
