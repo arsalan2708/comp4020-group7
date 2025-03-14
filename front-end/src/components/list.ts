@@ -37,7 +37,7 @@ function addItem(
     item: ListItem;
     expandable?: boolean;
     list?: List<ListItem>;
-    actionButtonType: ActionButtonType;
+    actionButtonType?: ActionButtonType;
     onActionButtonClick?: () => void;
     onClick?: () => void;
     showInputDefault?: boolean;

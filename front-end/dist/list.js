@@ -1,6 +1,7 @@
 import { InitializeList } from "./components/list.js";
 import { mountPageWrapper } from "./components/pageWrapper.js";
 import { TemplateItem } from "./types/types.js";
+import { mountCategoryFilter } from "./components/categoryFilter.js";
 const IS_INDEX_PAGE = false;
 const IS_EXPANDABLE = true;
 const actionButtonType = "checkbox";
@@ -18,6 +19,7 @@ mountPageWrapper({
 });
 // exportable to make it global
 export const List = InitializeList();
+mountCategoryFilter();
 /** ------FOR TESTING  ---------------- */
 // const { container } = mountListItem({
 //   itemID: TemplateItem.itemID,

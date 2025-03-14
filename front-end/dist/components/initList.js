@@ -17,11 +17,11 @@ const LIST = {
     deleteItem: deleteList,
 };
 // add item to list
-function addList(list) {
-    this.list.push(list);
+function addList({ item, list, }) {
+    this.list.push(item);
     if (!listElement)
         return;
-    listElement.appendChild(mountInitListItem(Object.assign({}, list)));
+    listElement.appendChild(mountInitListItem(Object.assign({}, item)));
 }
 // get item from list
 function getList(listID) {

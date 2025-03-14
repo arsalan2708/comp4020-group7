@@ -22,12 +22,21 @@ const LIST: List<InitListItem> = {
 };
 
 // add item to list
-function addList(this: List<InitListItem>, list: InitListItem) {
-  this.list.push(list);
+function addList(
+  this: List<InitListItem>,
+  {
+    item,
+    list,
+  }: {
+    item: InitListItem;
+    list?: List<InitListItem>;
+  }
+) {
+  this.list.push(item);
 
   if (!listElement) return;
 
-  listElement.appendChild(mountInitListItem({ ...list }));
+  listElement.appendChild(mountInitListItem({ ...item }));
 }
 
 // get item from list

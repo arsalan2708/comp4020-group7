@@ -43,7 +43,7 @@ export interface List<T> {
     item: T;
     expandable?: boolean;
     list?: List<T>;
-    actionButtonType: ActionButtonType;
+    actionButtonType?: ActionButtonType;
     onActionButtonClick?: () => void;
     onClick?: () => void;
     showInputDefault?: boolean;
