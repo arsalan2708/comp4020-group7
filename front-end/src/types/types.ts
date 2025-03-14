@@ -51,6 +51,9 @@ export interface List<T> {
   getItem: (itemID: string) => T | undefined;
   updateItem: (item: T) => boolean;
   deleteItem: (itemID: string) => boolean;
+  onAddItem: (item: T) => void;
+  onupdateItem: (item: T) => void;
+  ondeleteItem: (itemID: string) => void;
 }
 
 export const RecurringItems = [

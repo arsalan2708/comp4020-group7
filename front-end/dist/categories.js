@@ -9,26 +9,36 @@ const actionButtonType = "delete";
 mountPageWrapper({
     title: "Categories",
     isIndexPage: IS_INDEX_PAGE,
-    onAddClick: () => List.addItem({
+    onAddClick: () => list.addItem({
         item: TemplateItem,
         expandable: IS_EXPANDABLE,
-        list: List,
+        list,
         actionButtonType,
     }),
     showSuggested: showSuggestedButton,
 });
 // exportable to make it global
-export const List = InitializeList();
+const list = InitializeList({
+    onAddItem: (item) => {
+        console.log("item added...", item);
+    },
+    ondeleteItem: (itemID) => {
+        console.log("item deleted...", itemID);
+    },
+    onupdateItem: (item) => {
+        console.log("item updated...", item);
+    },
+});
 // add the list of categories to the page
 Categories.map((category) => category)
     .reverse()
     .forEach((category) => {
     const template = TemplateItem;
     template.label = category;
-    List.addItem({
+    list.addItem({
         item: TemplateItem,
         expandable: IS_EXPANDABLE,
-        list: List,
+        list,
         actionButtonType,
         showInputDefault: false,
     });

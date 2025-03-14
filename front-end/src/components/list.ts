@@ -2,17 +2,30 @@ import { ActionButtonType, List, ListItem } from "../types/types";
 import { generateID } from "../utils/generateID.js";
 import { mountListItem } from "./listItem.js";
 
+interface Props {
+  onAddItem: (item: ListItem) => void;
+  onupdateItem: (item: ListItem) => void;
+  ondeleteItem: (itemID: string) => void;
+}
+
 /**
  * factory method for lists. Creates a new instance for every call. should be called once per page
  * @returns returns a list instance
  */
-export function InitializeList() {
+export function InitializeList({
+  onAddItem,
+  onupdateItem,
+  ondeleteItem,
+}: Props) {
   const LIST: List<ListItem> = {
     list: [],
     addItem,
     getItem,
     updateItem,
     deleteItem,
+    onAddItem,
+    onupdateItem,
+    ondeleteItem,
   };
   return LIST;
 }
@@ -66,6 +79,7 @@ function addItem(
     showInputDefault,
   });
   listElement.prepend(li);
+  this.onAddItem(item);
 }
 
 // get item from list
@@ -85,6 +99,9 @@ function updateItem(this: List<ListItem>, item: ListItem): boolean {
 
   //   update item and return true
   this.list[index] = item;
+
+  this.onupdateItem(item);
+
   return true;
 }
 
@@ -101,6 +118,8 @@ function deleteItem(this: List<ListItem>, itemID: string): boolean {
 
   if (!li) return false;
   li.remove();
+
+  this.ondeleteItem(itemID);
 
   return true;
 }

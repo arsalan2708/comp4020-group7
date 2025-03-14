@@ -1,10 +1,10 @@
 import { RecurringItems } from "../types/types.js";
+import { InitListItem, List } from "../types/types";
 import { addClasses } from "../utils/addClasses.js";
 import { createInput } from "../utils/createInput.js";
 import { extractFormData } from "../utils/extractFormData.js";
 import { generateID } from "../utils/generateID.js";
 import { mountConfirmationButton } from "./confirmationButtons.js";
-import { InitializeInitList } from "./initList.js";
 import {
   mountModalContainer,
   unmountModalContainer,
@@ -18,9 +18,10 @@ export enum ListModalMode {
 
 interface ListModalProps {
   mode: ListModalMode;
+  list: List<InitListItem>;
 }
 
-export function mountListModal({ mode }: ListModalProps) {
+export function mountListModal({ mode, list }: ListModalProps) {
   // mount the modal and return it
   const modal = mountModalContainer({});
 
@@ -132,7 +133,7 @@ export function mountListModal({ mode }: ListModalProps) {
     "display-col",
     "align--center"
   );
-  form.onsubmit = formSubmitHandler;
+  form.onsubmit = (ev) => formSubmitHandler(ev, list);
 
   //   append the form to the modal container
   modal.appendChild(form);
@@ -145,7 +146,7 @@ type FormValues = {
   date?: string;
 };
 
-function formSubmitHandler(ev: SubmitEvent) {
+function formSubmitHandler(ev: SubmitEvent, list: List<InitListItem>) {
   ev.preventDefault(); //prevent default bahavior (dont route anywhere)
 
   // get the form element
@@ -167,10 +168,8 @@ function formSubmitHandler(ev: SubmitEvent) {
   };
 
   // list of lists
-  const list = InitializeInitList();
   list.addItem({
     item: template,
-    list: InitializeInitList(),
   });
 
   // unmount the modal

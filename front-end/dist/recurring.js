@@ -9,26 +9,36 @@ const actionButtonType = "default";
 mountPageWrapper({
     title: "Recurring Items",
     isIndexPage: IS_INDEX_PAGE,
-    onAddClick: () => List.addItem({
+    onAddClick: () => list.addItem({
         item: TemplateItem,
         expandable: IS_EXPANDABLE,
-        list: List,
+        list,
         actionButtonType,
     }),
     showSuggested: showSuggestedButton,
 });
 // exportable to make it global
-export const List = InitializeList();
+const list = InitializeList({
+    onAddItem: (item) => {
+        console.log("item added...", item);
+    },
+    ondeleteItem: (itemID) => {
+        console.log("item deleted...", itemID);
+    },
+    onupdateItem: (item) => {
+        console.log("item updated...", item);
+    },
+});
 // add the list of recurring items to the page
 RecurringItems.map((item) => item)
     .reverse()
     .forEach((item) => {
     const template = TemplateItem;
     template.label = item;
-    List.addItem({
+    list.addItem({
         item: TemplateItem,
         expandable: IS_EXPANDABLE,
-        list: List,
+        list,
         actionButtonType,
         showInputDefault: false,
     });

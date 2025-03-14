@@ -9,16 +9,26 @@ const actionButtonType = "checkbox";
 mountPageWrapper({
     title: "List 1",
     isIndexPage: IS_INDEX_PAGE,
-    onAddClick: () => List.addItem({
+    onAddClick: () => list.addItem({
         item: TemplateItem,
         expandable: IS_EXPANDABLE,
-        list: List,
+        list: list,
         actionButtonType,
     }),
     onsuggestClick: () => { },
 });
 // exportable to make it global
-export const List = InitializeList();
+const list = InitializeList({
+    onAddItem: (item) => {
+        console.log("item added...", item);
+    },
+    ondeleteItem: (itemID) => {
+        console.log("item deleted...", itemID);
+    },
+    onupdateItem: (item) => {
+        console.log("item updated...", item);
+    },
+});
 mountCategoryFilter();
 /** ------FOR TESTING  ---------------- */
 // const { container } = mountListItem({

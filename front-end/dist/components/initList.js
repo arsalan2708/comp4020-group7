@@ -1,45 +1,56 @@
 import { mountInitListItem } from "./initListItem.js";
+// get <ul> from page wrapper
+const LIST_ELEMENT = document.querySelector(".page-wrapper__list");
 /**
- * factory method for lists. Uses the same instance no matter where this is called from
+ * factory method for lists. call once
+ * @param onAddItem call back for when an item is added successfully
+ * @param onupdateItem call back for when an item is updated
+ * @param ondeleteItem call back for when an item is deleted
  * @returns returns a list instance
  */
-export function InitializeInitList() {
-    return LIST;
+export function InitializeInitList({ onAddItem, onupdateItem, ondeleteItem, }) {
+    return {
+        list: [],
+        addItem: addList,
+        getItem: getList,
+        updateItem: updateList,
+        deleteItem: deleteList,
+        onAddItem,
+        onupdateItem,
+        ondeleteItem,
+    };
 }
-// get <ul> from page wrapper
-const listElement = document.querySelector(".page-wrapper__list");
-//   list instance returned
-const LIST = {
-    list: [],
-    addItem: addList,
-    getItem: getList,
-    updateItem: updateList,
-    deleteItem: deleteList,
-};
 // add item to list
-function addList({ item, list, }) {
+function addList({ item, }) {
     this.list.push(item);
-    if (!listElement)
+    if (!LIST_ELEMENT)
         return;
-    listElement.appendChild(mountInitListItem(Object.assign({}, item)));
+    LIST_ELEMENT.appendChild(mountInitListItem(Object.assign({}, item)));
+    this.onAddItem(item);
 }
 // get item from list
 function getList(listID) {
     return this.list.find((list) => list.listID === listID);
 }
 // update list item
-function updateList(initListItem) {
+function updateList(item) {
     //   find the index of the list
-    const index = this.list.findIndex((list) => list.listID === initListItem.listID);
+    const index = this.list.findIndex((list) => list.listID === item.listID);
     //   if it doesnt exists end it here and return false
     if (index < 0)
         return false;
     //   update item and return true
-    this.list[index] = initListItem;
+    this.list[index] = item;
+    this.onupdateItem(item);
     return true;
 }
 // delete item from list
 function deleteList(listID) {
     this.list = this.list.filter((list) => list.listID !== listID);
-    return this.list.some((list) => list.listID === listID);
+    const element = document.getElementById(listID);
+    if (!element)
+        return false;
+    element.remove();
+    this.ondeleteItem(listID);
+    return true;
 }

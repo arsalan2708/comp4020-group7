@@ -4,7 +4,6 @@ import { createInput } from "../utils/createInput.js";
 import { extractFormData } from "../utils/extractFormData.js";
 import { generateID } from "../utils/generateID.js";
 import { mountConfirmationButton } from "./confirmationButtons.js";
-import { InitializeInitList } from "./initList.js";
 import { mountModalContainer, unmountModalContainer, } from "./modalContainer.js";
 import { mountRecurringItem } from "./recurringItem.js";
 export var ListModalMode;
@@ -12,7 +11,7 @@ export var ListModalMode;
     ListModalMode[ListModalMode["Create"] = 0] = "Create";
     ListModalMode[ListModalMode["Edit"] = 1] = "Edit";
 })(ListModalMode || (ListModalMode = {}));
-export function mountListModal({ mode }) {
+export function mountListModal({ mode, list }) {
     // mount the modal and return it
     const modal = mountModalContainer({});
     // stop if the modal mounting failed
@@ -85,12 +84,12 @@ export function mountListModal({ mode }) {
     const form = document.createElement("form");
     form.append(title, inputContainer, recurringItemsContainer, buttonsContainer);
     form.classList.add("listModal", "border-radius", "display-col", "align--center");
-    form.onsubmit = formSubmitHandler;
+    form.onsubmit = (ev) => formSubmitHandler(ev, list);
     //   append the form to the modal container
     modal.appendChild(form);
     return modal;
 }
-function formSubmitHandler(ev) {
+function formSubmitHandler(ev, list) {
     ev.preventDefault(); //prevent default bahavior (dont route anywhere)
     // get the form element
     const form = ev.currentTarget;
@@ -108,10 +107,8 @@ function formSubmitHandler(ev) {
         date: data.date,
     };
     // list of lists
-    const list = InitializeInitList();
     list.addItem({
         item: template,
-        list: InitializeInitList(),
     });
     // unmount the modal
     unmountModalContainer();

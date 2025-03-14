@@ -1,42 +1,54 @@
 import { List, InitListItem } from "../types/types";
 import { mountInitListItem } from "./initListItem.js";
 
-/**
- * factory method for lists. Uses the same instance no matter where this is called from
- * @returns returns a list instance
- */
-export function InitializeInitList() {
-  return LIST;
+// get <ul> from page wrapper
+const LIST_ELEMENT = document.querySelector(".page-wrapper__list");
+
+interface Props {
+  onAddItem: (item: InitListItem) => void;
+  onupdateItem: (item: InitListItem) => void;
+  ondeleteItem: (itemID: string) => void;
 }
 
-// get <ul> from page wrapper
-const listElement = document.querySelector(".page-wrapper__list");
-
-//   list instance returned
-const LIST: List<InitListItem> = {
-  list: [],
-  addItem: addList,
-  getItem: getList,
-  updateItem: updateList,
-  deleteItem: deleteList,
-};
+/**
+ * factory method for lists. call once
+ * @param onAddItem call back for when an item is added successfully
+ * @param onupdateItem call back for when an item is updated
+ * @param ondeleteItem call back for when an item is deleted
+ * @returns returns a list instance
+ */
+export function InitializeInitList({
+  onAddItem,
+  onupdateItem,
+  ondeleteItem,
+}: Props) {
+  return {
+    list: [],
+    addItem: addList,
+    getItem: getList,
+    updateItem: updateList,
+    deleteItem: deleteList,
+    onAddItem,
+    onupdateItem,
+    ondeleteItem,
+  };
+}
 
 // add item to list
 function addList(
   this: List<InitListItem>,
   {
     item,
-    list,
   }: {
     item: InitListItem;
-    list?: List<InitListItem>;
   }
 ) {
   this.list.push(item);
 
-  if (!listElement) return;
+  if (!LIST_ELEMENT) return;
 
-  listElement.appendChild(mountInitListItem({ ...item }));
+  LIST_ELEMENT.appendChild(mountInitListItem({ ...item }));
+  this.onAddItem(item);
 }
 
 // get item from list
@@ -45,25 +57,29 @@ function getList(this: List<InitListItem>, listID: string) {
 }
 
 // update list item
-function updateList(
-  this: List<InitListItem>,
-  initListItem: InitListItem
-): boolean {
+function updateList(this: List<InitListItem>, item: InitListItem): boolean {
   //   find the index of the list
-  const index = this.list.findIndex(
-    (list) => list.listID === initListItem.listID
-  );
+  const index = this.list.findIndex((list) => list.listID === item.listID);
 
   //   if it doesnt exists end it here and return false
   if (index < 0) return false;
 
   //   update item and return true
-  this.list[index] = initListItem;
+  this.list[index] = item;
+
+  this.onupdateItem(item);
   return true;
 }
 
 // delete item from list
 function deleteList(this: List<InitListItem>, listID: string): boolean {
   this.list = this.list.filter((list) => list.listID !== listID);
-  return this.list.some((list) => list.listID === listID);
+  const element = document.getElementById(listID);
+
+  if (!element) return false;
+
+  element.remove();
+  this.ondeleteItem(listID);
+
+  return true;
 }

@@ -4,13 +4,16 @@ import { mountListItem } from "./listItem.js";
  * factory method for lists. Creates a new instance for every call. should be called once per page
  * @returns returns a list instance
  */
-export function InitializeList() {
+export function InitializeList({ onAddItem, onupdateItem, ondeleteItem, }) {
     const LIST = {
         list: [],
         addItem,
         getItem,
         updateItem,
         deleteItem,
+        onAddItem,
+        onupdateItem,
+        ondeleteItem,
     };
     return LIST;
 }
@@ -41,6 +44,7 @@ function addItem({ item, expandable, list, actionButtonType, onActionButtonClick
         showInputDefault,
     });
     listElement.prepend(li);
+    this.onAddItem(item);
 }
 // get item from list
 function getItem(itemID) {
@@ -57,6 +61,7 @@ function updateItem(item) {
         return false;
     //   update item and return true
     this.list[index] = item;
+    this.onupdateItem(item);
     return true;
 }
 /**
@@ -71,5 +76,6 @@ function deleteItem(itemID) {
     if (!li)
         return false;
     li.remove();
+    this.ondeleteItem(itemID);
     return true;
 }
