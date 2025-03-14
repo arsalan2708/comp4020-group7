@@ -29,22 +29,16 @@ function addItem({ item, expandable, list, actionButtonType, onActionButtonClick
     item.itemID = id;
     this.list.push(item);
     const { container: li } = mountListItem({
-        itemID: item.itemID,
-        label: item.label,
-        isRecurring: item.isRecurring,
-        amount: item.amount,
-        checked: item.checked,
-        description: item.description,
-        category: "Category",
+        item,
         onActionButtonClick,
         onClick,
         actionButtonType,
         expandable: expandable || false,
         list,
         showInputDefault,
+        onAddItem: this.onAddItem,
     });
     listElement.prepend(li);
-    this.onAddItem(item);
 }
 // get item from list
 function getItem(itemID) {

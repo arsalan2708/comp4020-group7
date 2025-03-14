@@ -1,37 +1,26 @@
-import { ActionButtonType, List } from "../types/types";
+import { ActionButtonType, List, ListItem } from "../types/types";
 import { addClasses } from "../utils/addClasses.js";
 import { createInput } from "../utils/createInput.js";
 import { Icon, getImage } from "../utils/getImage.js";
 import { onLongPress } from "../utils/longPress.js";
 import { createIconButton } from "./iconButton.js";
 
-interface Props<T> {
-  itemID: string;
+interface Props {
   classNames?: string[];
-  label: string;
-  isRecurring?: boolean;
-  amount?: number;
-  checked?: boolean;
-  description?: string;
-  category?: string;
+  item: ListItem;
   onActionButtonClick?: () => void;
   onClick?: () => void;
   actionButtonType?: ActionButtonType;
   expandable: boolean;
-  list: List<T>;
+  list: List<ListItem>;
   showInputDefault?: boolean;
+  onAddItem: (item: ListItem) => void;
 }
 
 /**
  * mounts a list item.
- * @param itemID id for the item
  * @param classNames classess to add to the container element
- * @param label label for the item
- * @param isRecurring true if its a recurring item
- * @param amount amount of item
- * @param checked true if item is checked
- * @param description item description
- * @param category item category
+ * @param item item being mounted
  * @param onActionButtonClick call back function for clicking the action button
  * @param onClick call back function for clicking the list item iteself
  * @param actionButtonType type of action button to display, checkbox by default [checkbox]
@@ -39,22 +28,28 @@ interface Props<T> {
  * @param list list object for page this item is associated with
  * @param showInputDefault list object for page this item is associated with
  */
-export function mountListItem<T>({
-  itemID,
+export function mountListItem({
   classNames,
-  label,
-  isRecurring,
-  amount,
-  checked,
-  description,
-  category,
+  item,
   onActionButtonClick,
   onClick,
   actionButtonType = "checkbox",
   expandable,
   list,
   showInputDefault = true,
-}: Props<T>) {
+  onAddItem,
+}: Props) {
+  // extract data
+  const {
+    itemID,
+    label,
+    isRecurring,
+    amount,
+    checked,
+    description,
+    categoryID: category,
+  } = item;
+
   // label
   const label_ = document.createElement("p");
   label_.innerText = label;
@@ -85,13 +80,28 @@ export function mountListItem<T>({
   labelInput.addEventListener("click", (ev) => ev.stopPropagation());
 
   //   handle label submit
+  let firstChange = false;
   labelInput.addEventListener("change", () => {
     const isValid = labelInput.checkValidity();
     if (!isValid) {
       labelInput.focus();
       return;
     }
-    labelInput.value && (label_.innerText = labelInput.value);
+
+    // update data structures
+    if (labelInput.value) {
+      label_.innerText = labelInput.value;
+      item.label = labelInput.value;
+    }
+
+    // call call backs
+    if (firstChange) {
+      console.log("not first change");
+    } else {
+      onAddItem(item);
+      firstChange = !firstChange;
+      console.log("first change");
+    }
     swapLabel();
   });
 
@@ -217,7 +227,10 @@ export function mountListItem<T>({
   textArea.maxLength = 150;
 
   textArea.addEventListener("blur", (e) => {
-    textArea.value && (description_.innerText = textArea.value);
+    if (textArea.value) {
+      description_.innerText = textArea.value;
+      item.description = textArea.value;
+    }
     swapDescription();
   });
 
