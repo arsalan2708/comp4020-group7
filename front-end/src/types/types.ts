@@ -91,7 +91,7 @@ export const TemplateItem: ListItem = {
   amount: 0,
   checked: false,
   description: "",
-  categoryID: "",
+  categoryID: "category",
   posterID: "",
 };
 

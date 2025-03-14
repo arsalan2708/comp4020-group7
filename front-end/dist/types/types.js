@@ -28,7 +28,7 @@ export const TemplateItem = {
     amount: 0,
     checked: false,
     description: "",
-    categoryID: "",
+    categoryID: "category",
     posterID: "",
 };
 export const Categories = [

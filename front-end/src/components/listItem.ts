@@ -96,11 +96,10 @@ export function mountListItem({
 
     // call call backs
     if (firstChange) {
-      console.log("not first change");
+      list.updateItem(item);
     } else {
       onAddItem(item);
       firstChange = !firstChange;
-      console.log("first change");
     }
     swapLabel();
   });
@@ -166,6 +165,11 @@ export function mountListItem({
       actionButton.type = "checkbox";
       addClasses(actionButton, "item__button--checkbox");
       checked && (actionButton.checked = checked); //assigned checked
+      actionButton.addEventListener("change", (ev) => {
+        const input = ev.target as HTMLInputElement;
+        item.checked = input.checked;
+        list.updateItem(item);
+      });
       break;
   }
   actionButton.addEventListener("click", (ev) => {
@@ -230,6 +234,7 @@ export function mountListItem({
     if (textArea.value) {
       description_.innerText = textArea.value;
       item.description = textArea.value;
+      list.updateItem(item);
     }
     swapDescription();
   });
