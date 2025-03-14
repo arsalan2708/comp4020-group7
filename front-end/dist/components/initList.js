@@ -1,9 +1,16 @@
 import { mountInitListItem } from "./initListItem.js";
+import { socket } from "./../socket.js";
+
 /**
  * factory method for lists. Uses the same instance no matter where this is called from
  * @returns returns a list instance
  */
 export function InitializeInitList() {
+    socket.emit("getAllLists")
+    socket.on("all_lists_response", (listOfLists)=>{
+        LIST.list = listOfLists
+    })
+    console.log(LIST.list)
     return LIST;
 }
 // get <ul> from page wrapper
@@ -19,12 +26,17 @@ const LIST = {
 // add item to list
 function addList({ item, list, }) {
     this.list.push(item);
+    socket.emit("addList", item)
     if (!listElement)
         return;
     listElement.appendChild(mountInitListItem(Object.assign({}, item)));
 }
 // get item from list
 function getList(listID) {
+    socket.emit("getList",listID);
+    socket.on(`${listID}_response`, (response)=>{
+        return response
+    })
     return this.list.find((list) => list.listID === listID);
 }
 // update list item
