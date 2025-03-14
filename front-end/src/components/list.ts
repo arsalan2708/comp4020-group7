@@ -32,6 +32,7 @@ function addItem(
     actionButtonType,
     onActionButtonClick,
     onClick,
+    showInputDefault,
   }: {
     item: ListItem;
     expandable?: boolean;
@@ -39,6 +40,7 @@ function addItem(
     actionButtonType: ActionButtonType;
     onActionButtonClick?: () => void;
     onClick?: () => void;
+    showInputDefault?: boolean;
   }
 ) {
   // if there if no list element or the list obj isnt passed, end here
@@ -61,6 +63,7 @@ function addItem(
     actionButtonType,
     expandable: expandable || false,
     list,
+    showInputDefault,
   });
   listElement.appendChild(li);
 }

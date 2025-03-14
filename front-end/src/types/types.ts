@@ -38,6 +38,7 @@ export interface List<T> {
     actionButtonType,
     onActionButtonClick,
     onClick,
+    showInputDefault,
   }: {
     item: T;
     expandable?: boolean;
@@ -45,6 +46,7 @@ export interface List<T> {
     actionButtonType: ActionButtonType;
     onActionButtonClick?: () => void;
     onClick?: () => void;
+    showInputDefault?: boolean;
   }) => void;
   getItem: (itemID: string) => T | undefined;
   updateItem: (item: T) => boolean;
@@ -89,3 +91,30 @@ export const TemplateItem: ListItem = {
   categoryID: "",
   posterID: "",
 };
+
+export const Categories = [
+  "Produce",
+  "Meat & Poultry",
+  "Seafood",
+  "Deli",
+  "Bakery",
+  "Dairy",
+  "Canned Goods",
+  "Baking Supplies",
+  "Breakfast Foods",
+  "Snacks",
+  "Condiments",
+  "Spices & Seasonings",
+  "International Foods",
+  "Frozen Foods",
+  "Ice Cream & Desserts",
+  "Beverages",
+  "Health & Wellness",
+  "Household Essentials",
+  "Pet Supplies",
+  "Baby & Childcare",
+  "Home & Kitchen",
+  "Seasonal Items",
+];
+
+export type Category = (typeof Categories)[number];

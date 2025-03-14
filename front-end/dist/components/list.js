@@ -18,7 +18,7 @@ export function InitializeList() {
 const listElement = document.querySelector(".page-wrapper__list");
 //   list instance returned
 // add item to list
-function addItem({ item, expandable, list, actionButtonType, onActionButtonClick, onClick, }) {
+function addItem({ item, expandable, list, actionButtonType, onActionButtonClick, onClick, showInputDefault, }) {
     // if there if no list element or the list obj isnt passed, end here
     if (!list || !listElement)
         return;
@@ -38,6 +38,7 @@ function addItem({ item, expandable, list, actionButtonType, onActionButtonClick
         actionButtonType,
         expandable: expandable || false,
         list,
+        showInputDefault,
     });
     listElement.appendChild(li);
 }

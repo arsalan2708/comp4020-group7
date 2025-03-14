@@ -18,16 +18,19 @@ import { createIconButton } from "./iconButton.js";
  * @param actionButtonType type of action button to display, checkbox by default [checkbox]
  * @param expandable true if item is expandable
  * @param list list object for page this item is associated with
+ * @param showInputDefault list object for page this item is associated with
  */
-export function mountListItem({ itemID, classNames, label, isRecurring, amount, checked, description, category, onActionButtonClick, onClick, actionButtonType = "checkbox", expandable, list, }) {
+export function mountListItem({ itemID, classNames, label, isRecurring, amount, checked, description, category, onActionButtonClick, onClick, actionButtonType = "checkbox", expandable, list, showInputDefault = true, }) {
     // label
     const label_ = document.createElement("p");
     label_.innerText = label;
-    addClasses(label_, "item__label", "hidden", "text-md");
+    addClasses(label_, "item__label", "text-md");
+    showInputDefault && addClasses(label_, "hidden");
     //   recurring
     const star = document.createElement("p");
     star.innerText = "⭐";
-    addClasses(star, "item__recurring", "hidden");
+    addClasses(star, "item__recurring");
+    showInputDefault && addClasses(star, "hidden");
     !isRecurring && star.remove(); // if its not a recurring item remove it
     //   text input for intering data
     const { inputNode: labelInput } = createInput({
@@ -35,6 +38,7 @@ export function mountListItem({ itemID, classNames, label, isRecurring, amount, 
         name: "label",
     });
     addClasses(labelInput, "item__labelInput", "input--subtle");
+    !showInputDefault && addClasses(labelInput, "hidden");
     labelInput.autofocus = true;
     labelInput.tabIndex = 0;
     labelInput.placeholder = "Enter item name";
