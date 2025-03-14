@@ -26,7 +26,11 @@ export function mountNavBar({ title, isIndexPage, }) {
 }
 const sideBarItems = [
     { label: "Home", displayHome: false, onClick: () => routeToPage("") },
-    { label: "Edit Recurring Items", displayHome: true },
+    {
+        label: "Edit Recurring Items",
+        displayHome: true,
+        onClick: () => routeToPage("recurring"),
+    },
     {
         label: "Edit Categories",
         displayHome: true,

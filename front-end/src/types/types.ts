@@ -125,4 +125,4 @@ export type SideBarItemType = {
   onClick?: () => void;
 };
 
-export type Page = "" | "categories";
+export type Page = "" | "categories" | "recurring";
