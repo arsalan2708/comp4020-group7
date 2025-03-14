@@ -9,6 +9,11 @@ interface Props {
   onSubmit?: (userName: string) => void;
 }
 
+/**
+ * modal to collect user names
+ * @param onSubmit call back for a successfull submit
+ * @returns the container container the input and button
+ */
 export function mountUserNameModal({ onSubmit }: Props) {
   // mount modal
   const modal = mountModalContainer({ onModalClick: () => {} });
