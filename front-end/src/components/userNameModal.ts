@@ -1,14 +1,28 @@
 import { addClasses } from "../utils/addClasses.js";
 import { createInput } from "../utils/createInput.js";
+import {
+  mountModalContainer,
+  unmountModalContainer,
+} from "./modalContainer.js";
 
 interface Props {
   onSubmit?: (userName: string) => void;
 }
 
 export function mountUserNameModal({ onSubmit }: Props) {
+  // mount modal
+  const modal = mountModalContainer({ onModalClick: () => {} });
+  if (!modal) return;
+
   // Create the container div
   const container = document.createElement("div");
-  addClasses(container, "username", "display-col", "border-radius");
+  addClasses(
+    container,
+    "listModal",
+    "username",
+    "display-col",
+    "border-radius"
+  );
 
   // Create the input element
   const { inputNode: input, container: inputContainer } = createInput({
@@ -30,6 +44,7 @@ export function mountUserNameModal({ onSubmit }: Props) {
   button.addEventListener("click", () => {
     if (input.checkValidity()) {
       onSubmit && onSubmit(input.value);
+      unmountModalContainer();
     }
   });
 
@@ -37,7 +52,7 @@ export function mountUserNameModal({ onSubmit }: Props) {
   container.append(inputContainer, button);
 
   // Append the container to the body
-  document.body.appendChild(container);
+  modal.append(container);
 
   return container;
 }
