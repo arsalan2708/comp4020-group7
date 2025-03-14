@@ -138,6 +138,9 @@ export function mountListItem<T>({
   //   get action button
   let actionButton;
   switch (actionButtonType) {
+    case "default":
+      actionButton = document.createElement("div");
+      break;
     // delete case
     case "delete":
       actionButton = createIconButton({

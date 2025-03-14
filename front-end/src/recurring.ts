@@ -6,7 +6,7 @@ import { ActionButtonType } from "./types/types";
 const IS_INDEX_PAGE = false;
 const IS_EXPANDABLE = true;
 const showSuggestedButton = false;
-const actionButtonType: ActionButtonType = "checkbox";
+const actionButtonType: ActionButtonType = "default";
 
 // mount page wrapper
 mountPageWrapper({
@@ -26,14 +26,16 @@ mountPageWrapper({
 export const List = InitializeList();
 
 // add the list of recurring items to the page
-RecurringItems.forEach((recurringItems) => {
-  const template = TemplateItem;
-  template.label = recurringItems;
-  List.addItem({
-    item: TemplateItem,
-    expandable: IS_EXPANDABLE,
-    list: List,
-    actionButtonType,
-    showInputDefault: false,
+RecurringItems.map((item) => item)
+  .reverse()
+  .forEach((item) => {
+    const template = TemplateItem;
+    template.label = item;
+    List.addItem({
+      item: TemplateItem,
+      expandable: IS_EXPANDABLE,
+      list: List,
+      actionButtonType,
+      showInputDefault: false,
+    });
   });
-});

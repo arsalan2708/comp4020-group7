@@ -4,7 +4,7 @@ import { TemplateItem, RecurringItems } from "./types/types.js";
 const IS_INDEX_PAGE = false;
 const IS_EXPANDABLE = true;
 const showSuggestedButton = false;
-const actionButtonType = "checkbox";
+const actionButtonType = "default";
 // mount page wrapper
 mountPageWrapper({
     title: "Recurring Items",
@@ -20,9 +20,11 @@ mountPageWrapper({
 // exportable to make it global
 export const List = InitializeList();
 // add the list of recurring items to the page
-RecurringItems.forEach((recurringItems) => {
+RecurringItems.map((item) => item)
+    .reverse()
+    .forEach((item) => {
     const template = TemplateItem;
-    template.label = recurringItems;
+    template.label = item;
     List.addItem({
         item: TemplateItem,
         expandable: IS_EXPANDABLE,

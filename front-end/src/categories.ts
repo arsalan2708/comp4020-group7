@@ -26,14 +26,16 @@ mountPageWrapper({
 export const List = InitializeList();
 
 // add the list of categories to the page
-Categories.forEach((category) => {
-  const template = TemplateItem;
-  template.label = category;
-  List.addItem({
-    item: TemplateItem,
-    expandable: IS_EXPANDABLE,
-    list: List,
-    actionButtonType,
-    showInputDefault: false,
+Categories.map((category) => category)
+  .reverse()
+  .forEach((category) => {
+    const template = TemplateItem;
+    template.label = category;
+    List.addItem({
+      item: TemplateItem,
+      expandable: IS_EXPANDABLE,
+      list: List,
+      actionButtonType,
+      showInputDefault: false,
+    });
   });
-});

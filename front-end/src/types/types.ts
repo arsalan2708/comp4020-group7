@@ -78,7 +78,7 @@ export const RecurringItems = [
 
 export type RecurringItemType = (typeof RecurringItems)[number];
 
-export type ActionButtonType = "checkbox" | "delete";
+export type ActionButtonType = "default" | "checkbox" | "delete";
 
 export const TemplateItem: ListItem = {
   listID: "",

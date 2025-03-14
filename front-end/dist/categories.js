@@ -20,7 +20,9 @@ mountPageWrapper({
 // exportable to make it global
 export const List = InitializeList();
 // add the list of categories to the page
-Categories.forEach((category) => {
+Categories.map((category) => category)
+    .reverse()
+    .forEach((category) => {
     const template = TemplateItem;
     template.label = category;
     List.addItem({
