@@ -1,5 +1,7 @@
+import { SideBarItemType } from "../types/types";
 import { addClasses } from "../utils/addClasses.js";
 import { Icon, getImage } from "../utils/getImage.js";
+import { routeToPage } from "../utils/routing.js";
 import { createIconButton } from "./iconButton.js";
 
 /**
@@ -33,15 +35,14 @@ export function mountNavBar({
   nav.appendChild(hamburgerIcon);
 }
 
-type SideBarItemType = {
-  label: string;
-  displayHome: boolean;
-};
-
 const sideBarItems: SideBarItemType[] = [
-  { label: "Home", displayHome: false },
+  { label: "Home", displayHome: false, onClick: () => routeToPage("") },
   { label: "Edit Recurring Items", displayHome: true },
-  { label: "Edit Categories", displayHome: true },
+  {
+    label: "Edit Categories",
+    displayHome: true,
+    onClick: () => routeToPage("categories"),
+  },
   { label: "Edit Participants", displayHome: false },
   { label: "Notify Others", displayHome: false },
 ];
@@ -88,12 +89,13 @@ function mountSideBar({
   ul.classList.add("display-col");
 
   // add side bar items to list as li
-  sideBarItems.forEach(({ label, displayHome }) => {
+  sideBarItems.forEach(({ label, displayHome, onClick }) => {
     if ((isIndexPage && displayHome) || !isIndexPage) {
       const li = document.createElement("li");
       li.innerText = label;
       addClasses(li, "text-md");
       ul.appendChild(li);
+      onClick && li.addEventListener("click", onClick);
     }
   });
 
@@ -113,10 +115,7 @@ function mountSideBar({
   };
 
   // add elements to component
-  sidebar.appendChild(h2);
-  sidebar.appendChild(closeButton);
-  sidebar.appendChild(ul);
-  sidebar.appendChild(username);
+  sidebar.append(h2, closeButton, ul, username);
 
   // append sidebar to modal window
   modal.appendChild(sidebar);

@@ -118,3 +118,11 @@ export const Categories = [
 ];
 
 export type Category = (typeof Categories)[number];
+
+export type SideBarItemType = {
+  label: string;
+  displayHome: boolean;
+  onClick?: () => void;
+};
+
+export type Page = "" | "categories";
