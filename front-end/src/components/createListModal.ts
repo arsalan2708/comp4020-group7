@@ -27,6 +27,9 @@ export function mountListModal({ mode }: ListModalProps) {
   // stop if the modal mounting failed
   if (!modal) return;
 
+  // TODO: address expanded modal buttom page bug
+  addClasses(modal, "listModal__modal");
+
   //   title for the component
   const title = document.createElement("p");
   title.classList.add("listModal__title", "text-lg");

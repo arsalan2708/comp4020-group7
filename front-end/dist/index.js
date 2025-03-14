@@ -1,4 +1,4 @@
-import { ListModalMode, mountListModal } from "./components/listModal.js";
+import { ListModalMode, mountListModal } from "./components/createListModal.js";
 import { mountPageWrapper } from "./components/pageWrapper.js";
 const IS_INDEX_PAGE = true;
 // mount page wrapper
