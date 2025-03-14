@@ -54,7 +54,7 @@ export function mountListItem({
   // label
   const label_ = document.createElement("p");
   label_.innerText = label;
-  addClasses(label_, "item__label", "hidden");
+  addClasses(label_, "item__label", "hidden", "text-md");
 
   //   recurring
   const star = document.createElement("p");
@@ -169,7 +169,7 @@ export function mountListItem({
   //   item description
   const description_ = document.createElement("p");
   description_.innerText = description || "Enter description...";
-  addClasses(description_, "item__description", "hidden");
+  addClasses(description_, "item__description", "hidden", "text-sm");
 
   // text area
   const textArea = document.createElement("textarea");
@@ -194,7 +194,7 @@ export function mountListItem({
   // category area
   const category_ = document.createElement("p");
   category && (category_.innerText = category);
-  addClasses(category_, "item__category");
+  addClasses(category_, "item__category", "text-sm");
 
   // options menu data
   const menuItems = [

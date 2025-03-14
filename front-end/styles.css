@@ -76,7 +76,7 @@ ol {
 .text-sm {
   font-size: var(--text-sm);
   font-weight: 300;
-  opacity: 0.5;
+  opacity: 0.9;
   line-height: 1.4;
 }
 
@@ -398,7 +398,12 @@ ol {
 }
 
 .item__button--checkbox {
-  transform: scale(1.5);
+  transform: scale(2.25);
+}
+
+.item__category {
+  font-weight: 500;
+  opacity: 1;
 }
 
 /* --- create/edit list classes --- */
