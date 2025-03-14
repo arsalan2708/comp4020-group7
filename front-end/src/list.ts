@@ -3,6 +3,7 @@ import { mountListItem } from "./components/listItem.js";
 import { mountPageWrapper } from "./components/pageWrapper.js";
 import { TemplateItem } from "./types/types.js";
 import { ActionButtonType } from "./types/types";
+import { mountCategoryFilter } from "./components/categoryFilter.js";
 
 const IS_INDEX_PAGE = false;
 const IS_EXPANDABLE = true;
@@ -24,6 +25,8 @@ mountPageWrapper({
 
 // exportable to make it global
 export const List = InitializeList();
+
+mountCategoryFilter();
 
 /** ------FOR TESTING  ---------------- */
 // const { container } = mountListItem({

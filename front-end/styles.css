@@ -316,6 +316,29 @@ ol {
   color: white;
 }
 
+/* ---------- item filter classes --------*/
+
+.filter {
+  gap: var(--space-xs);
+  border-bottom: 1px solid black;
+  padding-right: var(--space-md);
+  max-width: 100vw;
+  overflow-x: scroll;
+  background-color: white;
+}
+
+.filter__buttonCont {
+  position: sticky;
+  left: 0;
+  padding: var(--space-sm) var(--space-sm);
+  background-color: white;
+}
+
+.filter__button {
+  font-weight: 500;
+  background-color: white;
+}
+
 /* --- MSC --- */
 
 .height-full {
