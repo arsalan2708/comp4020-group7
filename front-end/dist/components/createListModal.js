@@ -11,13 +11,12 @@ export var ListModalMode;
     ListModalMode[ListModalMode["Create"] = 0] = "Create";
     ListModalMode[ListModalMode["Edit"] = 1] = "Edit";
 })(ListModalMode || (ListModalMode = {}));
-export function mountListModal({ mode, list }) {
+export function mountListModal({ mode, list, userID }) {
     // mount the modal and return it
     const modal = mountModalContainer({});
     // stop if the modal mounting failed
     if (!modal)
         return;
-    // TODO: address expanded modal buttom page bug
     addClasses(modal, "listModal__modal");
     //   title for the component
     const title = document.createElement("p");
@@ -84,12 +83,12 @@ export function mountListModal({ mode, list }) {
     const form = document.createElement("form");
     form.append(title, inputContainer, recurringItemsContainer, buttonsContainer);
     form.classList.add("listModal", "border-radius", "display-col", "align--center");
-    form.onsubmit = (ev) => formSubmitHandler(ev, list);
+    form.onsubmit = (ev) => formSubmitHandler(ev, list, userID);
     //   append the form to the modal container
     modal.appendChild(form);
     return modal;
 }
-function formSubmitHandler(ev, list) {
+function formSubmitHandler(ev, list, userID) {
     ev.preventDefault(); //prevent default bahavior (dont route anywhere)
     // get the form element
     const form = ev.currentTarget;
@@ -100,7 +99,7 @@ function formSubmitHandler(ev, list) {
     const data = extractFormData(form);
     const template = {
         listID: generateID(),
-        primaryID: generateID(),
+        primaryID: userID,
         checkedItems: 0,
         totalItems: 0,
         label: data.label,
@@ -112,6 +111,4 @@ function formSubmitHandler(ev, list) {
     });
     // unmount the modal
     unmountModalContainer();
-    // log form data
-    console.log(data);
 }

@@ -8,7 +8,7 @@ const user = getUser();
 mountPageWrapper({
     title: "Shared List",
     isIndexPage: IS_INDEX_PAGE,
-    onAddClick: () => mountListModal({ mode: ListModalMode.Create, list }),
+    onAddClick: () => mountListModal({ mode: ListModalMode.Create, list, userID: user.userID }),
     onsuggestClick: () => { },
     user,
 });

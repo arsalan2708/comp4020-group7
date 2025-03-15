@@ -19,16 +19,16 @@ export enum ListModalMode {
 interface ListModalProps {
   mode: ListModalMode;
   list: List<InitListItem>;
+  userID: string;
 }
 
-export function mountListModal({ mode, list }: ListModalProps) {
+export function mountListModal({ mode, list, userID }: ListModalProps) {
   // mount the modal and return it
   const modal = mountModalContainer({});
 
   // stop if the modal mounting failed
   if (!modal) return;
 
-  // TODO: address expanded modal buttom page bug
   addClasses(modal, "listModal__modal");
 
   //   title for the component
@@ -133,7 +133,7 @@ export function mountListModal({ mode, list }: ListModalProps) {
     "display-col",
     "align--center"
   );
-  form.onsubmit = (ev) => formSubmitHandler(ev, list);
+  form.onsubmit = (ev) => formSubmitHandler(ev, list, userID);
 
   //   append the form to the modal container
   modal.appendChild(form);
@@ -146,7 +146,11 @@ type FormValues = {
   date?: string;
 };
 
-function formSubmitHandler(ev: SubmitEvent, list: List<InitListItem>) {
+function formSubmitHandler(
+  ev: SubmitEvent,
+  list: List<InitListItem>,
+  userID: string
+) {
   ev.preventDefault(); //prevent default bahavior (dont route anywhere)
 
   // get the form element
@@ -160,7 +164,7 @@ function formSubmitHandler(ev: SubmitEvent, list: List<InitListItem>) {
 
   const template = {
     listID: generateID(),
-    primaryID: generateID(),
+    primaryID: userID,
     checkedItems: 0,
     totalItems: 0,
     label: data.label,
@@ -174,7 +178,4 @@ function formSubmitHandler(ev: SubmitEvent, list: List<InitListItem>) {
 
   // unmount the modal
   unmountModalContainer();
-
-  // log form data
-  console.log(data);
 }
