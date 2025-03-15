@@ -39,6 +39,7 @@ export interface List<T> {
     onActionButtonClick,
     onClick,
     showInputDefault,
+    isFromBackEnd,
   }: {
     item: T;
     expandable?: boolean;
@@ -47,10 +48,11 @@ export interface List<T> {
     onActionButtonClick?: () => void;
     onClick?: () => void;
     showInputDefault?: boolean;
+    isFromBackEnd?: boolean;
   }) => void;
-  getItem: (itemID: string) => T | undefined;
-  updateItem: (item: T) => boolean;
-  deleteItem: (itemID: string) => boolean;
+  getItem: (itemID: string, isFromBackEnd?: boolean) => T | undefined;
+  updateItem: (item: T, isFromBackEnd?: boolean) => boolean;
+  deleteItem: (itemID: string, isFromBackEnd?: boolean) => boolean;
   onAddItem: (item: T) => void;
   onupdateItem: (item: T) => void;
   ondeleteItem: (itemID: string) => void;

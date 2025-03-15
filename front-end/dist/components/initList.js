@@ -21,19 +21,20 @@ export function InitializeInitList({ onAddItem, onupdateItem, ondeleteItem, }) {
     };
 }
 // add item to list
-function addList({ item, }) {
+function addList({ item, isFromBackEnd = false, }) {
     this.list.push(item);
     if (!LIST_ELEMENT)
         return;
     LIST_ELEMENT.appendChild(mountInitListItem(Object.assign({}, item)));
-    this.onAddItem(item);
+    !isFromBackEnd && this.onAddItem(item);
 }
 // get item from list
 function getList(listID) {
     return this.list.find((list) => list.listID === listID);
 }
 // update list item
-function updateList(item) {
+function updateList(item, isFromBackEnd) {
+    const runOnUpdate = !isFromBackEnd || true;
     //   find the index of the list
     const index = this.list.findIndex((list) => list.listID === item.listID);
     //   if it doesnt exists end it here and return false
@@ -41,16 +42,17 @@ function updateList(item) {
         return false;
     //   update item and return true
     this.list[index] = item;
-    this.onupdateItem(item);
+    runOnUpdate && this.onupdateItem(item);
     return true;
 }
 // delete item from list
-function deleteList(listID) {
+function deleteList(listID, isFromBackEnd) {
+    const runOnUpdate = !isFromBackEnd || true;
     this.list = this.list.filter((list) => list.listID !== listID);
     const element = document.getElementById(listID);
     if (!element)
         return false;
     element.remove();
-    this.ondeleteItem(listID);
+    runOnUpdate && this.ondeleteItem(listID);
     return true;
 }

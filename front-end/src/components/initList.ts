@@ -39,8 +39,10 @@ function addList(
   this: List<InitListItem>,
   {
     item,
+    isFromBackEnd = false,
   }: {
     item: InitListItem;
+    isFromBackEnd?: boolean;
   }
 ) {
   this.list.push(item);
@@ -48,7 +50,7 @@ function addList(
   if (!LIST_ELEMENT) return;
 
   LIST_ELEMENT.appendChild(mountInitListItem({ ...item }));
-  this.onAddItem(item);
+  !isFromBackEnd && this.onAddItem(item);
 }
 
 // get item from list
@@ -57,7 +59,13 @@ function getList(this: List<InitListItem>, listID: string) {
 }
 
 // update list item
-function updateList(this: List<InitListItem>, item: InitListItem): boolean {
+function updateList(
+  this: List<InitListItem>,
+  item: InitListItem,
+  isFromBackEnd?: boolean
+): boolean {
+  const runOnUpdate = !isFromBackEnd || true;
+
   //   find the index of the list
   const index = this.list.findIndex((list) => list.listID === item.listID);
 
@@ -67,19 +75,25 @@ function updateList(this: List<InitListItem>, item: InitListItem): boolean {
   //   update item and return true
   this.list[index] = item;
 
-  this.onupdateItem(item);
+  runOnUpdate && this.onupdateItem(item);
   return true;
 }
 
 // delete item from list
-function deleteList(this: List<InitListItem>, listID: string): boolean {
+function deleteList(
+  this: List<InitListItem>,
+  listID: string,
+  isFromBackEnd?: boolean
+): boolean {
+  const runOnUpdate = !isFromBackEnd || true;
+
   this.list = this.list.filter((list) => list.listID !== listID);
   const element = document.getElementById(listID);
 
   if (!element) return false;
 
   element.remove();
-  this.ondeleteItem(listID);
+  runOnUpdate && this.ondeleteItem(listID);
 
   return true;
 }

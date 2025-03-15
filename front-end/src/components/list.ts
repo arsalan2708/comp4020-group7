@@ -46,6 +46,7 @@ function addItem(
     onActionButtonClick,
     onClick,
     showInputDefault,
+    isFromBackEnd = false,
   }: {
     item: ListItem;
     expandable?: boolean;
@@ -54,6 +55,7 @@ function addItem(
     onActionButtonClick?: () => void;
     onClick?: () => void;
     showInputDefault?: boolean;
+    isFromBackEnd?: boolean;
   }
 ) {
   // if there if no list element or the list obj isnt passed, end here
@@ -71,7 +73,7 @@ function addItem(
     expandable: expandable || false,
     list,
     showInputDefault,
-    onAddItem: this.onAddItem,
+    onAddItem: !isFromBackEnd ? this.onAddItem : () => {},
   });
   listElement.prepend(li);
 }
@@ -84,7 +86,13 @@ function getItem(this: List<ListItem>, itemID: string) {
 // TODO: handle updating the list. only the html is getting uptdated rn
 //(use getItem to get the item to pass to this)
 // update list item
-function updateItem(this: List<ListItem>, item: ListItem): boolean {
+function updateItem(
+  this: List<ListItem>,
+  item: ListItem,
+  isFromBackEnd?: boolean
+): boolean {
+  const runOnUpdate = !isFromBackEnd || true;
+
   //   find the index of the list
   const index = this.list.findIndex((item_) => item_.itemID === item.itemID);
 
@@ -94,7 +102,7 @@ function updateItem(this: List<ListItem>, item: ListItem): boolean {
   //   update item and return true
   this.list[index] = item;
 
-  this.onupdateItem(item);
+  runOnUpdate && this.onupdateItem(item);
 
   return true;
 }
@@ -104,7 +112,13 @@ function updateItem(this: List<ListItem>, item: ListItem): boolean {
  * @param itemID item ID to delete from list
  * @returns true if item was deleted false otherwise
  */
-function deleteItem(this: List<ListItem>, itemID: string): boolean {
+function deleteItem(
+  this: List<ListItem>,
+  itemID: string,
+  isFromBackEnd?: boolean
+): boolean {
+  const runOnUpdate = !isFromBackEnd || true;
+
   this.list = this.list.filter((item) => item.itemID !== itemID);
 
   // get list item element
@@ -113,7 +127,7 @@ function deleteItem(this: List<ListItem>, itemID: string): boolean {
   if (!li) return false;
   li.remove();
 
-  this.ondeleteItem(itemID);
+  runOnUpdate && this.ondeleteItem(itemID);
 
   return true;
 }
