@@ -20,9 +20,18 @@ interface ListModalProps {
   mode: ListModalMode;
   list: List<InitListItem>;
   userID: string;
+  onRecurringItemsSubmit: (
+    recurringItemsArray: string[],
+    listID: string
+  ) => void;
 }
 
-export function mountListModal({ mode, list, userID }: ListModalProps) {
+export function mountListModal({
+  mode,
+  list,
+  userID,
+  onRecurringItemsSubmit,
+}: ListModalProps) {
   // mount the modal and return it
   const modal = mountModalContainer({});
 
@@ -81,9 +90,21 @@ export function mountListModal({ mode, list, userID }: ListModalProps) {
   addClasses(summary, "text-md");
 
   // generate recurring items
-  const recurringItemsList = RecurringItems.map((label) =>
-    mountRecurringItem({ label })
-  );
+  let recurringItemsArray: string[] = [];
+  const recurringItemsList = RecurringItems.map((label) => {
+    const button = mountRecurringItem({ label });
+
+    // toggle label in array on click
+    button.addEventListener("click", () => {
+      const isContained = recurringItemsArray.some((ll) => ll === label);
+
+      if (isContained) {
+        recurringItemsArray = recurringItemsArray.filter((ll) => ll !== label);
+      } else recurringItemsArray.push(label);
+    });
+
+    return button;
+  });
 
   // container for recurring items
   const summaryBody = document.createElement("div");
@@ -133,7 +154,14 @@ export function mountListModal({ mode, list, userID }: ListModalProps) {
     "display-col",
     "align--center"
   );
-  form.onsubmit = (ev) => formSubmitHandler(ev, list, userID);
+  form.onsubmit = (ev) =>
+    formSubmitHandler(
+      ev,
+      list,
+      userID,
+      recurringItemsArray,
+      onRecurringItemsSubmit
+    );
 
   //   append the form to the modal container
   modal.appendChild(form);
@@ -149,7 +177,12 @@ type FormValues = {
 function formSubmitHandler(
   ev: SubmitEvent,
   list: List<InitListItem>,
-  userID: string
+  userID: string,
+  recurringItemsArray: string[],
+  onRecurringItemsSubmit: (
+    recurringItemsArray: string[],
+    listID: string
+  ) => void
 ) {
   ev.preventDefault(); //prevent default bahavior (dont route anywhere)
 
@@ -162,11 +195,13 @@ function formSubmitHandler(
   // extract data into the store
   const data = extractFormData(form) as FormValues;
 
+  const listID = generateID();
+
   const template = {
-    listID: generateID(),
+    listID,
     primaryID: userID,
     checkedItems: 0,
-    totalItems: 0,
+    totalItems: recurringItemsArray.length,
     label: data.label,
     date: data.date,
   };
@@ -175,6 +210,10 @@ function formSubmitHandler(
   list.addItem({
     item: template,
   });
+
+  // for call back function
+  recurringItemsArray.length &&
+    onRecurringItemsSubmit(recurringItemsArray, listID);
 
   // unmount the modal
   unmountModalContainer();

@@ -8,7 +8,16 @@ const user = getUser();
 mountPageWrapper({
     title: "Shared List",
     isIndexPage: IS_INDEX_PAGE,
-    onAddClick: () => mountListModal({ mode: ListModalMode.Create, list, userID: user.userID }),
+    onAddClick: () => mountListModal({
+        mode: ListModalMode.Create,
+        list,
+        userID: user.userID,
+        onRecurringItemsSubmit: (recurringItemsArray, listID) => {
+            // event for when recurring items are added in a newly created list on submit
+            console.log("recuring items added to list...", recurringItemsArray);
+            console.log("listID they are added to...", listID);
+        },
+    }),
     onsuggestClick: () => { },
     user,
 });
