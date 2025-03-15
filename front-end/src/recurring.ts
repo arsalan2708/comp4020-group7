@@ -1,9 +1,9 @@
 import { InitializeList } from "./components/list.js";
 import { mountPageWrapper } from "./components/pageWrapper.js";
-import { RecurringItems } from "./types/types.js";
 import { ActionButtonType } from "./types/types";
 import { getUser } from "./utils/getUser.js";
 import { createItemTemplate } from "./utils/createItemTemplate.js";
+import { RecurringListItems } from "./types/recurringItems.js";
 
 const IS_INDEX_PAGE = false;
 const IS_EXPANDABLE = true;
@@ -42,13 +42,11 @@ const list = InitializeList({
 });
 
 // add the list of recurring items to the page
-RecurringItems.map((item) => item)
+RecurringListItems.map((item) => item)
   .reverse()
   .forEach((item) => {
-    const template = createItemTemplate();
-    template.label = item;
     list.addItem({
-      item: template,
+      item: item,
       expandable: IS_EXPANDABLE,
       list,
       actionButtonType,
