@@ -1,3 +1,4 @@
+import { User } from "../types/types";
 import { mountAddButton } from "./addButton.js";
 import { mountNavBar } from "./navBar.js";
 
@@ -7,7 +8,7 @@ interface PageWrapperProps {
   onAddClick?: () => void;
   onsuggestClick?: () => void;
   showSuggested?: boolean; //false and suggested items button doesnt show. TRUE on default
-  userName: string;
+  user: User;
 }
 
 export function mountPageWrapper({
@@ -16,10 +17,10 @@ export function mountPageWrapper({
   onAddClick,
   onsuggestClick,
   showSuggested = true,
-  userName,
+  user,
 }: PageWrapperProps) {
   // create the top nav bar
-  mountNavBar({ title, isIndexPage, userName });
+  mountNavBar({ title, isIndexPage, user });
 
   // mount action button
   mountAddButton({

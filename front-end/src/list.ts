@@ -10,7 +10,7 @@ const IS_INDEX_PAGE = false;
 const IS_EXPANDABLE = true;
 const actionButtonType: ActionButtonType = "checkbox";
 
-const { userName, userID } = getUser();
+const user = getUser();
 
 // mount page wrapper
 mountPageWrapper({
@@ -24,7 +24,7 @@ mountPageWrapper({
       actionButtonType,
     }),
   onsuggestClick: () => {},
-  userName,
+  user,
 });
 
 // exportable to make it global

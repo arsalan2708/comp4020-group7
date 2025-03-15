@@ -5,7 +5,7 @@ import { getUser } from "./utils/getUser.js";
 
 const IS_INDEX_PAGE = true;
 
-const { userName, userID } = getUser();
+const user = getUser();
 
 // mount page wrapper
 mountPageWrapper({
@@ -13,7 +13,7 @@ mountPageWrapper({
   isIndexPage: IS_INDEX_PAGE,
   onAddClick: () => mountListModal({ mode: ListModalMode.Create, list }),
   onsuggestClick: () => {},
-  userName,
+  user,
 });
 
 // list of lists

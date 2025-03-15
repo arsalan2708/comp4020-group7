@@ -129,3 +129,10 @@ export type SideBarItemType = {
 };
 
 export type Page = "" | "categories" | "recurring";
+
+export const Participants = [];
+
+export type User = {
+  userName: string;
+  userID: string;
+};

@@ -6,7 +6,7 @@ import { getUser } from "./utils/getUser.js";
 const IS_INDEX_PAGE = false;
 const IS_EXPANDABLE = true;
 const actionButtonType = "checkbox";
-const { userName, userID } = getUser();
+const user = getUser();
 // mount page wrapper
 mountPageWrapper({
     title: "List 1",
@@ -18,7 +18,7 @@ mountPageWrapper({
         actionButtonType,
     }),
     onsuggestClick: () => { },
-    userName,
+    user,
 });
 // exportable to make it global
 const list = InitializeList({

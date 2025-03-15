@@ -5,7 +5,7 @@ const IS_INDEX_PAGE = false;
 const IS_EXPANDABLE = false;
 const showSuggestedButton = false;
 const actionButtonType = "delete";
-// Mount page wrapper 
+// Mount page wrapper
 mountPageWrapper({
     title: "Participants",
     isIndexPage: IS_INDEX_PAGE,
@@ -27,8 +27,9 @@ mountPageWrapper({
         }
     },
     showSuggested: showSuggestedButton,
+    userName: "sally",
 });
-// Initialize the list 
+// Initialize the list
 const list = InitializeList({
     onAddItem: (item) => {
         console.log("item added...", item);

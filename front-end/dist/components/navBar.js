@@ -7,7 +7,7 @@ import { createIconButton } from "./iconButton.js";
  * @param title page title
  * @param isIndexPage true meaning its being called for the index.html page
  */
-export function mountNavBar({ title, isIndexPage, userName, }) {
+export function mountNavBar({ title, isIndexPage, user, }) {
     const nav = document.querySelector(".page-wrapper__top-bar");
     if (!nav)
         return;
@@ -19,7 +19,7 @@ export function mountNavBar({ title, isIndexPage, userName, }) {
     // create hamburger-icon
     const hamburgerIcon = createIconButton({
         src: getImage(Icon.Hamburger),
-        onClick: () => onSideBarOpen(isIndexPage, userName),
+        onClick: () => onSideBarOpen(isIndexPage, user),
     });
     hamburgerIcon.classList.add("page-wrapper__icon");
     nav.appendChild(hamburgerIcon);
@@ -48,7 +48,7 @@ const sideBarItems = [
  * @param isIndexPage true meaning its being called for the index.html page
  * @param userName username to print at buttom of sidebar
  */
-function mountSideBar({ isIndexPage, userName, }) {
+function mountSideBar({ isIndexPage, user, }) {
     const body = document.getElementById("body");
     // get modal
     const modal = document.createElement("div");
@@ -80,7 +80,7 @@ function mountSideBar({ isIndexPage, userName, }) {
     });
     // user name
     const username = document.createElement("p");
-    username.innerText = userName;
+    username.innerText = user.userName;
     username.classList.add("page-wrapper__username", "text-xl");
     // create sidebar and append list to it
     const sidebar = document.createElement("aside");
@@ -99,10 +99,10 @@ function mountSideBar({ isIndexPage, userName, }) {
 /**
  * Event Handler for opening the side bar
  */
-function onSideBarOpen(isIndexPage, userName) {
+function onSideBarOpen(isIndexPage, user) {
     // TODO: dynamic usernames
     //   mount the side ba component first
-    mountSideBar({ isIndexPage, userName });
+    mountSideBar({ isIndexPage, user });
     const sidebar = document.getElementById("side-bar");
     const modal = document.querySelector(".modal");
     //   perform animation

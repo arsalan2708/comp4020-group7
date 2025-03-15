@@ -9,7 +9,7 @@ const IS_EXPANDABLE = true;
 const showSuggestedButton = false;
 const actionButtonType: ActionButtonType = "default";
 
-const { userName, userID } = getUser();
+const user = getUser();
 
 // mount page wrapper
 mountPageWrapper({
@@ -23,7 +23,7 @@ mountPageWrapper({
       actionButtonType,
     }),
   showSuggested: showSuggestedButton,
-  userName,
+  user,
 });
 
 // exportable to make it global
