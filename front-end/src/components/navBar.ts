@@ -12,9 +12,11 @@ import { createIconButton } from "./iconButton.js";
 export function mountNavBar({
   title,
   isIndexPage,
+  userName,
 }: {
   title: string;
   isIndexPage: boolean;
+  userName: string;
 }) {
   const nav = document.querySelector(".page-wrapper__top-bar");
 
@@ -29,7 +31,7 @@ export function mountNavBar({
   // create hamburger-icon
   const hamburgerIcon = createIconButton({
     src: getImage(Icon.Hamburger),
-    onClick: () => onSideBarOpen(isIndexPage),
+    onClick: () => onSideBarOpen(isIndexPage, userName),
   });
   hamburgerIcon.classList.add("page-wrapper__icon");
   nav.appendChild(hamburgerIcon);
@@ -128,10 +130,10 @@ function mountSideBar({
 /**
  * Event Handler for opening the side bar
  */
-function onSideBarOpen(isIndexPage: boolean) {
+function onSideBarOpen(isIndexPage: boolean, userName: string) {
   // TODO: dynamic usernames
   //   mount the side ba component first
-  mountSideBar({ isIndexPage, userName: "Sally" });
+  mountSideBar({ isIndexPage, userName });
   const sidebar = document.getElementById("side-bar");
   const modal = document.querySelector(".modal");
 

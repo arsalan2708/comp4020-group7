@@ -7,6 +7,7 @@ interface PageWrapperProps {
   onAddClick?: () => void;
   onsuggestClick?: () => void;
   showSuggested?: boolean; //false and suggested items button doesnt show. TRUE on default
+  userName: string;
 }
 
 export function mountPageWrapper({
@@ -15,9 +16,10 @@ export function mountPageWrapper({
   onAddClick,
   onsuggestClick,
   showSuggested = true,
+  userName,
 }: PageWrapperProps) {
   // create the top nav bar
-  mountNavBar({ title, isIndexPage });
+  mountNavBar({ title, isIndexPage, userName });
 
   // mount action button
   mountAddButton({
