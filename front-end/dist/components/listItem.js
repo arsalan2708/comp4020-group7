@@ -30,7 +30,7 @@ export function mountListItem({ classNames, item, onActionButtonClick, onClick, 
     !isRecurring && star.remove(); // if its not a recurring item remove it
     //   text input for intering data
     const { inputNode: labelInput } = createInput({
-        id: "label--input",
+        id: `label--input--${itemID}`,
         name: "label",
     });
     addClasses(labelInput, "item__labelInput", "input--subtle");

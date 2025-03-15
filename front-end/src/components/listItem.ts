@@ -65,7 +65,7 @@ export function mountListItem({
 
   //   text input for intering data
   const { inputNode: labelInput } = createInput({
-    id: "label--input",
+    id: `label--input--${itemID}`,
     name: "label",
   });
   addClasses(labelInput, "item__labelInput", "input--subtle");

@@ -1,6 +1,6 @@
 import { InitializeList } from "./components/list.js";
 import { mountPageWrapper } from "./components/pageWrapper.js";
-import { TemplateItem } from "./types/types.js";
+import { createItemTemplate } from "./utils/createItemTemplate.js";
 import { getUser } from "./utils/getUser.js";
 const IS_INDEX_PAGE = false;
 const IS_EXPANDABLE = false;
@@ -15,7 +15,7 @@ mountPageWrapper({
         // Prompt the user to enter a participant name.
         const participantName = prompt("Enter participant name:");
         if (participantName && participantName.trim() !== "") {
-            const newParticipant = Object.assign({}, TemplateItem);
+            const newParticipant = createItemTemplate();
             newParticipant.label = participantName;
             newParticipant.description = "Participant added by user";
             newParticipant.categoryID = "participant";
@@ -33,6 +33,7 @@ mountPageWrapper({
 });
 // Initialize the list
 const list = InitializeList({
+    primaryID: user.userID,
     onAddItem: (item) => {
         console.log("item added...", item);
     },

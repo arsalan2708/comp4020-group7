@@ -1,8 +1,9 @@
 import { InitializeList } from "./components/list.js";
 import { mountPageWrapper } from "./components/pageWrapper.js";
-import { TemplateItem, RecurringItems } from "./types/types.js";
+import { RecurringItems } from "./types/types.js";
 import { ActionButtonType } from "./types/types";
 import { getUser } from "./utils/getUser.js";
+import { createItemTemplate } from "./utils/createItemTemplate.js";
 
 const IS_INDEX_PAGE = false;
 const IS_EXPANDABLE = true;
@@ -17,7 +18,7 @@ mountPageWrapper({
   isIndexPage: IS_INDEX_PAGE,
   onAddClick: () =>
     list.addItem({
-      item: TemplateItem,
+      item: createItemTemplate(),
       expandable: IS_EXPANDABLE,
       list,
       actionButtonType,
@@ -28,6 +29,7 @@ mountPageWrapper({
 
 // exportable to make it global
 const list = InitializeList({
+  primaryID: user.userID,
   onAddItem: (item) => {
     console.log("item added...", item);
   },
@@ -43,10 +45,10 @@ const list = InitializeList({
 RecurringItems.map((item) => item)
   .reverse()
   .forEach((item) => {
-    const template = TemplateItem;
+    const template = createItemTemplate();
     template.label = item;
     list.addItem({
-      item: TemplateItem,
+      item: template,
       expandable: IS_EXPANDABLE,
       list,
       actionButtonType,

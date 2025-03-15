@@ -1,10 +1,10 @@
 import { InitializeList } from "./components/list.js";
 import { mountListItem } from "./components/listItem.js";
 import { mountPageWrapper } from "./components/pageWrapper.js";
-import { TemplateItem } from "./types/types.js";
 import { ActionButtonType } from "./types/types";
 import { mountCategoryFilter } from "./components/categoryFilter.js";
 import { getUser } from "./utils/getUser.js";
+import { createItemTemplate } from "./utils/createItemTemplate.js";
 
 const IS_INDEX_PAGE = false;
 const IS_EXPANDABLE = true;
@@ -18,7 +18,7 @@ mountPageWrapper({
   isIndexPage: IS_INDEX_PAGE,
   onAddClick: () =>
     list.addItem({
-      item: TemplateItem,
+      item: createItemTemplate(),
       expandable: IS_EXPANDABLE,
       list: list,
       actionButtonType,
