@@ -2,11 +2,14 @@ import { InitializeList } from "./components/list.js";
 import { mountPageWrapper } from "./components/pageWrapper.js";
 import { TemplateItem, Categories } from "./types/types.js";
 import { ActionButtonType } from "./types/types";
+import { getUser } from "./utils/getUser.js";
 
 const IS_INDEX_PAGE = false;
 const IS_EXPANDABLE = false;
 const showSuggestedButton = false;
 const actionButtonType: ActionButtonType = "delete";
+
+const { userName, userID } = getUser();
 
 // mount page wrapper
 mountPageWrapper({
@@ -20,6 +23,7 @@ mountPageWrapper({
       actionButtonType,
     }),
   showSuggested: showSuggestedButton,
+  userName,
 });
 
 // exportable to make it global
