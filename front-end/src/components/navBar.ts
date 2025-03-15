@@ -1,4 +1,4 @@
-import { SideBarItemType } from "../types/types";
+import { SideBarItemType, User } from "../types/types";
 import { addClasses } from "../utils/addClasses.js";
 import { Icon, getImage } from "../utils/getImage.js";
 import { routeToPage } from "../utils/routing.js";
@@ -12,11 +12,11 @@ import { createIconButton } from "./iconButton.js";
 export function mountNavBar({
   title,
   isIndexPage,
-  userName,
+  user,
 }: {
   title: string;
   isIndexPage: boolean;
-  userName: string;
+  user: User;
 }) {
   const nav = document.querySelector(".page-wrapper__top-bar");
 
@@ -31,7 +31,7 @@ export function mountNavBar({
   // create hamburger-icon
   const hamburgerIcon = createIconButton({
     src: getImage(Icon.Hamburger),
-    onClick: () => onSideBarOpen(isIndexPage, userName),
+    onClick: () => onSideBarOpen(isIndexPage, user),
   });
   hamburgerIcon.classList.add("page-wrapper__icon");
   nav.appendChild(hamburgerIcon);
@@ -64,10 +64,10 @@ const sideBarItems: SideBarItemType[] = [
  */
 function mountSideBar({
   isIndexPage,
-  userName,
+  user,
 }: {
   isIndexPage: boolean;
-  userName: string;
+  user: User;
 }) {
   const body = document.getElementById("body");
 
@@ -111,7 +111,7 @@ function mountSideBar({
 
   // user name
   const username = document.createElement("p");
-  username.innerText = userName;
+  username.innerText = user.userName;
   username.classList.add("page-wrapper__username", "text-xl");
 
   // create sidebar and append list to it
@@ -134,10 +134,10 @@ function mountSideBar({
 /**
  * Event Handler for opening the side bar
  */
-function onSideBarOpen(isIndexPage: boolean, userName: string) {
+function onSideBarOpen(isIndexPage: boolean, user: User) {
   // TODO: dynamic usernames
   //   mount the side ba component first
-  mountSideBar({ isIndexPage, userName });
+  mountSideBar({ isIndexPage, user });
   const sidebar = document.getElementById("side-bar");
   const modal = document.querySelector(".modal");
 

@@ -6,7 +6,7 @@ const IS_INDEX_PAGE = false;
 const IS_EXPANDABLE = true;
 const showSuggestedButton = false;
 const actionButtonType = "default";
-const { userName, userID } = getUser();
+const user = getUser();
 // mount page wrapper
 mountPageWrapper({
     title: "Recurring Items",
@@ -18,7 +18,7 @@ mountPageWrapper({
         actionButtonType,
     }),
     showSuggested: showSuggestedButton,
-    userName,
+    user,
 });
 // exportable to make it global
 const list = InitializeList({

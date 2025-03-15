@@ -3,14 +3,23 @@ import { InitializeInitList } from "./components/initList.js";
 import { mountPageWrapper } from "./components/pageWrapper.js";
 import { getUser } from "./utils/getUser.js";
 const IS_INDEX_PAGE = true;
-const { userName, userID } = getUser();
+const user = getUser();
 // mount page wrapper
 mountPageWrapper({
     title: "Shared List",
     isIndexPage: IS_INDEX_PAGE,
-    onAddClick: () => mountListModal({ mode: ListModalMode.Create, list }),
+    onAddClick: () => mountListModal({
+        mode: ListModalMode.Create,
+        list,
+        userID: user.userID,
+        onRecurringItemsSubmit: (recurringItemsArray, listID) => {
+            // event for when recurring items are added in a newly created list on submit
+            console.log("recuring items added to list...", recurringItemsArray);
+            console.log("listID they are added to...", listID);
+        },
+    }),
     onsuggestClick: () => { },
-    userName,
+    user,
 });
 // list of lists
 const list = InitializeInitList({

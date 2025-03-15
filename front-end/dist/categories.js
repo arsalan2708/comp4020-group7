@@ -6,7 +6,7 @@ const IS_INDEX_PAGE = false;
 const IS_EXPANDABLE = false;
 const showSuggestedButton = false;
 const actionButtonType = "delete";
-const { userName, userID } = getUser();
+const user = getUser();
 // mount page wrapper
 mountPageWrapper({
     title: "Categories",
@@ -18,7 +18,7 @@ mountPageWrapper({
         actionButtonType,
     }),
     showSuggested: showSuggestedButton,
-    userName,
+    user,
 });
 // exportable to make it global
 const list = InitializeList({

@@ -11,13 +11,12 @@ export var ListModalMode;
     ListModalMode[ListModalMode["Create"] = 0] = "Create";
     ListModalMode[ListModalMode["Edit"] = 1] = "Edit";
 })(ListModalMode || (ListModalMode = {}));
-export function mountListModal({ mode, list }) {
+export function mountListModal({ mode, list, userID, onRecurringItemsSubmit, }) {
     // mount the modal and return it
     const modal = mountModalContainer({});
     // stop if the modal mounting failed
     if (!modal)
         return;
-    // TODO: address expanded modal buttom page bug
     addClasses(modal, "listModal__modal");
     //   title for the component
     const title = document.createElement("p");
@@ -53,7 +52,20 @@ export function mountListModal({ mode, list }) {
     summary.innerText = "Show Recurring Items";
     addClasses(summary, "text-md");
     // generate recurring items
-    const recurringItemsList = RecurringItems.map((label) => mountRecurringItem({ label }));
+    let recurringItemsArray = [];
+    const recurringItemsList = RecurringItems.map((label) => {
+        const button = mountRecurringItem({ label });
+        // toggle label in array on click
+        button.addEventListener("click", () => {
+            const isContained = recurringItemsArray.some((ll) => ll === label);
+            if (isContained) {
+                recurringItemsArray = recurringItemsArray.filter((ll) => ll !== label);
+            }
+            else
+                recurringItemsArray.push(label);
+        });
+        return button;
+    });
     // container for recurring items
     const summaryBody = document.createElement("div");
     addClasses(summaryBody, "listModal__recurringbody");
@@ -84,12 +96,12 @@ export function mountListModal({ mode, list }) {
     const form = document.createElement("form");
     form.append(title, inputContainer, recurringItemsContainer, buttonsContainer);
     form.classList.add("listModal", "border-radius", "display-col", "align--center");
-    form.onsubmit = (ev) => formSubmitHandler(ev, list);
+    form.onsubmit = (ev) => formSubmitHandler(ev, list, userID, recurringItemsArray, onRecurringItemsSubmit);
     //   append the form to the modal container
     modal.appendChild(form);
     return modal;
 }
-function formSubmitHandler(ev, list) {
+function formSubmitHandler(ev, list, userID, recurringItemsArray, onRecurringItemsSubmit) {
     ev.preventDefault(); //prevent default bahavior (dont route anywhere)
     // get the form element
     const form = ev.currentTarget;
@@ -98,11 +110,12 @@ function formSubmitHandler(ev, list) {
         return;
     // extract data into the store
     const data = extractFormData(form);
+    const listID = generateID();
     const template = {
-        listID: generateID(),
-        primaryID: generateID(),
+        listID,
+        primaryID: userID,
         checkedItems: 0,
-        totalItems: 0,
+        totalItems: recurringItemsArray.length,
         label: data.label,
         date: data.date,
     };
@@ -110,8 +123,9 @@ function formSubmitHandler(ev, list) {
     list.addItem({
         item: template,
     });
+    // for call back function
+    recurringItemsArray.length &&
+        onRecurringItemsSubmit(recurringItemsArray, listID);
     // unmount the modal
     unmountModalContainer();
-    // log form data
-    console.log(data);
 }
