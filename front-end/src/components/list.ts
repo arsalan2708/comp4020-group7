@@ -6,6 +6,8 @@ interface Props {
   onAddItem: (item: ListItem) => void;
   onupdateItem: (item: ListItem) => void;
   ondeleteItem: (itemID: string) => void;
+  primaryID: string;
+  listID?: string;
 }
 
 /**
@@ -16,9 +18,13 @@ export function InitializeList({
   onAddItem,
   onupdateItem,
   ondeleteItem,
+  primaryID,
+  listID,
 }: Props) {
   const LIST: List<ListItem> = {
     list: [],
+    primaryID,
+    listID,
     addItem,
     getItem,
     updateItem,
@@ -63,6 +69,8 @@ function addItem(
 
   const id = generateID();
   item.itemID = id;
+  item.listID = this.listID || "";
+  item.posterID = this.primaryID;
   this.list.push(item);
 
   const { container: li } = mountListItem({

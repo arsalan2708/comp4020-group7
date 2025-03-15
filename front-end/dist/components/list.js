@@ -4,9 +4,11 @@ import { mountListItem } from "./listItem.js";
  * factory method for lists. Creates a new instance for every call. should be called once per page
  * @returns returns a list instance
  */
-export function InitializeList({ onAddItem, onupdateItem, ondeleteItem, }) {
+export function InitializeList({ onAddItem, onupdateItem, ondeleteItem, primaryID, listID, }) {
     const LIST = {
         list: [],
+        primaryID,
+        listID,
         addItem,
         getItem,
         updateItem,
@@ -27,6 +29,8 @@ function addItem({ item, expandable, list, actionButtonType, onActionButtonClick
         return;
     const id = generateID();
     item.itemID = id;
+    item.listID = this.listID || "";
+    item.posterID = this.primaryID;
     this.list.push(item);
     const { container: li } = mountListItem({
         item,

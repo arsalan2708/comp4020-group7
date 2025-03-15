@@ -8,6 +8,7 @@ interface Props {
   onAddItem: (item: InitListItem) => void;
   onupdateItem: (item: InitListItem) => void;
   ondeleteItem: (itemID: string) => void;
+  primaryID: string;
 }
 
 /**
@@ -21,9 +22,11 @@ export function InitializeInitList({
   onAddItem,
   onupdateItem,
   ondeleteItem,
+  primaryID,
 }: Props) {
   return {
     list: [],
+    primaryID,
     addItem: addList,
     getItem: getList,
     updateItem: updateList,

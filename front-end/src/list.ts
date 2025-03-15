@@ -29,6 +29,8 @@ mountPageWrapper({
 
 // exportable to make it global
 const list = InitializeList({
+  primaryID: user.userID,
+  listID: "", //TODO: pass through URL
   onAddItem: (item) => {
     console.log("item added...", item);
   },

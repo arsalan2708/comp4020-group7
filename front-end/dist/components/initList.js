@@ -8,9 +8,10 @@ const LIST_ELEMENT = document.querySelector(".page-wrapper__list");
  * @param ondeleteItem call back for when an item is deleted
  * @returns returns a list instance
  */
-export function InitializeInitList({ onAddItem, onupdateItem, ondeleteItem, }) {
+export function InitializeInitList({ onAddItem, onupdateItem, ondeleteItem, primaryID, }) {
     return {
         list: [],
+        primaryID,
         addItem: addList,
         getItem: getList,
         updateItem: updateList,

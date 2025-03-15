@@ -31,6 +31,8 @@ export interface CategoryType {
 
 export interface List<T> {
   list: T[];
+  primaryID: string;
+  listID?: string;
   addItem: ({
     item,
     expandable,
