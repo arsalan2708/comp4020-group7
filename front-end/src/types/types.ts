@@ -129,3 +129,5 @@ export type SideBarItemType = {
 };
 
 export type Page = "" | "categories" | "recurring";
+
+export const Participants = [];
