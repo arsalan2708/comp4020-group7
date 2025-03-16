@@ -86,7 +86,7 @@ export const RecurringItems = [
 
 export type RecurringItemType = (typeof RecurringItems)[number];
 
-export type ActionButtonType = "default" | "checkbox" | "delete";
+export type ActionButtonType = "default" | "checkbox" | "delete" | "accept";
 
 export const Categories = [
   "Produce",

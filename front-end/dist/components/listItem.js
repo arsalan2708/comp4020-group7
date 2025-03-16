@@ -18,7 +18,7 @@ import { createIconButton } from "./iconButton.js";
 export function mountListItem({ classNames, item, onActionButtonClick, onClick, actionButtonType = "checkbox", expandable, list, showInputDefault = true, onAddItem, }) {
     // extract data
     const { itemID, label, isRecurring, amount, checked, description, categoryID: category, } = item;
-    const isPrimaryShopper = item.posterID === getUser().userName;
+    const isPrimaryShopper = item.posterID === getUser().userID;
     // label
     const label_ = document.createElement("p");
     label_.innerText = label;
@@ -133,6 +133,24 @@ export function mountListItem({ classNames, item, onActionButtonClick, onClick, 
         case "default":
             actionButton = document.createElement("div");
             break;
+        case "accept":
+            // container
+            actionButton = document.createElement("div");
+            addClasses(actionButton, "item__button--accept", "display-row", "align--center");
+            // decline button. remove item for now
+            const decline = createIconButton({ src: getImage(Icon.Delete) });
+            addClasses(decline, "button--cancel");
+            decline.addEventListener("click", () => list.deleteItem(item.itemID));
+            // remove item and re-add it as primary
+            const accept = createIconButton({ src: getImage(Icon.AddButton) });
+            addClasses(accept, "button--confirm");
+            accept.addEventListener("click", () => {
+                list.deleteItem(item.itemID);
+                item.posterID = getUser().userID;
+                list.addItem({ item, list, showInputDefault: false, expandable });
+            });
+            actionButton.append(decline, accept);
+            break;
         // delete case
         case "delete":
             actionButton = createIconButton({
@@ -173,7 +191,7 @@ export function mountListItem({ classNames, item, onActionButtonClick, onClick, 
     const container = document.createElement("li");
     container.id = itemID;
     addClasses(container, "item", "border-radius", "display-col", ...(classNames || []));
-    !isPrimaryShopper && addClasses(container, "item-sec");
+    !isPrimaryShopper && addClasses(container, "item--sec");
     onClick && container.addEventListener("click", onClick);
     container.append(topContainer);
     //   if item is not expandle stop here

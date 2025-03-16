@@ -34,7 +34,7 @@ mountPageWrapper({
   onAddClick: () => {
     const template = createItemTemplate();
     template.itemID = generateID();
-    template.posterID = generateID();
+    template.posterID = user.userID;
     template.listID = "";
     list.addItem({
       item: template,
@@ -54,7 +54,7 @@ mountPageWrapper({
           item: itm,
           expandable: IS_EXPANDABLE,
           list: list,
-          actionButtonType,
+          actionButtonType: "accept",
           showInputDefault: false,
         });
       } else {

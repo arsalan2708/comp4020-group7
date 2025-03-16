@@ -428,7 +428,7 @@ ol {
   padding: var(--space-md) var(--space-lg);
 }
 
-.item-sec {
+.item--sec {
   background-color: grey;
 }
 
@@ -452,6 +452,10 @@ ol {
 
 .item__button--delete {
   background-color: #ffd3d3;
+}
+
+.item__button--accept {
+  gap: var(--space-sm);
 }
 
 .item__descriptionInput {
