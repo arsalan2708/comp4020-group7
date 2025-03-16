@@ -1,4 +1,3 @@
-````markdown
 # Collaborative Grocery Lists
 
 Organize and share grocery lists effortlessly with our collaborative app—plan, edit, and shop together in real-time!
@@ -14,7 +13,6 @@ Run the following command to install the necessary packages:
 ```bash
 npm install --save-dev concurrently tsc-watch lite-server
 ```
-````
 
 ### 2. Project Structure
 
@@ -70,7 +68,3 @@ This will:
 ## License
 
 This project is open-source and available under the MIT License.
-
-```
-
-```
