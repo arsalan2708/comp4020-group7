@@ -52,6 +52,7 @@ export function mountListItem({
   } = item;
 
   const isPrimaryShopper = item.posterID === getUser().userID;
+  const isSuggestedItem = actionButtonType === "accept";
 
   // label
   const label_ = document.createElement("p");
@@ -279,6 +280,7 @@ export function mountListItem({
     ...(classNames || [])
   );
   !isPrimaryShopper && addClasses(container, "item--sec");
+  isSuggestedItem && addClasses(container, "hidden");
   onClick && container.addEventListener("click", onClick);
   container.append(topContainer);
 

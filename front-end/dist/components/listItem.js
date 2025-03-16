@@ -19,6 +19,7 @@ export function mountListItem({ classNames, item, onActionButtonClick, onClick, 
     // extract data
     const { itemID, label, isRecurring, amount, checked, description, categoryID: category, } = item;
     const isPrimaryShopper = item.posterID === getUser().userID;
+    const isSuggestedItem = actionButtonType === "accept";
     // label
     const label_ = document.createElement("p");
     label_.innerText = label;
@@ -192,6 +193,7 @@ export function mountListItem({ classNames, item, onActionButtonClick, onClick, 
     container.id = itemID;
     addClasses(container, "item", "border-radius", "display-col", ...(classNames || []));
     !isPrimaryShopper && addClasses(container, "item--sec");
+    isSuggestedItem && addClasses(container, "hidden");
     onClick && container.addEventListener("click", onClick);
     container.append(topContainer);
     //   if item is not expandle stop here
