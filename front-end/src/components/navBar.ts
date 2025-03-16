@@ -111,16 +111,16 @@ function mountSideBar({
     { label: "Notify Others", displayHome: false },
   ];
 
-  const body = document.getElementById("body");
+  const pageWrapper = document.querySelector(".page-wrapper");
 
   // get modal
   const modal = document.createElement("div");
   modal.classList.add("modal", "overflow-hidden");
 
-  if (!body || !modal) return;
+  if (!pageWrapper || !modal) return;
 
   // append modal to body
-  body.appendChild(modal);
+  pageWrapper.appendChild(modal);
 
   // header text
   const h2 = document.createElement("h2");
@@ -164,7 +164,8 @@ function mountSideBar({
 
   // unmounts modal after close animation
   sidebar.onanimationend = (ev: AnimationEvent) => {
-    if (sidebar.classList.contains("side-bar--close")) body.removeChild(modal);
+    if (sidebar.classList.contains("side-bar--close"))
+      pageWrapper.removeChild(modal);
   };
 
   // add elements to component

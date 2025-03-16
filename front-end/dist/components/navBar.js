@@ -82,14 +82,14 @@ function mountSideBar({ isIndexPage, user, list, }) {
         },
         { label: "Notify Others", displayHome: false },
     ];
-    const body = document.getElementById("body");
+    const pageWrapper = document.querySelector(".page-wrapper");
     // get modal
     const modal = document.createElement("div");
     modal.classList.add("modal", "overflow-hidden");
-    if (!body || !modal)
+    if (!pageWrapper || !modal)
         return;
     // append modal to body
-    body.appendChild(modal);
+    pageWrapper.appendChild(modal);
     // header text
     const h2 = document.createElement("h2");
     h2.innerText = "Options";
@@ -123,7 +123,7 @@ function mountSideBar({ isIndexPage, user, list, }) {
     // unmounts modal after close animation
     sidebar.onanimationend = (ev) => {
         if (sidebar.classList.contains("side-bar--close"))
-            body.removeChild(modal);
+            pageWrapper.removeChild(modal);
     };
     // add elements to component
     sidebar.append(h2, closeButton, ul, username);

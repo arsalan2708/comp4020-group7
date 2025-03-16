@@ -400,7 +400,7 @@ ol {
 }
 
 .background-blur {
-  backdrop-filter: blur(2px);
+  background-color: rgba(128, 128, 128, 0.2);
 }
 
 /* --- init list item classes --- */
