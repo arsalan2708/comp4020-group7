@@ -1,5 +1,7 @@
 ````markdown
-# TypeScript HTML CSS Project
+# Collaborative Grocery Lists
+
+Organize and share grocery lists effortlessly with our collaborative app—plan, edit, and shop together in real-time!
 
 A simple web project that uses TypeScript, HTML, and CSS with hot-reloading. This project is set up to watch TypeScript changes and serve the app with live reloading.
 
@@ -19,7 +21,7 @@ npm install --save-dev concurrently tsc-watch lite-server
 Your project should have the following structure:
 
 ```
-front-end/
+root/
 ├── dist/                # Compiled JavaScript files
 │   └── index.js         # compiled javascript entry file
 ├── src/                 # Source files
@@ -38,7 +40,6 @@ The following npm scripts are set up in `package.json`:
 - **`npm run build`**: Compiles TypeScript manually.
 - **`npm run watch-ts`**: Watches TypeScript files and compiles on changes.
 - **`npm run start`**: Runs the `lite-server` to serve the files with hot-reloading.
-- **`npm run dev`**: Runs both TypeScript watch and `lite-server` concurrently for live reloads.
 
 ### 4. Start Development
 
@@ -59,10 +60,9 @@ This will:
 - Watch for TypeScript file changes and recompile them.
 - Automatically reload the browser whenever changes occur.
 
-### 5. Customize
+### 5. Entry Point
 
-You can modify the following files to fit your needs:
-
+- `index.js`: Javascript entry file.
 - `index.ts`: TypeScript entry file.
 - `style.css`: Styles for the app.
 - `index.html`: Basic HTML structure for your app.
