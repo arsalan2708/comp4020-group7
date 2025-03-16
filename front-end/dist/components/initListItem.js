@@ -46,6 +46,7 @@ export function mountInitListItem({ listID, primaryID, checkedItems, totalItems,
     // date
     const dateElement = document.createElement("p");
     date && (dateElement.innerText = date);
+    addClasses(dateElement, "initList__date");
     // options button
     const optionsButton = createIconButton({
         src: getImage(Icon.Options),

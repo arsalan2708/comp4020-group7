@@ -54,7 +54,7 @@ export function mountListModal({
 
   //   input for list label additional options
   labelInput.required = true;
-  labelInput.maxLength = 150;
+  labelInput.maxLength = 20;
   labelInput.placeholder = "Enter List Name";
 
   //   create label date

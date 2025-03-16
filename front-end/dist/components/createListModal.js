@@ -30,7 +30,7 @@ export function mountListModal({ mode, list, userID, onRecurringItemsSubmit, }) 
     });
     //   input for list label additional options
     labelInput.required = true;
-    labelInput.maxLength = 150;
+    labelInput.maxLength = 20;
     labelInput.placeholder = "Enter List Name";
     //   create label date
     const { labelNode: dateLabel, inputNode: dateInput, container: dateContainer, } = createInput({

@@ -407,6 +407,10 @@ ol {
   opacity: 0.75;
 }
 
+.initList__date {
+  white-space: nowrap;
+}
+
 .initList__tag {
   background-color: #86ff86;
   border-radius: 5px;

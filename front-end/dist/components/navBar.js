@@ -1,7 +1,7 @@
 import { addClasses } from "../utils/addClasses.js";
 import { generateID } from "../utils/generateID.js";
 import { Icon, getImage } from "../utils/getImage.js";
-import { nameIteratorNext } from "../utils/iterator.js";
+import { nameIteratorNext } from "../utils/listNameIterator.js";
 import { routeToPage } from "../utils/routing.js";
 import { createIconButton } from "./iconButton.js";
 import { mountUserNameModal } from "./userNameModal.js";
@@ -59,17 +59,22 @@ function mountSideBar({ isIndexPage, user, list, }) {
                 mountUserNameModal({
                     mode: "invite",
                     onSubmit: (id) => {
-                        const total = Math.round(Math.random() * 100);
-                        const current = Math.round(Math.random() * total);
+                        // create fuggery and add to list
+                        const total = Math.round(Math.random() * 100); //total shoping
+                        const current = Math.round(Math.random() * total); //current checked
+                        // date
+                        const startTimestamp = Date.now();
+                        const endTimestamp = Date.parse("2025-12-25");
+                        const randomTimestamp = Math.random() * (endTimestamp - startTimestamp) + startTimestamp;
                         const item = {
                             listID: id,
                             primaryID: generateID(),
                             checkedItems: current,
                             totalItems: total,
                             label: nameIteratorNext(),
+                            date: new Date(randomTimestamp).toISOString().substring(0, 10),
                         };
                         list === null || list === void 0 ? void 0 : list.addItem({ item });
-                        console.log("invite-link", id);
                     },
                 });
                 onSideBarClose();
