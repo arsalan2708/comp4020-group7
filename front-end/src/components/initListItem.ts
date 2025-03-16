@@ -1,6 +1,7 @@
 import { InitListItem } from "../types/types";
 import { addClasses } from "../utils/addClasses.js";
 import { Icon, getImage } from "../utils/getImage.js";
+import { getUser } from "../utils/getUser.js";
 import { routeToList } from "../utils/routing.js";
 import { createIconButton } from "./iconButton.js";
 import { mountMenu } from "./menu.js";
@@ -22,6 +23,9 @@ export function mountInitListItem({
   label,
   date,
 }: InitListItem) {
+  const { userID } = getUser();
+  const isPrimaryShopper = primaryID === userID;
+
   // label for init list item
   const labelElement = document.createElement("p");
   labelElement.innerText = label;
@@ -47,8 +51,9 @@ export function mountInitListItem({
   // TODO: figure out how to get primary vs secondary shoppers
   // primary vs secondary shopper
   const tag = document.createElement("p");
-  tag.innerText = "Pri";
+  tag.innerText = isPrimaryShopper ? "Pri" : "Sec";
   addClasses(tag, "initList__tag", "text-xs", "center");
+  !isPrimaryShopper && addClasses(tag, "initList__tag--sec");
 
   // left buttom container [flex-row]
   const leftButtom = document.createElement("div");

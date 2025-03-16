@@ -414,6 +414,10 @@ ol {
   height: 1rem;
 }
 
+.initList__tag--sec {
+  background-color: yellow;
+}
+
 .item {
   gap: var(--space-md);
   border: 1px solid black;
