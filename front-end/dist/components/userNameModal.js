@@ -6,9 +6,14 @@ import { mountModalContainer, unmountModalContainer, } from "./modalContainer.js
  * @param onSubmit call back for a successfull submit
  * @returns the container container the input and button
  */
-export function mountUserNameModal({ onSubmit }) {
+export function mountUserNameModal({ onSubmit, mode = "default" }) {
+    const isInviteMode = mode === "invite";
     // mount modal
-    const modal = mountModalContainer({ onModalClick: () => { } });
+    const modal = mountModalContainer({
+        onModalClick: () => {
+            isInviteMode && unmountModalContainer();
+        },
+    });
     if (!modal)
         return;
     // Create the container div
@@ -18,10 +23,10 @@ export function mountUserNameModal({ onSubmit }) {
     const { inputNode: input, container: inputContainer } = createInput({
         id: "username",
         name: "username",
-        label: "User Name",
+        label: isInviteMode ? "Invite Link" : "User Name",
     });
     addClasses(input, "username__input");
-    input.placeholder = "Enter a User Name";
+    input.placeholder = isInviteMode ? "Enter invite link" : "Enter a User Name";
     input.required = true;
     input.tabIndex = 0;
     input.autofocus = true;
