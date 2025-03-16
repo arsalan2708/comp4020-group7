@@ -16,7 +16,7 @@ export function mountCategoryFilter() {
     optContainer.append(options);
     // component container
     const container = document.createElement("div");
-    addClasses(container, "filter", "display-row", "align--center");
+    addClasses(container, "filter", "display-row", "align--center", "hide-scrollbar");
     container.append(optContainer);
     //   long press event handler
     onLongPress(container, () => {

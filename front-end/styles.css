@@ -342,6 +342,11 @@ ol {
   background-color: white;
 }
 
+/* Hide scrollbar for Chrome, Safari, and Opera */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
 .filter--expanded {
   height: 100%;
   max-height: 25vh;
