@@ -51,6 +51,9 @@ export function mountUserNameModal({ onSubmit, mode = "default" }: Props) {
   input.autofocus = true;
   input.maxLength = 20;
 
+  input.addEventListener("change", () => button.click());
+  input.addEventListener("blur", () => button.click());
+
   // Create the button element
   const button = document.createElement("button");
   addClasses(button, "username__button", "button");
@@ -59,7 +62,7 @@ export function mountUserNameModal({ onSubmit, mode = "default" }: Props) {
     if (input.checkValidity()) {
       onSubmit && onSubmit(input.value);
       unmountModalContainer();
-    }
+    } else input.focus();
   });
 
   // Append the input and button to the container
