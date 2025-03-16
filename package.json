@@ -24,8 +24,8 @@
   "homepage": "https://github.com/arsalan2708/comp4020-group7#readme",
   "devDependencies": {
     "@types/node": "^22.13.10",
-    "concurrently": "^9.1.2",
     "lite-server": "^2.6.1",
+    "tsc-watch": "^6.2.1",
     "typescript": "^5.8.2"
   }
 }

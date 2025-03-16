@@ -11,7 +11,7 @@ A simple web project that uses TypeScript, HTML, and CSS with hot-reloading. Thi
 Run the following command to install the necessary packages:
 
 ```bash
-npm install --save-dev concurrently tsc-watch lite-server
+npm install --save-dev tsc-watch lite-server
 ```
 
 ### 2. Project Structure
