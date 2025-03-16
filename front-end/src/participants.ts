@@ -81,6 +81,7 @@ list.addItem({
   list,
   showInputDefault: false,
   isFromBackEnd: true,
+  actionButtonType: "participants",
 });
 
 // add the primary shopper
@@ -95,4 +96,5 @@ list.addItem({
   list,
   showInputDefault: false,
   isFromBackEnd: true,
+  actionButtonType: "participants",
 });

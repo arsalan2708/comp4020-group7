@@ -95,33 +95,6 @@ export function mountListItem({ classNames, item, onActionButtonClick, onClick, 
     addClasses(labelContainer, "item__labelContainer", "display-row", "align--center");
     labelContainer.append(label_, labelInput);
     isRecurring && labelContainer.append(star);
-    // primary vs seconday participant option
-    if (category === "participant") {
-        const primaryButton = document.createElement("button");
-        primaryButton.classList.add("role-button", "primary-role-button");
-        primaryButton.innerText = "Primary";
-        const secondaryButton = document.createElement("button");
-        secondaryButton.classList.add("role-button", "secondary-role-button");
-        secondaryButton.innerText = "Secondary";
-        if (item.role === "primary") {
-            primaryButton.classList.add("selected");
-        }
-        else {
-            secondaryButton.classList.add("selected");
-        }
-        primaryButton.addEventListener("click", () => {
-            item.role = "primary";
-            primaryButton.classList.add("selected");
-            secondaryButton.classList.remove("selected");
-        });
-        secondaryButton.addEventListener("click", () => {
-            item.role = "secondary";
-            secondaryButton.classList.add("selected");
-            primaryButton.classList.remove("selected");
-        });
-        labelContainer.appendChild(primaryButton);
-        labelContainer.appendChild(secondaryButton);
-    }
     //   TODO: fix amounts
     // amount of item
     const amount_ = document.createElement("p");
@@ -134,6 +107,37 @@ export function mountListItem({ classNames, item, onActionButtonClick, onClick, 
         case "default":
             actionButton = document.createElement("div");
             break;
+        // for participants variant
+        case "participants":
+            actionButton = document.createElement("div");
+            addClasses(actionButton, "role", "display-row", "align--center");
+            // primary button
+            const primaryButton = document.createElement("button");
+            primaryButton.classList.add("role-button", "button", "primary-role-button");
+            primaryButton.innerText = "Primary";
+            // secondary button
+            const secondaryButton = document.createElement("button");
+            secondaryButton.classList.add("role-button", "button", "secondary-role-button");
+            secondaryButton.innerText = "Secondary";
+            if (item.role === "primary") {
+                primaryButton.classList.add("selected");
+            }
+            else {
+                secondaryButton.classList.add("selected");
+            }
+            primaryButton.addEventListener("click", () => {
+                item.role = "primary";
+                primaryButton.classList.add("selected");
+                secondaryButton.classList.remove("selected");
+            });
+            secondaryButton.addEventListener("click", () => {
+                item.role = "secondary";
+                secondaryButton.classList.add("selected");
+                primaryButton.classList.remove("selected");
+            });
+            actionButton.append(primaryButton, secondaryButton);
+            break;
+        // for suggested item variant
         case "accept":
             // container
             actionButton = document.createElement("div");

@@ -72,6 +72,7 @@ list.addItem({
     list,
     showInputDefault: false,
     isFromBackEnd: true,
+    actionButtonType: "participants",
 });
 // add the primary shopper
 const primaryShopper = createItemTemplate();
@@ -85,4 +86,5 @@ list.addItem({
     list,
     showInputDefault: false,
     isFromBackEnd: true,
+    actionButtonType: "participants",
 });

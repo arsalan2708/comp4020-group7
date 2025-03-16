@@ -628,13 +628,18 @@ ol {
   background-color: #daffeb;
 }
 
+.role {
+  gap: var(--space-sm);
+}
+
 .role-button {
-  margin: 5px;
-  padding: 8px;
-  border: 1px solid #ccc;
+  font-size: var(--text-sm);
+  color: black;
+  padding: var(--space-xs) var(--space-md);
   cursor: pointer;
   background-color: #f9f9f9;
   transition: background-color 0.3s ease;
+  border-radius: 10px;
 }
 
 .role-button.selected {
@@ -642,10 +647,7 @@ ol {
   color: white;
 }
 
-.primary-role-button {
-  color: #007bff;
-}
-
-.secondary-role-button {
-  color: #e74c3c;
+.secondary-role-button.selected {
+  background-color: yellow;
+  color: black;
 }
