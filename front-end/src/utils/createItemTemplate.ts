@@ -1,8 +1,10 @@
+import { ListItem } from "../types/types";
+
 /**
  *  template of the list item
  * @returns template of the list item for adding to lists
  */
-export function createItemTemplate() {
+export function createItemTemplate(): ListItem {
   return {
     listID: "",
     itemID: "",
@@ -13,6 +15,6 @@ export function createItemTemplate() {
     description: "",
     categoryID: "category",
     posterID: "",
-    role: "",
+    role: "primary",
   };
 }

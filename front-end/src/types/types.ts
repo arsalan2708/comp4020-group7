@@ -1,3 +1,5 @@
+export type Role = "primary" | "secondary";
+
 export interface ListItem {
   listID: string;
   itemID: string;
@@ -8,7 +10,7 @@ export interface ListItem {
   description: string;
   categoryID: string;
   posterID: string;
-  role: string;
+  role: Role;
 }
 
 export interface InitListItem {
