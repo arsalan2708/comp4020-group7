@@ -13,5 +13,6 @@ export function createItemTemplate() {
         description: "",
         categoryID: "category",
         posterID: "",
+        role: "",
     };
 }

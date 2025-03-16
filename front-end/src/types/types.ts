@@ -8,6 +8,7 @@ export interface ListItem {
   description: string;
   categoryID: string;
   posterID: string;
+  role: string;
 }
 
 export interface InitListItem {
@@ -120,7 +121,7 @@ export type SideBarItemType = {
   onClick?: () => void;
 };
 
-export type Page = "" | "categories" | "recurring";
+export type Page = "" | "categories" | "recurring" | "participants";
 
 export const Participants = [];
 

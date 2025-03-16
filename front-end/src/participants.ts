@@ -11,6 +11,22 @@ const actionButtonType: ActionButtonType = "default";
 
 const user = getUser();
 
+function addParticipant() {
+  const newParticipant = createItemTemplate();
+  newParticipant.label = "";
+  newParticipant.description = "New participant";
+  newParticipant.categoryID = "participant";
+  newParticipant.role = "primary";
+
+  list.addItem({
+    item: newParticipant,
+    expandable: false,
+    list,
+    actionButtonType: "delete",
+    showInputDefault: true,
+  });
+}
+
 // Mount page wrapper
 mountPageWrapper({
   title: "Participants",

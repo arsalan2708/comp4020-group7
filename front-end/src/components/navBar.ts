@@ -52,7 +52,7 @@ const sideBarItems: SideBarItemType[] = [
   {
     label: "Edit Participants",
     displayHome: false,
-    onClick: () => routeToPage("categories"),
+    onClick: () => routeToPage("participants"),
   },
   { label: "Notify Others", displayHome: false },
 ];

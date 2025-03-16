@@ -73,6 +73,9 @@ export function mountListItem({
   labelInput.autofocus = true;
   labelInput.tabIndex = 0;
   labelInput.placeholder = "Enter item name";
+  if (category === "participant") {
+    labelInput.placeholder = "Enter participant name";
+  }
   labelInput.required = true;
   labelInput.maxLength = 50;
 
@@ -136,6 +139,38 @@ export function mountListItem({
   );
   labelContainer.append(label_, labelInput);
   isRecurring && labelContainer.append(star);
+
+  // primary vs seconday participant option
+  if (category === "participant") {
+    const primaryButton = document.createElement("button");
+    primaryButton.classList.add("role-button", "primary-role-button");
+    primaryButton.innerText = "Primary";
+
+    const secondaryButton = document.createElement("button");
+    secondaryButton.classList.add("role-button", "secondary-role-button");
+    secondaryButton.innerText = "Secondary";
+
+    if (item.role === "primary") {
+      primaryButton.classList.add("selected");
+    } else {
+      secondaryButton.classList.add("selected");
+    }
+
+    primaryButton.addEventListener("click", () => {
+      item.role = "primary";
+      primaryButton.classList.add("selected");
+      secondaryButton.classList.remove("selected");
+    });
+
+    secondaryButton.addEventListener("click", () => {
+      item.role = "secondary";
+      secondaryButton.classList.add("selected");
+      primaryButton.classList.remove("selected");
+    });
+
+    labelContainer.appendChild(primaryButton);
+    labelContainer.appendChild(secondaryButton);
+  }
 
   //   TODO: fix amounts
   // amount of item
