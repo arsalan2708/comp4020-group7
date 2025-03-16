@@ -111,7 +111,7 @@ function mountSideBar({
 
   // user name
   const username = document.createElement("p");
-  username.innerText = user.userName;
+  username.innerText = user.userName || "sally";
   username.classList.add("page-wrapper__username", "text-xl");
 
   // create sidebar and append list to it

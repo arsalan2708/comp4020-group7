@@ -8,6 +8,7 @@ export function getUser() {
     // check if user info is stored in local storage
     let userName = localStorage.getItem("username") || "";
     let userID = localStorage.getItem("userID") || "";
+    const usernameElement = document.querySelector(".page-wrapper__username");
     // if its not create a new one
     if (!userName.length || !userID.length) {
         userID = generateID(); //generate userID
@@ -18,6 +19,8 @@ export function getUser() {
                 localStorage.setItem("username", user);
                 localStorage.setItem("userID", userID);
                 userName = user;
+                usernameElement && (usernameElement.textContent = user);
+                location.reload();
             },
         });
     }
