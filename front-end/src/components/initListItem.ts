@@ -3,15 +3,14 @@ import { addClasses } from "../utils/addClasses.js";
 import { Icon, getImage } from "../utils/getImage.js";
 import { getUser } from "../utils/getUser.js";
 import { routeToList } from "../utils/routing.js";
+import { sendEmail } from "../utils/sendInvite.js";
 import { createIconButton } from "./iconButton.js";
 import { mountMenu } from "./menu.js";
 
 // options menu data
 const menuItems = [
   { label: "edit" },
-  { label: "share" },
-  { label: "export" },
-  { label: "select" },
+  { label: "share", onClick: sendEmail },
   { label: "delete" },
 ];
 
