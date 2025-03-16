@@ -54,7 +54,10 @@ svg {
 }
 
 body {
-  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100dvh;
   font-family: var(--font-primary);
   color: var(--text-color);
 }
@@ -148,6 +151,12 @@ ol {
   height: 100%;
   display: grid;
   grid-template-rows: 4.25rem 1fr;
+  width: 420px;
+  height: 926px;
+  overflow: hidden;
+  border: 1px solid black;
+  position: relative;
+  border-radius: 10px;
 }
 
 .page-wrapper__top-bar {
@@ -202,6 +211,10 @@ ol {
 
 .page-wrapper__username {
   text-align: center;
+}
+
+.page-wrapper__page-content {
+  overflow-y: scroll;
 }
 
 .page-wrapper__list {
@@ -283,7 +296,7 @@ ol {
   gap: var(--space-sm);
   align-items: flex-end;
   flex-direction: row-reverse;
-  position: fixed;
+  position: absolute;
   bottom: var(--space-lg);
   right: var(--space-lg);
 }
