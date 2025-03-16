@@ -32,7 +32,6 @@ export function mountUserNameModal({ onSubmit, mode = "default" }) {
     input.autofocus = true;
     input.maxLength = 20;
     input.addEventListener("change", () => button.click());
-    input.addEventListener("blur", () => button.click());
     // Create the button element
     const button = document.createElement("button");
     addClasses(button, "username__button", "button");

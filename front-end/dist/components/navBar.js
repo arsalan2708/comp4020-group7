@@ -1,5 +1,7 @@
 import { addClasses } from "../utils/addClasses.js";
+import { generateID } from "../utils/generateID.js";
 import { Icon, getImage } from "../utils/getImage.js";
+import { nameIteratorNext } from "../utils/iterator.js";
 import { routeToPage } from "../utils/routing.js";
 import { createIconButton } from "./iconButton.js";
 import { mountUserNameModal } from "./userNameModal.js";
@@ -20,7 +22,7 @@ export function mountNavBar({ title, isIndexPage, user, list, }) {
     // create hamburger-icon
     const hamburgerIcon = createIconButton({
         src: getImage(Icon.Hamburger),
-        onClick: () => onSideBarOpen(isIndexPage, user),
+        onClick: () => onSideBarOpen(isIndexPage, user, list),
     });
     hamburgerIcon.classList.add("page-wrapper__icon");
     nav.appendChild(hamburgerIcon);
@@ -57,7 +59,17 @@ function mountSideBar({ isIndexPage, user, list, }) {
                 mountUserNameModal({
                     mode: "invite",
                     onSubmit: (id) => {
-                        // list?.addItem({});
+                        const total = Math.round(Math.random() * 100);
+                        const current = Math.round(Math.random() * total);
+                        const item = {
+                            listID: id,
+                            primaryID: generateID(),
+                            checkedItems: current,
+                            totalItems: total,
+                            label: nameIteratorNext(),
+                        };
+                        list === null || list === void 0 ? void 0 : list.addItem({ item });
+                        console.log("invite-link", id);
                     },
                 });
                 onSideBarClose();
@@ -116,10 +128,10 @@ function mountSideBar({ isIndexPage, user, list, }) {
 /**
  * Event Handler for opening the side bar
  */
-function onSideBarOpen(isIndexPage, user) {
+function onSideBarOpen(isIndexPage, user, list) {
     // TODO: dynamic usernames
     //   mount the side ba component first
-    mountSideBar({ isIndexPage, user });
+    mountSideBar({ isIndexPage, user, list });
     const sidebar = document.getElementById("side-bar");
     const modal = document.querySelector(".modal");
     //   perform animation

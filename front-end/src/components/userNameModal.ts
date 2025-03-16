@@ -52,7 +52,6 @@ export function mountUserNameModal({ onSubmit, mode = "default" }: Props) {
   input.maxLength = 20;
 
   input.addEventListener("change", () => button.click());
-  input.addEventListener("blur", () => button.click());
 
   // Create the button element
   const button = document.createElement("button");
