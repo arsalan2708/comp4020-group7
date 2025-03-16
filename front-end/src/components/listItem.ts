@@ -2,6 +2,7 @@ import { ActionButtonType, List, ListItem } from "../types/types";
 import { addClasses } from "../utils/addClasses.js";
 import { createInput } from "../utils/createInput.js";
 import { Icon, getImage } from "../utils/getImage.js";
+import { getUser } from "../utils/getUser.js";
 import { onLongPress } from "../utils/longPress.js";
 import { createIconButton } from "./iconButton.js";
 
@@ -49,6 +50,8 @@ export function mountListItem({
     description,
     categoryID: category,
   } = item;
+
+  const isPrimaryShopper = item.posterID === getUser().userName;
 
   // label
   const label_ = document.createElement("p");
@@ -247,6 +250,7 @@ export function mountListItem({
     "display-col",
     ...(classNames || [])
   );
+  !isPrimaryShopper && addClasses(container, "item-sec");
   onClick && container.addEventListener("click", onClick);
   container.append(topContainer);
 

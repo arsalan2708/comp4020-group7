@@ -428,6 +428,10 @@ ol {
   padding: var(--space-md) var(--space-lg);
 }
 
+.item-sec {
+  background-color: grey;
+}
+
 .item__label {
   text-transform: capitalize;
   white-space: nowrap;

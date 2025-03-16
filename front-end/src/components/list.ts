@@ -1,5 +1,4 @@
 import { ActionButtonType, List, ListItem } from "../types/types";
-import { generateID } from "../utils/generateID.js";
 import { mountListItem } from "./listItem.js";
 
 interface Props {
@@ -67,10 +66,6 @@ function addItem(
   // if there if no list element or the list obj isnt passed, end here
   if (!list || !listElement) return;
 
-  const id = generateID();
-  item.itemID = id;
-  item.listID = this.listID || "";
-  item.posterID = this.primaryID;
   this.list.push(item);
 
   const { container: li } = mountListItem({

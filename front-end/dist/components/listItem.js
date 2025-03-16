@@ -1,6 +1,7 @@
 import { addClasses } from "../utils/addClasses.js";
 import { createInput } from "../utils/createInput.js";
 import { Icon, getImage } from "../utils/getImage.js";
+import { getUser } from "../utils/getUser.js";
 import { onLongPress } from "../utils/longPress.js";
 import { createIconButton } from "./iconButton.js";
 /**
@@ -17,6 +18,7 @@ import { createIconButton } from "./iconButton.js";
 export function mountListItem({ classNames, item, onActionButtonClick, onClick, actionButtonType = "checkbox", expandable, list, showInputDefault = true, onAddItem, }) {
     // extract data
     const { itemID, label, isRecurring, amount, checked, description, categoryID: category, } = item;
+    const isPrimaryShopper = item.posterID === getUser().userName;
     // label
     const label_ = document.createElement("p");
     label_.innerText = label;
@@ -171,6 +173,7 @@ export function mountListItem({ classNames, item, onActionButtonClick, onClick, 
     const container = document.createElement("li");
     container.id = itemID;
     addClasses(container, "item", "border-radius", "display-col", ...(classNames || []));
+    !isPrimaryShopper && addClasses(container, "item-sec");
     onClick && container.addEventListener("click", onClick);
     container.append(topContainer);
     //   if item is not expandle stop here
