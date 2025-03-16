@@ -7,6 +7,20 @@ const IS_INDEX_PAGE = true;
 
 const user = getUser();
 
+// list of lists
+const list = InitializeInitList({
+  primaryID: user.userID,
+  onAddItem: (item) => {
+    console.log("item added...", item);
+  },
+  ondeleteItem: (itemID) => {
+    console.log("item deleted...", itemID);
+  },
+  onupdateItem: (item) => {
+    console.log("item updated...", item);
+  },
+});
+
 // mount page wrapper
 mountPageWrapper({
   title: "Shared List",
@@ -24,20 +38,7 @@ mountPageWrapper({
     }),
   onsuggestClick: () => {},
   user,
-});
-
-// list of lists
-const list = InitializeInitList({
-  primaryID: user.userID,
-  onAddItem: (item) => {
-    console.log("item added...", item);
-  },
-  ondeleteItem: (itemID) => {
-    console.log("item deleted...", itemID);
-  },
-  onupdateItem: (item) => {
-    console.log("item updated...", item);
-  },
+  list,
 });
 
 /** ------FOR TESTING  ---------------- */

@@ -117,6 +117,7 @@ export type Category = (typeof Categories)[number];
 
 export type SideBarItemType = {
   label: string;
+  id?: string;
   displayHome: boolean;
   onClick?: () => void;
 };

@@ -2,12 +2,13 @@ import { addClasses } from "../utils/addClasses.js";
 import { Icon, getImage } from "../utils/getImage.js";
 import { routeToPage } from "../utils/routing.js";
 import { createIconButton } from "./iconButton.js";
+import { mountUserNameModal } from "./userNameModal.js";
 /**
  * populates the top navigation bar. Nav bar has to have class ".page-wrapper__top-bar"
  * @param title page title
  * @param isIndexPage true meaning its being called for the index.html page
  */
-export function mountNavBar({ title, isIndexPage, user, }) {
+export function mountNavBar({ title, isIndexPage, user, list, }) {
     const nav = document.querySelector(".page-wrapper__top-bar");
     if (!nav)
         return;
@@ -24,31 +25,46 @@ export function mountNavBar({ title, isIndexPage, user, }) {
     hamburgerIcon.classList.add("page-wrapper__icon");
     nav.appendChild(hamburgerIcon);
 }
-const sideBarItems = [
-    { label: "Home", displayHome: false, onClick: () => routeToPage("") },
-    {
-        label: "Edit Recurring Items",
-        displayHome: true,
-        onClick: () => routeToPage("recurring"),
-    },
-    {
-        label: "Edit Categories",
-        displayHome: true,
-        onClick: () => routeToPage("categories"),
-    },
-    {
-        label: "Edit Participants",
-        displayHome: false,
-        onClick: () => routeToPage("participants"),
-    },
-    { label: "Notify Others", displayHome: false },
-];
 /**
  *creates the side bar component and pairs it to the top bar
  * @param isIndexPage true meaning its being called for the index.html page
  * @param userName username to print at buttom of sidebar
  */
-function mountSideBar({ isIndexPage, user, }) {
+function mountSideBar({ isIndexPage, user, list, }) {
+    // side bar items
+    const sideBarItems = [
+        { label: "Home", displayHome: false, onClick: () => routeToPage("") },
+        {
+            label: "Edit Recurring Items",
+            displayHome: true,
+            onClick: () => routeToPage("recurring"),
+        },
+        {
+            label: "Edit Categories",
+            displayHome: true,
+            onClick: () => routeToPage("categories"),
+        },
+        {
+            label: "Edit Participants",
+            displayHome: false,
+            onClick: () => routeToPage("participants"),
+        },
+        {
+            label: "Join List",
+            id: "join",
+            displayHome: true,
+            onClick: () => {
+                mountUserNameModal({
+                    mode: "invite",
+                    onSubmit: (id) => {
+                        // list?.addItem({});
+                    },
+                });
+                onSideBarClose();
+            },
+        },
+        { label: "Notify Others", displayHome: false },
+    ];
     const body = document.getElementById("body");
     // get modal
     const modal = document.createElement("div");
@@ -69,10 +85,11 @@ function mountSideBar({ isIndexPage, user, }) {
     const ul = document.createElement("ul");
     ul.classList.add("display-col");
     // add side bar items to list as li
-    sideBarItems.forEach(({ label, displayHome, onClick }) => {
+    sideBarItems.forEach(({ label, displayHome, onClick, id }) => {
         if ((isIndexPage && displayHome) || !isIndexPage) {
             const li = document.createElement("li");
             li.innerText = label;
+            li.id = `sidebar--${id}`;
             addClasses(li, "text-md");
             ul.appendChild(li);
             onClick && li.addEventListener("click", onClick);
