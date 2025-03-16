@@ -5,7 +5,7 @@ import { getUser } from "./utils/getUser.js";
 import { createItemTemplate } from "./utils/createItemTemplate.js";
 import { itemIteratorNext } from "./utils/listItemIterator.js";
 import { generateID } from "./utils/generateID.js";
-const MAX_SUGGESTED_ITEMS = 7;
+const MAX_SUGGESTED_ITEMS = 4;
 const IS_INDEX_PAGE = false;
 const IS_EXPANDABLE = true;
 const actionButtonType = "checkbox";
