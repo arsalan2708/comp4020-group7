@@ -297,6 +297,36 @@ export function mountListItem({
   onClick && container.addEventListener("click", onClick);
   container.append(topContainer);
 
+  container.addEventListener("touchmove", (e) => {
+    // move the current target with these
+    container.style.position = "fixed";
+    container.style.top =
+      e.changedTouches[0].pageY - document.documentElement.scrollTop + "px";
+    container.style.left = e.changedTouches[0].pageX + "px";
+    container.style.transform = "translate(-50%, -50%)";
+    container.style.zIndex = "1";
+    container.style.flexShrink = "0";
+    container.style.touchAction = "none";
+    // container.style.width = "100%";
+  });
+
+  container.addEventListener("touchend", (e) => {
+    // reset styles
+    container.style.position = "static";
+    container.style.top = "unset";
+    container.style.left = "unset";
+    container.style.transform = "unset";
+    container.style.zIndex = "initial";
+  });
+  container.addEventListener("touchcancel", (e) => {
+    // reset styles
+    container.style.position = "static";
+    container.style.top = "unset";
+    container.style.left = "unset";
+    container.style.transform = "unset";
+    container.style.zIndex = "initial";
+  });
+
   //   if item is not expandle stop here
   if (!expandable) return { container };
 
