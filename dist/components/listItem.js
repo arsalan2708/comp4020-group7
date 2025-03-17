@@ -210,19 +210,43 @@ export function mountListItem({ classNames, item, onActionButtonClick, onClick, 
             e.changedTouches[0].pageY - document.documentElement.scrollTop + "px";
         container.style.left = e.changedTouches[0].pageX + "px";
         container.style.transform = "translate(-50%, -50%)";
+        container.style.backgroundColor = "white";
         container.style.zIndex = "1";
-        container.style.flexShrink = "0";
         container.style.touchAction = "none";
         container.style.width =
             pageWrapper.getBoundingClientRect().width * 0.9 + "px";
     });
+    function isOverlapping(el1, el2) {
+        const rect1 = el1.getBoundingClientRect();
+        const rect2 = el2.getBoundingClientRect();
+        return !((rect1.right < rect2.left || // el1 is to the left of el2
+            rect1.left > rect2.right || // el1 is to the right of el2
+            rect1.bottom < rect2.top || // el1 is above el2
+            rect1.top > rect2.bottom) // el1 is below el2
+        );
+    }
     container.addEventListener("touchend", (e) => {
+        const listItemsArray = Array.from(document.querySelectorAll(".item"));
+        const overlappedItem = listItemsArray
+            .filter((element) => element.id !== itemID)
+            .find((element) => isOverlapping(container, element));
+        console.log("is overlapping", overlappedItem);
+        // insert before the overlapping item
+        if (overlappedItem) {
+            const list = document.querySelector(".page-wrapper__list");
+            if (!list)
+                return;
+            list.insertBefore(container, overlappedItem);
+        }
         // reset styles
         container.style.position = "static";
         container.style.top = "unset";
         container.style.left = "unset";
         container.style.transform = "unset";
         container.style.zIndex = "initial";
+        container.style.backgroundColor = "initial";
+        container.style.width = "initial";
+        container.style.touchAction = "initial";
     });
     container.addEventListener("touchcancel", (e) => {
         // reset styles
@@ -231,6 +255,8 @@ export function mountListItem({ classNames, item, onActionButtonClick, onClick, 
         container.style.left = "unset";
         container.style.transform = "unset";
         container.style.zIndex = "initial";
+        container.style.width = "initial";
+        container.style.touchAction = "initial";
     });
     //   if item is not expandle stop here
     if (!expandable)
