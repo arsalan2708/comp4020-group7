@@ -4,6 +4,7 @@ import { Icon, getImage } from "../utils/getImage.js";
 import { getUser } from "../utils/getUser.js";
 import { routeToList } from "../utils/routing.js";
 import { sendEmail } from "../utils/sendInvite.js";
+import { onTouchCancel, onTouchEnd, onTouchMove } from "../utils/touch.js";
 import { createIconButton } from "./iconButton.js";
 import { mountMenu } from "./menu.js";
 
@@ -24,6 +25,7 @@ export function mountInitListItem({
 }: InitListItem) {
   const { userID } = getUser();
   const isPrimaryShopper = primaryID === userID;
+  const isInitItem = true;
 
   // label for init list item
   const labelElement = document.createElement("p");
@@ -101,6 +103,13 @@ export function mountInitListItem({
   container.onclick = () => routeToList(listID);
   container.tabIndex = 0;
   container.role = "button";
+
+  // touch events (drag and drop)
+  container.addEventListener("touchmove", (e) => onTouchMove(e, container));
+  container.addEventListener("touchend", (e) =>
+    onTouchEnd(e, container, listID, isInitItem)
+  );
+  container.addEventListener("touchcancel", (e) => onTouchCancel(e, container));
 
   return container;
 }

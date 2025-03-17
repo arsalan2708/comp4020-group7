@@ -3,6 +3,7 @@ import { Icon, getImage } from "../utils/getImage.js";
 import { getUser } from "../utils/getUser.js";
 import { routeToList } from "../utils/routing.js";
 import { sendEmail } from "../utils/sendInvite.js";
+import { onTouchCancel, onTouchEnd, onTouchMove } from "../utils/touch.js";
 import { createIconButton } from "./iconButton.js";
 import { mountMenu } from "./menu.js";
 // options menu data
@@ -14,6 +15,7 @@ const menuItems = [
 export function mountInitListItem({ listID, primaryID, checkedItems, totalItems, label, date, }) {
     const { userID } = getUser();
     const isPrimaryShopper = primaryID === userID;
+    const isInitItem = true;
     // label for init list item
     const labelElement = document.createElement("p");
     labelElement.innerText = label;
@@ -66,5 +68,9 @@ export function mountInitListItem({ listID, primaryID, checkedItems, totalItems,
     container.onclick = () => routeToList(listID);
     container.tabIndex = 0;
     container.role = "button";
+    // touch events (drag and drop)
+    container.addEventListener("touchmove", (e) => onTouchMove(e, container));
+    container.addEventListener("touchend", (e) => onTouchEnd(e, container, listID, isInitItem));
+    container.addEventListener("touchcancel", (e) => onTouchCancel(e, container));
     return container;
 }

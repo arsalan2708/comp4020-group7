@@ -298,6 +298,7 @@ export function mountListItem({
   onClick && container.addEventListener("click", onClick);
   container.append(topContainer);
 
+  // touch events (drag and drop)
   container.addEventListener("touchmove", (e) => {
     onTouchMove(e, container);
 
@@ -305,11 +306,9 @@ export function mountListItem({
     description_.classList.add("hidden");
     buttomContainer.classList.add("hidden");
   });
-
   container.addEventListener("touchend", (e) =>
     onTouchEnd(e, container, itemID)
   );
-
   container.addEventListener("touchcancel", (e) => onTouchCancel(e, container));
 
   //   if item is not expandle stop here

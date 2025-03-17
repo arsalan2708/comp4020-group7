@@ -31,10 +31,14 @@ export function onTouchMove(e: TouchEvent, container: HTMLElement) {
 export function onTouchEnd(
   e: TouchEvent,
   container: HTMLElement,
-  itemID: string
+  itemID: string,
+  isInitList?: boolean
 ) {
+  // constants
+  const isInitList_ = isInitList || false;
+  const selector = isInitList_ ? ".initList__container" : ".item";
   const list = document.querySelector(".page-wrapper__list") as HTMLElement;
-  const listItemsArray = Array.from(document.querySelectorAll(".item"));
+  const listItemsArray = Array.from(document.querySelectorAll(selector));
   const firstItem = listItemsArray[0];
   const lastItem = listItemsArray[listItemsArray.length - 1];
 

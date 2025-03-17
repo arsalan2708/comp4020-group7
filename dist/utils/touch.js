@@ -27,9 +27,12 @@ export function onTouchMove(e, container) {
  * @param container item being moved
  * @param itemID ID for item beingg moved
  */
-export function onTouchEnd(e, container, itemID) {
+export function onTouchEnd(e, container, itemID, isInitList) {
+    // constants
+    const isInitList_ = isInitList || false;
+    const selector = isInitList_ ? ".initList__container" : ".item";
     const list = document.querySelector(".page-wrapper__list");
-    const listItemsArray = Array.from(document.querySelectorAll(".item"));
+    const listItemsArray = Array.from(document.querySelectorAll(selector));
     const firstItem = listItemsArray[0];
     const lastItem = listItemsArray[listItemsArray.length - 1];
     // find overlapped item

@@ -201,6 +201,7 @@ export function mountListItem({ classNames, item, onActionButtonClick, onClick, 
     isSuggestedItem && addClasses(container, "hidden");
     onClick && container.addEventListener("click", onClick);
     container.append(topContainer);
+    // touch events (drag and drop)
     container.addEventListener("touchmove", (e) => {
         onTouchMove(e, container);
         // close expanded items
