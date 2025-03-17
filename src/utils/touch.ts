@@ -66,9 +66,12 @@ export function onTouchEnd(
   container.style.left = "unset";
   container.style.transform = "unset";
   container.style.zIndex = "initial";
-  container.style.backgroundColor = "initial";
+  container.style.backgroundColor = "inherit";
   container.style.width = "initial";
   container.style.touchAction = "initial";
+
+  if (container.classList.contains("item--sec"))
+    container.style.backgroundColor = "grey";
 }
 
 /**
@@ -83,8 +86,12 @@ export function onTouchCancel(e: TouchEvent, container: HTMLElement) {
   container.style.left = "unset";
   container.style.transform = "unset";
   container.style.zIndex = "initial";
+  container.style.backgroundColor = "inherit";
   container.style.width = "initial";
   container.style.touchAction = "initial";
+
+  if (container.classList.contains("item--sec"))
+    container.style.backgroundColor = "grey";
 }
 
 /**

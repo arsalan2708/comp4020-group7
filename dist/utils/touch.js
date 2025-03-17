@@ -58,9 +58,11 @@ export function onTouchEnd(e, container, itemID) {
     container.style.left = "unset";
     container.style.transform = "unset";
     container.style.zIndex = "initial";
-    container.style.backgroundColor = "initial";
+    container.style.backgroundColor = "inherit";
     container.style.width = "initial";
     container.style.touchAction = "initial";
+    if (container.classList.contains("item--sec"))
+        container.style.backgroundColor = "grey";
 }
 /**
  *  touch cancel call back
@@ -74,8 +76,11 @@ export function onTouchCancel(e, container) {
     container.style.left = "unset";
     container.style.transform = "unset";
     container.style.zIndex = "initial";
+    container.style.backgroundColor = "inherit";
     container.style.width = "initial";
     container.style.touchAction = "initial";
+    if (container.classList.contains("item--sec"))
+        container.style.backgroundColor = "grey";
 }
 /**
  * checks if two nodes intersect using boundingRect()

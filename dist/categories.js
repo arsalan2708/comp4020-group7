@@ -3,6 +3,7 @@ import { mountPageWrapper } from "./components/pageWrapper.js";
 import { Categories } from "./types/types.js";
 import { getUser } from "./utils/getUser.js";
 import { createItemTemplate } from "./utils/createItemTemplate.js";
+import { generateID } from "./utils/generateID.js";
 const IS_INDEX_PAGE = false;
 const IS_EXPANDABLE = false;
 const showSuggestedButton = false;
@@ -12,12 +13,17 @@ const user = getUser();
 mountPageWrapper({
     title: "Categories",
     isIndexPage: IS_INDEX_PAGE,
-    onAddClick: () => list.addItem({
-        item: createItemTemplate(),
-        expandable: IS_EXPANDABLE,
-        list,
-        actionButtonType,
-    }),
+    onAddClick: () => {
+        const template = createItemTemplate();
+        template.itemID = generateID();
+        template.posterID = getUser().userID;
+        list.addItem({
+            item: template,
+            expandable: IS_EXPANDABLE,
+            list,
+            actionButtonType,
+        });
+    },
     showSuggested: showSuggestedButton,
     user,
 });
@@ -40,6 +46,8 @@ Categories.map((category) => category)
     .forEach((category) => {
     const template = createItemTemplate();
     template.label = category;
+    template.itemID = generateID();
+    template.posterID = getUser().userID;
     list.addItem({
         item: template,
         expandable: IS_EXPANDABLE,
