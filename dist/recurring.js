@@ -3,6 +3,7 @@ import { mountPageWrapper } from "./components/pageWrapper.js";
 import { getUser } from "./utils/getUser.js";
 import { createItemTemplate } from "./utils/createItemTemplate.js";
 import { RecurringListItems } from "./types/recurringItems.js";
+import { generateID } from "./utils/generateID.js";
 const IS_INDEX_PAGE = false;
 const IS_EXPANDABLE = true;
 const showSuggestedButton = false;
@@ -12,12 +13,17 @@ const user = getUser();
 mountPageWrapper({
     title: "Recurring Items",
     isIndexPage: IS_INDEX_PAGE,
-    onAddClick: () => list.addItem({
-        item: createItemTemplate(),
-        expandable: IS_EXPANDABLE,
-        list,
-        actionButtonType,
-    }),
+    onAddClick: () => {
+        const template = createItemTemplate();
+        template.itemID = generateID();
+        template.posterID = getUser().userID;
+        list.addItem({
+            item: template,
+            expandable: IS_EXPANDABLE,
+            list,
+            actionButtonType,
+        });
+    },
     showSuggested: showSuggestedButton,
     user,
 });
@@ -38,6 +44,8 @@ const list = InitializeList({
 RecurringListItems.map((item) => item)
     .reverse()
     .forEach((item) => {
+    item.itemID = generateID();
+    item.posterID = getUser().userID;
     list.addItem({
         item: item,
         expandable: IS_EXPANDABLE,
