@@ -298,6 +298,9 @@ export function mountListItem({
   container.append(topContainer);
 
   container.addEventListener("touchmove", (e) => {
+    const pageWrapper = document.querySelector(".page-wrapper");
+    if (!pageWrapper) return;
+
     // move the current target with these
     container.style.position = "fixed";
     container.style.top =
@@ -307,7 +310,8 @@ export function mountListItem({
     container.style.zIndex = "1";
     container.style.flexShrink = "0";
     container.style.touchAction = "none";
-    // container.style.width = "100%";
+    container.style.width =
+      pageWrapper.getBoundingClientRect().width * 0.9 + "px";
   });
 
   container.addEventListener("touchend", (e) => {
