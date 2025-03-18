@@ -9,6 +9,7 @@ export const RecurringListItems = [
         description: "",
         categoryID: "Dairy",
         posterID: "",
+        role: "primary",
     },
     {
         listID: "",
@@ -20,6 +21,7 @@ export const RecurringListItems = [
         description: "",
         categoryID: "Dairy",
         posterID: "",
+        role: "primary",
     },
     {
         listID: "",
@@ -31,6 +33,7 @@ export const RecurringListItems = [
         description: "",
         categoryID: "Bakery",
         posterID: "",
+        role: "primary",
     },
     {
         listID: "",
@@ -42,6 +45,7 @@ export const RecurringListItems = [
         description: "",
         categoryID: "Dairy",
         posterID: "",
+        role: "primary",
     },
     {
         listID: "",
@@ -53,6 +57,7 @@ export const RecurringListItems = [
         description: "",
         categoryID: "Dairy",
         posterID: "",
+        role: "primary",
     },
     {
         listID: "",
@@ -64,6 +69,7 @@ export const RecurringListItems = [
         description: "",
         categoryID: "Meat & Poultry",
         posterID: "",
+        role: "primary",
     },
     {
         listID: "",
@@ -75,6 +81,7 @@ export const RecurringListItems = [
         description: "",
         categoryID: "Meat & Poultry",
         posterID: "",
+        role: "primary",
     },
     {
         listID: "",
@@ -86,6 +93,7 @@ export const RecurringListItems = [
         description: "",
         categoryID: "Produce",
         posterID: "",
+        role: "primary",
     },
     {
         listID: "",
@@ -97,6 +105,7 @@ export const RecurringListItems = [
         description: "",
         categoryID: "Produce",
         posterID: "",
+        role: "primary",
     },
     {
         listID: "",
@@ -108,6 +117,7 @@ export const RecurringListItems = [
         description: "",
         categoryID: "Produce",
         posterID: "",
+        role: "primary",
     },
     {
         listID: "",
@@ -119,6 +129,7 @@ export const RecurringListItems = [
         description: "",
         categoryID: "Produce",
         posterID: "",
+        role: "primary",
     },
     {
         listID: "",
@@ -130,6 +141,7 @@ export const RecurringListItems = [
         description: "",
         categoryID: "Produce",
         posterID: "",
+        role: "primary",
     },
     {
         listID: "",
@@ -141,6 +153,7 @@ export const RecurringListItems = [
         description: "",
         categoryID: "Produce",
         posterID: "",
+        role: "primary",
     },
     {
         listID: "",
@@ -152,6 +165,7 @@ export const RecurringListItems = [
         description: "",
         categoryID: "Produce",
         posterID: "",
+        role: "primary",
     },
     {
         listID: "",
@@ -163,6 +177,7 @@ export const RecurringListItems = [
         description: "",
         categoryID: "Produce",
         posterID: "",
+        role: "primary",
     },
     {
         listID: "",
@@ -174,6 +189,7 @@ export const RecurringListItems = [
         description: "",
         categoryID: "Canned Goods",
         posterID: "",
+        role: "primary",
     },
     {
         listID: "",
@@ -185,6 +201,7 @@ export const RecurringListItems = [
         description: "",
         categoryID: "Canned Goods",
         posterID: "",
+        role: "primary",
     },
     {
         listID: "",
@@ -196,6 +213,7 @@ export const RecurringListItems = [
         description: "",
         categoryID: "Breakfast Foods",
         posterID: "",
+        role: "primary",
     },
     {
         listID: "",
@@ -207,6 +225,7 @@ export const RecurringListItems = [
         description: "",
         categoryID: "Dairy",
         posterID: "",
+        role: "primary",
     },
     {
         listID: "",
@@ -218,5 +237,6 @@ export const RecurringListItems = [
         description: "",
         categoryID: "Household Essentials",
         posterID: "",
+        role: "primary",
     },
 ];
