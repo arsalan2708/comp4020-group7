@@ -214,7 +214,7 @@ ol {
 }
 
 .page-wrapper__page-content {
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 .page-wrapper__list {
