@@ -1,5 +1,7 @@
 import { InitListItem, ListItem } from "../types/types";
 
+const prefix = "list--";
+
 /**
  * gets list items with a listID from the local storage
  * @param listID listID to search for items in the local storage for
@@ -10,7 +12,7 @@ export function getListItems<T>(listID: string | undefined) {
   if (!listID) return;
 
   // if no list exists in local storage stop here
-  const temp = localStorage.getItem(`list--${listID}`);
+  const temp = localStorage.getItem(prefix + listID);
   if (!temp) return;
 
   // return list parsed to listItem array
@@ -25,7 +27,7 @@ export function getListItems<T>(listID: string | undefined) {
  */
 export function addListItem(listID: string, item: any) {
   // if no list exists in local storage, stop here
-  const temp = localStorage.getItem(`list--${listID}`);
+  const temp = localStorage.getItem(prefix + listID);
   if (temp) {
     //if there is already data
     // add item to list
@@ -33,10 +35,10 @@ export function addListItem(listID: string, item: any) {
     list.push(item);
 
     // update local storage
-    localStorage.setItem(`list--${listID}`, JSON.stringify(list));
+    localStorage.setItem(prefix + listID, JSON.stringify(list));
   } else {
     // create local storage
-    localStorage.setItem(`list--${listID}`, JSON.stringify([item]));
+    localStorage.setItem(prefix + listID, JSON.stringify([item]));
   }
 }
 
@@ -48,7 +50,7 @@ export function addListItem(listID: string, item: any) {
  */
 export function deleteListItem(listID: string, itemID: string) {
   // if no list exists in local storage, stop here
-  const temp = localStorage.getItem(`list--${listID}`);
+  const temp = localStorage.getItem(prefix + listID);
   if (!temp) return;
 
   // filter item out of list
@@ -60,7 +62,7 @@ export function deleteListItem(listID: string, itemID: string) {
   });
 
   // update local storage
-  localStorage.setItem(`list--${listID}`, JSON.stringify(filteredList));
+  localStorage.setItem(prefix + listID, JSON.stringify(filteredList));
 }
 
 /**
@@ -72,7 +74,7 @@ export function deleteListItem(listID: string, itemID: string) {
  */
 export function updateListItem(listID: string, itemID: string, item: any) {
   // if no list exists in local storage, stop here
-  const temp = localStorage.getItem(`list--${listID}`);
+  const temp = localStorage.getItem(prefix + listID);
   if (!temp) return;
 
   // add find list index of item
@@ -86,5 +88,5 @@ export function updateListItem(listID: string, itemID: string, item: any) {
   list[ind] = item;
 
   // update local storage
-  localStorage.setItem(`list--${listID}`, JSON.stringify(list));
+  localStorage.setItem(prefix + listID, JSON.stringify(list));
 }
