@@ -25,9 +25,8 @@ mountPageWrapper({
         mode: ListModalMode.Create,
         list,
         onRecurringItemsSubmit: (recurringItemsArray, listID) => {
-            // event for when recurring items are added in a newly created list on submit
-            console.log("recuring items added to list...", recurringItemsArray);
-            console.log("listID they are added to...", listID);
+            // save recurring items to local storage to be pulled back if needed
+            localStorage.setItem(`list--${listID}`, JSON.stringify(recurringItemsArray));
         },
     }),
     onsuggestClick: () => { },

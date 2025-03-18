@@ -5,11 +5,14 @@ import { getUser } from "./utils/getUser.js";
 import { createItemTemplate } from "./utils/createItemTemplate.js";
 import { itemIteratorNext } from "./utils/listItemIterator.js";
 import { generateID } from "./utils/generateID.js";
+import { getURLParam } from "./utils/getURLParam.js";
+import { getListItems } from "./utils/getListItems.js";
 const MAX_SUGGESTED_ITEMS = 4;
 const IS_INDEX_PAGE = false;
 const IS_EXPANDABLE = true;
 const actionButtonType = "checkbox";
 const user = getUser();
+const listID = getURLParam("id");
 // mount page wrapper
 mountPageWrapper({
     title: "List 1",
@@ -19,7 +22,7 @@ mountPageWrapper({
         const template = createItemTemplate();
         template.itemID = generateID();
         template.posterID = user.userID;
-        template.listID = "";
+        template.listID = listID || "";
         list.addItem({
             item: template,
             expandable: IS_EXPANDABLE,
@@ -37,7 +40,7 @@ mountPageWrapper({
 // exportable to make it global
 const list = InitializeList({
     primaryID: user.userID,
-    listID: "", //TODO: pass through URL
+    listID,
     onAddItem: (item) => {
         console.log("item added...", item);
     },
@@ -55,7 +58,7 @@ const suggestedItems = NUM_SEGGESTED_ITEMS.map((_) => {
     template.label = itemIteratorNext();
     template.itemID = generateID();
     template.posterID = generateID();
-    template.listID = "";
+    template.listID = listID || "";
     return template;
 });
 // add suggested  items
@@ -69,6 +72,17 @@ suggestedItems.forEach((itm) => {
     });
 });
 mountCategoryFilter();
+// get list items that may be stored in local storage and add them to the list
+const localList = getListItems(listID);
+localList === null || localList === void 0 ? void 0 : localList.forEach((item) => {
+    list.addItem({
+        item,
+        expandable: IS_EXPANDABLE,
+        list: list,
+        actionButtonType,
+        showInputDefault: false,
+    });
+});
 /** ------FOR TESTING  ---------------- */
 // const { container } = mountListItem({
 //   itemID: TemplateItem.itemID,
