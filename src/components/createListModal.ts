@@ -1,9 +1,10 @@
-import { RecurringItems } from "../types/types.js";
-import { InitListItem, List } from "../types/types";
+import { RecurringListItems } from "../types/recurringItems.js";
+import { InitListItem, List, ListItem } from "../types/types";
 import { addClasses } from "../utils/addClasses.js";
 import { createInput } from "../utils/createInput.js";
 import { extractFormData } from "../utils/extractFormData.js";
 import { generateID } from "../utils/generateID.js";
+import { getUser } from "../utils/getUser.js";
 import { mountConfirmationButton } from "./confirmationButtons.js";
 import {
   mountModalContainer,
@@ -19,9 +20,8 @@ export enum ListModalMode {
 interface ListModalProps {
   mode: ListModalMode;
   list: List<InitListItem>;
-  userID: string;
   onRecurringItemsSubmit: (
-    recurringItemsArray: string[],
+    recurringItemsArray: ListItem[],
     listID: string
   ) => void;
 }
@@ -29,7 +29,6 @@ interface ListModalProps {
 export function mountListModal({
   mode,
   list,
-  userID,
   onRecurringItemsSubmit,
 }: ListModalProps) {
   // mount the modal and return it
@@ -90,17 +89,25 @@ export function mountListModal({
   addClasses(summary, "text-md");
 
   // generate recurring items
-  let recurringItemsArray: string[] = [];
-  const recurringItemsList = RecurringItems.map((label) => {
-    const button = mountRecurringItem({ label });
+  let recurringItemsArray: ListItem[] = [];
+  const recurringItemsList = RecurringListItems.map((item) => {
+    const button = mountRecurringItem({ label: item.label });
 
     // toggle label in array on click
     button.addEventListener("click", () => {
-      const isContained = recurringItemsArray.some((ll) => ll === label);
+      const isContained = recurringItemsArray.some(
+        (item_) => item_.label === item.label
+      );
 
       if (isContained) {
-        recurringItemsArray = recurringItemsArray.filter((ll) => ll !== label);
-      } else recurringItemsArray.push(label);
+        recurringItemsArray = recurringItemsArray.filter(
+          (item_) => item_.label !== item.label
+        );
+      } else {
+        item.posterID = getUser().userID;
+        item.itemID = generateID();
+        recurringItemsArray.push(item);
+      }
     });
 
     return button;
@@ -155,13 +162,7 @@ export function mountListModal({
     "align--center"
   );
   form.onsubmit = (ev) =>
-    formSubmitHandler(
-      ev,
-      list,
-      userID,
-      recurringItemsArray,
-      onRecurringItemsSubmit
-    );
+    formSubmitHandler(ev, list, recurringItemsArray, onRecurringItemsSubmit);
 
   //   append the form to the modal container
   modal.appendChild(form);
@@ -170,17 +171,24 @@ export function mountListModal({
 }
 
 type FormValues = {
-  label: string;
-  date?: string;
+  label: string; //list label
+  date?: string; //date for shopping
 };
 
+/**
+ * form submit handler for creating a new form. fired when a user taps submit on a valid form
+ * @param ev form submission event
+ * @param list list to add the init list item to
+ * @param recurringItemsArray recurring items that are to be added to the list
+ * @param onRecurringItemsSubmit function called if recuring items are added to a newly created list
+ * @returns void
+ */
 function formSubmitHandler(
   ev: SubmitEvent,
   list: List<InitListItem>,
-  userID: string,
-  recurringItemsArray: string[],
+  recurringItemsArray: ListItem[],
   onRecurringItemsSubmit: (
-    recurringItemsArray: string[],
+    recurringItemsArray: ListItem[],
     listID: string
   ) => void
 ) {
@@ -195,11 +203,15 @@ function formSubmitHandler(
   // extract data into the store
   const data = extractFormData(form) as FormValues;
 
+  // generate listID for the new list
   const listID = generateID();
+
+  // set list ID for recurring items
+  recurringItemsArray.forEach((item) => (item.listID = listID));
 
   const template = {
     listID,
-    primaryID: userID,
+    primaryID: getUser().userID,
     checkedItems: 0,
     totalItems: recurringItemsArray.length,
     label: data.label,

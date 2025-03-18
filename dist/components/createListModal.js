@@ -1,8 +1,9 @@
-import { RecurringItems } from "../types/types.js";
+import { RecurringListItems } from "../types/recurringItems.js";
 import { addClasses } from "../utils/addClasses.js";
 import { createInput } from "../utils/createInput.js";
 import { extractFormData } from "../utils/extractFormData.js";
 import { generateID } from "../utils/generateID.js";
+import { getUser } from "../utils/getUser.js";
 import { mountConfirmationButton } from "./confirmationButtons.js";
 import { mountModalContainer, unmountModalContainer, } from "./modalContainer.js";
 import { mountRecurringItem } from "./recurringItem.js";
@@ -11,7 +12,7 @@ export var ListModalMode;
     ListModalMode[ListModalMode["Create"] = 0] = "Create";
     ListModalMode[ListModalMode["Edit"] = 1] = "Edit";
 })(ListModalMode || (ListModalMode = {}));
-export function mountListModal({ mode, list, userID, onRecurringItemsSubmit, }) {
+export function mountListModal({ mode, list, onRecurringItemsSubmit, }) {
     // mount the modal and return it
     const modal = mountModalContainer({});
     // stop if the modal mounting failed
@@ -53,16 +54,19 @@ export function mountListModal({ mode, list, userID, onRecurringItemsSubmit, }) 
     addClasses(summary, "text-md");
     // generate recurring items
     let recurringItemsArray = [];
-    const recurringItemsList = RecurringItems.map((label) => {
-        const button = mountRecurringItem({ label });
+    const recurringItemsList = RecurringListItems.map((item) => {
+        const button = mountRecurringItem({ label: item.label });
         // toggle label in array on click
         button.addEventListener("click", () => {
-            const isContained = recurringItemsArray.some((ll) => ll === label);
+            const isContained = recurringItemsArray.some((item_) => item_.label === item.label);
             if (isContained) {
-                recurringItemsArray = recurringItemsArray.filter((ll) => ll !== label);
+                recurringItemsArray = recurringItemsArray.filter((item_) => item_.label !== item.label);
             }
-            else
-                recurringItemsArray.push(label);
+            else {
+                item.posterID = getUser().userID;
+                item.itemID = generateID();
+                recurringItemsArray.push(item);
+            }
         });
         return button;
     });
@@ -96,12 +100,20 @@ export function mountListModal({ mode, list, userID, onRecurringItemsSubmit, }) 
     const form = document.createElement("form");
     form.append(title, inputContainer, recurringItemsContainer, buttonsContainer);
     form.classList.add("listModal", "border-radius", "display-col", "align--center");
-    form.onsubmit = (ev) => formSubmitHandler(ev, list, userID, recurringItemsArray, onRecurringItemsSubmit);
+    form.onsubmit = (ev) => formSubmitHandler(ev, list, recurringItemsArray, onRecurringItemsSubmit);
     //   append the form to the modal container
     modal.appendChild(form);
     return modal;
 }
-function formSubmitHandler(ev, list, userID, recurringItemsArray, onRecurringItemsSubmit) {
+/**
+ * form submit handler for creating a new form. fired when a user taps submit on a valid form
+ * @param ev form submission event
+ * @param list list to add the init list item to
+ * @param recurringItemsArray recurring items that are to be added to the list
+ * @param onRecurringItemsSubmit function called if recuring items are added to a newly created list
+ * @returns void
+ */
+function formSubmitHandler(ev, list, recurringItemsArray, onRecurringItemsSubmit) {
     ev.preventDefault(); //prevent default bahavior (dont route anywhere)
     // get the form element
     const form = ev.currentTarget;
@@ -110,10 +122,13 @@ function formSubmitHandler(ev, list, userID, recurringItemsArray, onRecurringIte
         return;
     // extract data into the store
     const data = extractFormData(form);
+    // generate listID for the new list
     const listID = generateID();
+    // set list ID for recurring items
+    recurringItemsArray.forEach((item) => (item.listID = listID));
     const template = {
         listID,
-        primaryID: userID,
+        primaryID: getUser().userID,
         checkedItems: 0,
         totalItems: recurringItemsArray.length,
         label: data.label,

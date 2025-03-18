@@ -29,7 +29,6 @@ mountPageWrapper({
     mountListModal({
       mode: ListModalMode.Create,
       list,
-      userID: user.userID,
       onRecurringItemsSubmit: (recurringItemsArray, listID) => {
         // event for when recurring items are added in a newly created list on submit
         console.log("recuring items added to list...", recurringItemsArray);
