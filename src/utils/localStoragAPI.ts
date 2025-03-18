@@ -23,13 +23,13 @@ export function getListItems(listID: string | undefined) {
  * @param item item to add to list
  * @returns void
  */
-export function addListItem<T>(listID: string, item: T) {
+export function addListItem(listID: string, item: any) {
   // if no list exists in local storage, stop here
   const temp = localStorage.getItem(`list--${listID}`);
   if (!temp) return;
 
   // add item to list
-  const list = JSON.parse(temp) as T[];
+  const list = JSON.parse(temp) as any[];
   list.push(item);
 
   // update local storage
@@ -42,17 +42,13 @@ export function addListItem<T>(listID: string, item: T) {
  * @param itemID itemID to delete from list
  * @returns void
  */
-export function deleteListItem<T extends ListItem | InitListItem>(
-  listID: string,
-  itemID: string
-) {
+export function deleteListItem(listID: string, itemID: string) {
   // if no list exists in local storage, stop here
   const temp = localStorage.getItem(`list--${listID}`);
   if (!temp) return;
 
   // filter item out of list
-  const list = JSON.parse(temp) as T[];
-  // if ("itemID" in list) list as ListItem[]
+  const list = JSON.parse(temp) as any[];
 
   const filteredList = list.filter((item) => {
     if ("itemID" in item) return (item as ListItem).itemID !== itemID;
@@ -61,4 +57,30 @@ export function deleteListItem<T extends ListItem | InitListItem>(
 
   // update local storage
   localStorage.setItem(`list--${listID}`, JSON.stringify(filteredList));
+}
+
+/**
+ * updates a list item stored in local storage
+ * @param listID listID to update
+ * @param itemID itemID to update
+ * @param item item data to update with
+ * @returns void
+ */
+export function updateListItem(listID: string, itemID: string, item: any) {
+  // if no list exists in local storage, stop here
+  const temp = localStorage.getItem(`list--${listID}`);
+  if (!temp) return;
+
+  // add find list index of item
+  const list = JSON.parse(temp) as any[];
+  const ind = list.findIndex((item) => {
+    if ("itemID" in item) return (item as ListItem).itemID === itemID;
+    else return (item as InitListItem).listID === itemID;
+  });
+
+  // update list index
+  list[ind] = item;
+
+  // update local storage
+  localStorage.setItem(`list--${listID}`, JSON.stringify(list));
 }

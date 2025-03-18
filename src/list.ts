@@ -12,6 +12,7 @@ import {
   addListItem,
   deleteListItem,
   getListItems,
+  updateListItem,
 } from "./utils/localStoragAPI.js";
 
 const MAX_SUGGESTED_ITEMS = 4;
@@ -60,6 +61,7 @@ const list = InitializeList({
   },
   onupdateItem: (item) => {
     console.log("item updated...", item);
+    listID && updateListItem(listID, item.itemID, item);
   },
 });
 

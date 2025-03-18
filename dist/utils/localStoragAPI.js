@@ -44,7 +44,6 @@ export function deleteListItem(listID, itemID) {
         return;
     // filter item out of list
     const list = JSON.parse(temp);
-    // if ("itemID" in list) list as ListItem[]
     const filteredList = list.filter((item) => {
         if ("itemID" in item)
             return item.itemID !== itemID;
@@ -53,4 +52,29 @@ export function deleteListItem(listID, itemID) {
     });
     // update local storage
     localStorage.setItem(`list--${listID}`, JSON.stringify(filteredList));
+}
+/**
+ * updates a list item stored in local storage
+ * @param listID listID to update
+ * @param itemID itemID to update
+ * @param item item data to update with
+ * @returns void
+ */
+export function updateListItem(listID, itemID, item) {
+    // if no list exists in local storage, stop here
+    const temp = localStorage.getItem(`list--${listID}`);
+    if (!temp)
+        return;
+    // add find list index of item
+    const list = JSON.parse(temp);
+    const ind = list.findIndex((item) => {
+        if ("itemID" in item)
+            return item.itemID === itemID;
+        else
+            return item.listID === itemID;
+    });
+    // update list index
+    list[ind] = item;
+    // update local storage
+    localStorage.setItem(`list--${listID}`, JSON.stringify(list));
 }
