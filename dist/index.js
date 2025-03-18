@@ -7,14 +7,15 @@ const user = getUser();
 // list of lists
 const list = InitializeInitList({
     primaryID: user.userID,
-    onAddItem: (item) => {
-        console.log("item added...", item);
+    onAddItem: (list) => {
+        console.log("list added...", list);
     },
-    ondeleteItem: (itemID) => {
-        console.log("item deleted...", itemID);
+    ondeleteItem: (listID) => {
+        console.log("list deleted...", listID);
+        localStorage.removeItem(`list--${listID}`);
     },
-    onupdateItem: (item) => {
-        console.log("item updated...", item);
+    onupdateItem: (list) => {
+        console.log("list updated...", list);
     },
 });
 // mount page wrapper
