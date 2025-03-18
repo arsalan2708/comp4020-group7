@@ -1,4 +1,4 @@
-import { ListItem } from "../types/types";
+import { InitListItem, ListItem } from "../types/types";
 
 /**
  * gets list items with a listID from the local storage
@@ -34,4 +34,31 @@ export function addListItem<T>(listID: string, item: T) {
 
   // update local storage
   localStorage.setItem(`list--${listID}`, JSON.stringify(list));
+}
+
+/**
+ * deletes and item from a list stored in local storage
+ * @param listID listID to delete item from
+ * @param itemID itemID to delete from list
+ * @returns void
+ */
+export function deleteListItem<T extends ListItem | InitListItem>(
+  listID: string,
+  itemID: string
+) {
+  // if no list exists in local storage, stop here
+  const temp = localStorage.getItem(`list--${listID}`);
+  if (!temp) return;
+
+  // filter item out of list
+  const list = JSON.parse(temp) as T[];
+  // if ("itemID" in list) list as ListItem[]
+
+  const filteredList = list.filter((item) => {
+    if ("itemID" in item) return (item as ListItem).itemID !== itemID;
+    else return (item as InitListItem).listID !== itemID;
+  });
+
+  // update local storage
+  localStorage.setItem(`list--${listID}`, JSON.stringify(filteredList));
 }

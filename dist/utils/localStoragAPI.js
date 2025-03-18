@@ -31,3 +31,26 @@ export function addListItem(listID, item) {
     // update local storage
     localStorage.setItem(`list--${listID}`, JSON.stringify(list));
 }
+/**
+ * deletes and item from a list stored in local storage
+ * @param listID listID to delete item from
+ * @param itemID itemID to delete from list
+ * @returns void
+ */
+export function deleteListItem(listID, itemID) {
+    // if no list exists in local storage, stop here
+    const temp = localStorage.getItem(`list--${listID}`);
+    if (!temp)
+        return;
+    // filter item out of list
+    const list = JSON.parse(temp);
+    // if ("itemID" in list) list as ListItem[]
+    const filteredList = list.filter((item) => {
+        if ("itemID" in item)
+            return item.itemID !== itemID;
+        else
+            return item.listID !== itemID;
+    });
+    // update local storage
+    localStorage.setItem(`list--${listID}`, JSON.stringify(filteredList));
+}

@@ -8,7 +8,11 @@ import { createItemTemplate } from "./utils/createItemTemplate.js";
 import { itemIteratorNext } from "./utils/listItemIterator.js";
 import { generateID } from "./utils/generateID.js";
 import { getURLParam } from "./utils/getURLParam.js";
-import { addListItem, getListItems } from "./utils/localStoragAPI.js";
+import {
+  addListItem,
+  deleteListItem,
+  getListItems,
+} from "./utils/localStoragAPI.js";
 
 const MAX_SUGGESTED_ITEMS = 4;
 const IS_INDEX_PAGE = false;
@@ -52,6 +56,7 @@ const list = InitializeList({
   },
   ondeleteItem: (itemID) => {
     console.log("item deleted...", itemID);
+    listID && deleteListItem(listID, itemID);
   },
   onupdateItem: (item) => {
     console.log("item updated...", item);
