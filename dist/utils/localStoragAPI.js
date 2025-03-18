@@ -23,13 +23,18 @@ export function getListItems(listID) {
 export function addListItem(listID, item) {
     // if no list exists in local storage, stop here
     const temp = localStorage.getItem(`list--${listID}`);
-    if (!temp)
-        return;
-    // add item to list
-    const list = JSON.parse(temp);
-    list.push(item);
-    // update local storage
-    localStorage.setItem(`list--${listID}`, JSON.stringify(list));
+    if (temp) {
+        //if there is already data
+        // add item to list
+        const list = JSON.parse(temp);
+        list.push(item);
+        // update local storage
+        localStorage.setItem(`list--${listID}`, JSON.stringify(list));
+    }
+    else {
+        // create local storage
+        localStorage.setItem(`list--${listID}`, JSON.stringify([item]));
+    }
 }
 /**
  * deletes and item from a list stored in local storage

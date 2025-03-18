@@ -1,23 +1,33 @@
 import { ListModalMode, mountListModal } from "./components/createListModal.js";
 import { InitializeInitList } from "./components/initList.js";
 import { mountPageWrapper } from "./components/pageWrapper.js";
+import { InitListItem } from "./types/types.js";
 import { getUser } from "./utils/getUser.js";
+import {
+  addListItem,
+  deleteListItem,
+  getListItems,
+  updateListItem,
+} from "./utils/localStoragAPI.js";
 
 const IS_INDEX_PAGE = true;
-const user = getUser();
+const prefix = "list--";
 
 // list of lists
 const list = InitializeInitList({
-  primaryID: user.userID,
+  primaryID: getUser().userID,
   onAddItem: (list) => {
     console.log("list added...", list);
+    addListItem(getUser().userID, list);
   },
   ondeleteItem: (listID) => {
     console.log("list deleted...", listID);
-    localStorage.removeItem(`list--${listID}`);
+    localStorage.removeItem(prefix + listID);
+    deleteListItem(getUser().userID, listID);
   },
   onupdateItem: (list) => {
     console.log("list updated...", list);
+    updateListItem(getUser().userID, list.listID, list);
   },
 });
 
@@ -32,14 +42,23 @@ mountPageWrapper({
       onRecurringItemsSubmit: (recurringItemsArray, listID) => {
         // save recurring items to local storage to be pulled back if needed
         localStorage.setItem(
-          `list--${listID}`,
+          prefix + listID,
           JSON.stringify(recurringItemsArray)
         );
       },
     }),
   onsuggestClick: () => {},
-  user,
+  user: getUser(),
   list,
+});
+
+// get list items that may be stored in local storage and add them to the list
+const localList = getListItems<InitListItem>(getUser().userID);
+localList?.forEach((item) => {
+  list.addItem({
+    item,
+    isFromBackEnd: true,
+  });
 });
 
 /** ------FOR TESTING  ---------------- */
