@@ -5,7 +5,7 @@ import { InitListItem, ListItem } from "../types/types";
  * @param listID listID to search for items in the local storage for
  * @returns items stored in the local storage
  */
-export function getListItems(listID: string | undefined) {
+export function getListItems<T>(listID: string | undefined) {
   // if listID is undefined, stop here
   if (!listID) return;
 
@@ -14,7 +14,7 @@ export function getListItems(listID: string | undefined) {
   if (!temp) return;
 
   // return list parsed to listItem array
-  return JSON.parse(temp) as ListItem[];
+  return JSON.parse(temp) as T[];
 }
 
 /**
