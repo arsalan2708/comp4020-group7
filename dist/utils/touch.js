@@ -1,3 +1,4 @@
+import { addClasses } from "./addClasses.js";
 let touchDirection; //direction of movememnt
 let startX; //starting X position
 let startY; //starting Y position
@@ -45,8 +46,29 @@ export function onTouchMove(e, container, swipeEnabled = false) {
         container.style.position = "relative";
         container.style.transform = `translateX(${leftPosition - startX}px)`;
     }
-    // container.style.left = e.changedTouches[0].pageX + "px";
-    // container.style.transform = "translate(-50%, -50%)";
+    // overlapped items enlarged
+    if (touchDirection === "vertical") {
+        // get all items from list
+        const selector = ".item";
+        const listItemsArray = Array.from(document.querySelectorAll(selector));
+        // find overlapped item
+        const overlappedItem = listItemsArray
+            .filter((element) => element.id !== container.id)
+            .find((element) => isOverlapping(container, element));
+        // first time an item overlaps, apply overlapping styles
+        overlappedItem &&
+            !overlappedItem.classList.contains("item--overlapped") &&
+            addClasses(overlappedItem, "item--overlapped");
+        // for all other items appart from dragged item and overlapped item,
+        // remove overlapped styling if applied previusly
+        listItemsArray
+            .filter((element) => element.id !== container.id)
+            .filter((element) => overlappedItem ? element.id !== overlappedItem.id : true)
+            .forEach((element) => {
+            element.classList.contains("item--overlapped") &&
+                element.classList.remove("item--overlapped");
+        });
+    }
     if (touchDirection) {
         container.style.backgroundColor = "white";
         container.style.zIndex = "1";
@@ -80,6 +102,7 @@ export function onTouchEnd(e, container, itemID, isInitList, list) {
         if (overlappedItem) {
             // insert before the overlapping item
             listElement && listElement.insertBefore(container, overlappedItem);
+            overlappedItem.classList.remove("item--overlapped");
         }
         else if (
         //insert after last item

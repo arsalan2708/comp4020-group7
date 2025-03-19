@@ -456,6 +456,12 @@ ol {
   background-color: grey;
 }
 
+.item--overlapped {
+  scale: 1.0125;
+  background-color: rgb(163, 163, 163) !important;
+  transition: all 0.3s;
+}
+
 .item__label {
   text-transform: capitalize;
   white-space: nowrap;
