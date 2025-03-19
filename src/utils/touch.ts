@@ -1,8 +1,11 @@
+import { InitListItem, List } from "../types/types";
+
 let touchDirection: "horizontal" | "vertical" | undefined; //direction of movememnt
 let startX: number; //starting X position
 let startY: number; //starting Y position
 const Y_OFFSET = 50; //offset before movement is registered as vertical
 const X_OFFSET = 10; //offset before movement is registered as horizontal
+const RECURRING_OFFSET = 50; //offset to register swipe as a recurring item
 
 export function onTouchStart(e: TouchEvent) {
   e.preventDefault();
@@ -23,33 +26,46 @@ export function onTouchMove(e: TouchEvent, container: HTMLElement) {
   const pageWrapper = document.querySelector(".page-wrapper");
   if (!pageWrapper) return;
 
-  // top position of touch
+  // X and Y coordinate of touch
   const topPosition =
     e.changedTouches[0].pageY - document.documentElement.scrollTop;
+  const leftPosition = e.changedTouches[0].pageX;
 
-  // if touch movement passes threshold enable vertical
-  if (Math.abs(startY - topPosition) > Y_OFFSET) {
+  // if touch movement passes threshold enable vertical/horizontal, once for every element until touch end/cancel
+  if (!touchDirection && Math.abs(startY - topPosition) > Y_OFFSET) {
     touchDirection = "vertical";
+  } else if (!touchDirection && Math.abs(startX - leftPosition) > X_OFFSET) {
+    touchDirection = "horizontal";
   }
 
   // perform verical movement
   if (touchDirection === "vertical") {
-    // move the current target with these
+    // sort movement - move the current target with these
     container.style.position = "fixed";
     container.style.top = topPosition + "px";
     container.style.left = "50%";
     container.style.transform = "translateY(-50%) translateX(-50%)";
+  } else if (touchDirection === "horizontal") {
+    // swipe gesture
+    container.style.position = "relative";
+    container.style.transform = `translateX(${leftPosition - startX}px)`;
   }
 
   // container.style.left = e.changedTouches[0].pageX + "px";
   // container.style.transform = "translate(-50%, -50%)";
 
-  container.style.backgroundColor = "white";
-  container.style.zIndex = "1";
-  container.style.touchAction = "none";
-  container.style.width =
-    pageWrapper.getBoundingClientRect().width * 0.9 + "px";
+  if (touchDirection) {
+    container.style.backgroundColor = "white";
+    container.style.zIndex = "1";
+    container.style.touchAction = "none";
+    container.style.width =
+      pageWrapper.getBoundingClientRect().width * 0.9 + "px";
+  }
 }
+
+// how do i get the element to move by the distance moved during the on move without the element jumping or snapping to the point of contact.
+
+// basically, when i move an element, say a rectangle from its right most part, the entire rectangle jumps so that the right side is now the point of contact and movements happen in relationto that. i want the element to stay in its current position but still move by the distance moved
 
 /**
  * touch end call back. swap overlapping item or place at top or buttom respectively depending on
@@ -62,12 +78,15 @@ export function onTouchEnd(
   e: TouchEvent,
   container: HTMLElement,
   itemID: string,
-  isInitList?: boolean
+  isInitList?: boolean,
+  list?: List<InitListItem>
 ) {
   // constants
   const isInitList_ = isInitList || false;
   const selector = isInitList_ ? ".initList__container" : ".item";
-  const list = document.querySelector(".page-wrapper__list") as HTMLElement;
+  const listElement = document.querySelector(
+    ".page-wrapper__list"
+  ) as HTMLElement;
   const listItemsArray = Array.from(document.querySelectorAll(selector));
   const firstItem = listItemsArray[0];
   const lastItem = listItemsArray[listItemsArray.length - 1];
@@ -79,19 +98,19 @@ export function onTouchEnd(
 
   // insert before the overlapping item
   if (overlappedItem) {
-    list && list.insertBefore(container, overlappedItem);
+    listElement && listElement.insertBefore(container, overlappedItem);
   } else if (
     //insert after last item
     e.changedTouches[0].pageY - document.documentElement.scrollTop >
     lastItem.getBoundingClientRect().bottom
   ) {
-    list.insertBefore(container, lastItem.nextSibling);
+    listElement.insertBefore(container, lastItem.nextSibling);
   } else if (
     // insert before first item
     e.changedTouches[0].pageY - document.documentElement.scrollTop <
     firstItem.getBoundingClientRect().bottom
   ) {
-    list.insertBefore(container, firstItem);
+    listElement.insertBefore(container, firstItem);
   }
 
   // reset styles
