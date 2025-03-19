@@ -17,7 +17,7 @@ export function mountNavBar({ title, isIndexPage, user, list, }) {
     // create heading and append it to nav
     const heading = document.createElement("h1");
     heading.innerText = title;
-    heading.classList.add("center", "height-full", "text-xl");
+    heading.classList.add("page-wrapper__heading", "center", "height-full", "text-xl");
     nav.appendChild(heading);
     // create hamburger-icon
     const hamburgerIcon = createIconButton({

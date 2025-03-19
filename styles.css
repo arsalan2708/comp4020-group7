@@ -164,6 +164,10 @@ ol {
   border-bottom: 2px solid black;
 }
 
+.page-wrapper__heading {
+  text-transform: capitalize;
+}
+
 .page-wrapper__icon {
   position: absolute;
   top: 50%;

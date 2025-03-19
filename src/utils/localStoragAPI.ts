@@ -1,4 +1,5 @@
 import { InitListItem, ListItem } from "../types/types";
+import { getUser } from "./getUser.js";
 
 const prefix = "list--";
 
@@ -89,4 +90,25 @@ export function updateListItem(listID: string, itemID: string, item: any) {
 
   // update local storage
   localStorage.setItem(prefix + listID, JSON.stringify(list));
+}
+
+/**
+ * gets the label associated with a list for the page wrapper
+ * @param listID listID you want to get list label for
+ * @returns return list label if one exists or none
+ */
+export function getListLabel(listID?: string) {
+  // stop if there is no list id
+  if (!listID) return;
+
+  // get all the list items associated with this user. stop if there is none
+  const temp = getListItems<InitListItem>(getUser().userID);
+  if (!temp) return;
+
+  // find the list if it exists
+  const initList = temp.find((item) => item.listID === listID);
+  if (!initList) return;
+
+  // return the label
+  return initList.label;
 }

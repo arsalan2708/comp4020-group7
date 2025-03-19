@@ -6,7 +6,7 @@ import { createItemTemplate } from "./utils/createItemTemplate.js";
 import { itemIteratorNext } from "./utils/listItemIterator.js";
 import { generateID } from "./utils/generateID.js";
 import { getURLParam } from "./utils/getURLParam.js";
-import { addListItem, deleteListItem, getListItems, updateListItem, } from "./utils/localStoragAPI.js";
+import { addListItem, deleteListItem, getListItems, getListLabel, updateListItem, } from "./utils/localStoragAPI.js";
 const MAX_SUGGESTED_ITEMS = 4;
 const IS_INDEX_PAGE = false;
 const IS_EXPANDABLE = true;
@@ -15,7 +15,7 @@ const user = getUser();
 const listID = getURLParam("id");
 // mount page wrapper
 mountPageWrapper({
-    title: "List 1",
+    title: getListLabel(listID) || "List 1",
     isIndexPage: IS_INDEX_PAGE,
     onAddClick: () => {
         // add a new item

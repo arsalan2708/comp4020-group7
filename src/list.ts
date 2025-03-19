@@ -12,6 +12,7 @@ import {
   addListItem,
   deleteListItem,
   getListItems,
+  getListLabel,
   updateListItem,
 } from "./utils/localStoragAPI.js";
 
@@ -24,7 +25,7 @@ const listID = getURLParam("id");
 
 // mount page wrapper
 mountPageWrapper({
-  title: "List 1",
+  title: getListLabel(listID) || "List 1",
   isIndexPage: IS_INDEX_PAGE,
   onAddClick: () => {
     // add a new item
