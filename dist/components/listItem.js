@@ -27,12 +27,11 @@ export function mountListItem({ classNames, item, onActionButtonClick, onClick, 
     label_.innerText = label;
     addClasses(label_, "item__label", "text-md");
     showInputDefault && addClasses(label_, "hidden");
-    //   recurring
+    //   recurring item star
     const star = document.createElement("p");
-    star.innerText = "⭐";
+    isRecurring && (star.innerText = "⭐");
     addClasses(star, "item__recurring");
     showInputDefault && addClasses(star, "hidden");
-    !isRecurring && star.remove(); // if its not a recurring item remove it
     //   text input for intering data
     const { inputNode: labelInput } = createInput({
         id: `label--input--${itemID}`,
@@ -95,8 +94,7 @@ export function mountListItem({ classNames, item, onActionButtonClick, onClick, 
     //   label container
     const labelContainer = document.createElement("div");
     addClasses(labelContainer, "item__labelContainer", "display-row", "align--center");
-    labelContainer.append(label_, labelInput);
-    isRecurring && labelContainer.append(star);
+    labelContainer.append(label_, labelInput, star);
     //   TODO: fix amounts
     // amount of item
     const amount_ = document.createElement("p");
@@ -212,7 +210,13 @@ export function mountListItem({ classNames, item, onActionButtonClick, onClick, 
         description_.classList.add("hidden");
         buttomContainer.classList.add("hidden");
     });
-    container.addEventListener("touchend", (e) => onTouchEnd(e, container, itemID));
+    container.addEventListener("touchend", (e) => {
+        // only list items on the list.html page are allowed to be swipe-able
+        const list_ = actionButtonType === "checkbox" ? list : undefined;
+        const isInitItem = false;
+        onTouchEnd(e, container, itemID, isInitItem, list_);
+        star.innerText = item.isRecurring ? "⭐" : ""; //update star depending on recurring or not
+    });
     container.addEventListener("touchcancel", (e) => onTouchCancel(e, container));
     // current filter states. intend to subscribe to the changes
     const { subscribe } = FilterStates();

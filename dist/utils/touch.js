@@ -76,21 +76,34 @@ export function onTouchEnd(e, container, itemID, isInitList, list) {
     const overlappedItem = listItemsArray
         .filter((element) => element.id !== itemID)
         .find((element) => isOverlapping(container, element));
-    // insert before the overlapping item
-    if (overlappedItem) {
-        listElement && listElement.insertBefore(container, overlappedItem);
+    if (touchDirection === "vertical") {
+        if (overlappedItem) {
+            // insert before the overlapping item
+            listElement && listElement.insertBefore(container, overlappedItem);
+        }
+        else if (
+        //insert after last item
+        e.changedTouches[0].pageY - document.documentElement.scrollTop >
+            lastItem.getBoundingClientRect().bottom) {
+            listElement.insertBefore(container, lastItem.nextSibling);
+        }
+        else if (
+        // insert before first item
+        e.changedTouches[0].pageY - document.documentElement.scrollTop <
+            firstItem.getBoundingClientRect().bottom) {
+            listElement.insertBefore(container, firstItem);
+        }
     }
-    else if (
-    //insert after last item
-    e.changedTouches[0].pageY - document.documentElement.scrollTop >
-        lastItem.getBoundingClientRect().bottom) {
-        listElement.insertBefore(container, lastItem.nextSibling);
-    }
-    else if (
-    // insert before first item
-    e.changedTouches[0].pageY - document.documentElement.scrollTop <
-        firstItem.getBoundingClientRect().bottom) {
-        listElement.insertBefore(container, firstItem);
+    else if (touchDirection === "horizontal") {
+        const leftPosition = e.changedTouches[0].pageX; //x coordinate of touch
+        const totalWidth = listElement.getBoundingClientRect().width; //width of list element
+        const percentageMoved = (Math.abs(leftPosition - startX) / totalWidth) * 100; //percentage moved by item
+        // if percentage moved by item is greater than offset, toggle recurring
+        if (percentageMoved > RECURRING_OFFSET && list) {
+            const item = list.getItem(itemID);
+            item && (item.isRecurring = !item.isRecurring);
+            item && list.updateItem(item);
+        }
     }
     // reset styles
     container.style.position = "static";
