@@ -230,6 +230,7 @@ export function mountListItem({
         list.deleteItem(item.itemID);
         item.posterID = getUser().userID;
         list.addItem({ item, list, showInputDefault: false, expandable });
+        onAddItem(item);
       });
 
       actionButton.append(decline, accept);

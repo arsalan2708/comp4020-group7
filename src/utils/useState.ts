@@ -18,7 +18,6 @@ export function useState<T>(initialValue: T) {
   const setState = (newValue: T) => {
     state = newValue;
     callBacks.forEach((callBack) => callBack(state));
-    console.log("state change", newValue);
   };
 
   /**
