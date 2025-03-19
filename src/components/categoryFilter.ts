@@ -6,7 +6,7 @@ import { mountRecurringItem } from "./recurringItem.js";
 
 //state management for the filter component
 const filterStates = useState(new Set<string>());
-const { state, setState } = filterStates;
+const { getState, setState } = filterStates;
 
 /**
  * Singleton method to make the same instance of the filter states available throughout the app
@@ -28,18 +28,21 @@ export function mountCategoryFilter() {
   const options = mountRecurringItem({ label: "i" });
   addClasses(options, "filter__button");
   options.addEventListener("click", () => {
-    const selectedRec = pageWrapper.querySelectorAll<HTMLElement>(
-      ".recurring--selected"
-    );
-    if (!selectedRec) return;
-
-    selectedRec.forEach((element) =>
-      element.classList.remove("recurring--selected")
-    );
+    // update state
     setState(new Set<string>());
     setTimeout(() => {
       options.classList.remove("recurring--selected");
     }, 300);
+
+    // get all selected recurring items
+    const selectedRec = pageWrapper.querySelectorAll<HTMLElement>(
+      ".recurring--selected"
+    );
+
+    // remove selection styling for selected recurring items
+    selectedRec.forEach((element) =>
+      element.classList.remove("recurring--selected")
+    );
   });
 
   //   container for the button to give sticky effect
@@ -83,10 +86,15 @@ export function mountCategoryFilter() {
 
     // add event listener to filter list on category click
     recurringItemButton.addEventListener("click", () => {
+      // get the label
       const label = recurringItemButton.innerText;
-      if (state.has(label)) state.delete(label);
-      else state.add(label);
-      setState(state);
+
+      // check if its contained or not
+      if (getState().has(label)) getState().delete(label);
+      else getState().add(label);
+
+      // update state accordingly
+      setState(getState());
     });
 
     container.append(recurringItemButton);

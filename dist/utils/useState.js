@@ -10,10 +10,12 @@ export function useState(initialValue) {
     let state = initialValue;
     // set containing call back functions
     const callBacks = new Set();
+    const getState = () => state;
     // sets the state value
     const setState = (newValue) => {
         state = newValue;
         callBacks.forEach((callBack) => callBack(state));
+        console.log("state change", newValue);
     };
     /**
      * objects can subscribe to the state change by passing a call back function to be called
@@ -26,5 +28,5 @@ export function useState(initialValue) {
         // Return unsubscribe function
         return () => callBacks.delete(callBack);
     };
-    return { state, setState, subscribe };
+    return { getState, setState, subscribe };
 }

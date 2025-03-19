@@ -12,10 +12,13 @@ export function useState<T>(initialValue: T) {
   // set containing call back functions
   const callBacks = new Set<(state: T) => void>();
 
+  const getState = () => state;
+
   // sets the state value
   const setState = (newValue: T) => {
     state = newValue;
     callBacks.forEach((callBack) => callBack(state));
+    console.log("state change", newValue);
   };
 
   /**
@@ -31,5 +34,5 @@ export function useState<T>(initialValue: T) {
     return () => callBacks.delete(callBack);
   };
 
-  return { state, setState, subscribe };
+  return { getState, setState, subscribe };
 }

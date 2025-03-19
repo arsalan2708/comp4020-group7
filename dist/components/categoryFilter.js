@@ -5,7 +5,7 @@ import { useState } from "../utils/useState.js";
 import { mountRecurringItem } from "./recurringItem.js";
 //state management for the filter component
 const filterStates = useState(new Set());
-const { state, setState } = filterStates;
+const { getState, setState } = filterStates;
 /**
  * Singleton method to make the same instance of the filter states available throughout the app
  * @returns return the same instance of filter states
@@ -22,14 +22,15 @@ export function mountCategoryFilter() {
     const options = mountRecurringItem({ label: "i" });
     addClasses(options, "filter__button");
     options.addEventListener("click", () => {
-        const selectedRec = pageWrapper.querySelectorAll(".recurring--selected");
-        if (!selectedRec)
-            return;
-        selectedRec.forEach((element) => element.classList.remove("recurring--selected"));
+        // update state
         setState(new Set());
         setTimeout(() => {
             options.classList.remove("recurring--selected");
         }, 300);
+        // get all selected recurring items
+        const selectedRec = pageWrapper.querySelectorAll(".recurring--selected");
+        // remove selection styling for selected recurring items
+        selectedRec.forEach((element) => element.classList.remove("recurring--selected"));
     });
     //   container for the button to give sticky effect
     const optContainer = document.createElement("div");
@@ -60,12 +61,15 @@ export function mountCategoryFilter() {
         const recurringItemButton = mountRecurringItem({ label: category });
         // add event listener to filter list on category click
         recurringItemButton.addEventListener("click", () => {
+            // get the label
             const label = recurringItemButton.innerText;
-            if (state.has(label))
-                state.delete(label);
+            // check if its contained or not
+            if (getState().has(label))
+                getState().delete(label);
             else
-                state.add(label);
-            setState(state);
+                getState().add(label);
+            // update state accordingly
+            setState(getState());
         });
         container.append(recurringItemButton);
     });
