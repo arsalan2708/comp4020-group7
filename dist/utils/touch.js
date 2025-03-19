@@ -24,6 +24,8 @@ export function onTouchMove(e, container, swipeEnabled = false) {
     // X and Y coordinate of touch
     const topPosition = e.changedTouches[0].pageY - document.documentElement.scrollTop;
     const leftPosition = e.changedTouches[0].pageX;
+    // container for swipe background
+    const swipebackground = document.createElement("div");
     // if touch movement passes threshold enable vertical/horizontal, once for every element until touch end/cancel
     if (!touchDirection && Math.abs(startY - topPosition) > Y_OFFSET) {
         touchDirection = "vertical";
@@ -32,6 +34,14 @@ export function onTouchMove(e, container, swipeEnabled = false) {
         !touchDirection &&
         Math.abs(startX - leftPosition) > X_OFFSET) {
         touchDirection = "horizontal";
+        // add background for swipe
+        const draggedItemRect = container.getBoundingClientRect();
+        swipebackground.style.top = draggedItemRect.top + "px";
+        swipebackground.style.left = draggedItemRect.left + "px";
+        swipebackground.style.width = draggedItemRect.width + "px";
+        swipebackground.style.height = draggedItemRect.height + "px";
+        addClasses(swipebackground, "item__swipeBckg", "border-radius");
+        pageWrapper.append(swipebackground);
     }
     // perform verical movement
     if (touchDirection === "vertical") {
@@ -127,6 +137,9 @@ export function onTouchEnd(e, container, itemID, isInitList, list) {
             item && (item.isRecurring = !item.isRecurring);
             item && list.updateItem(item);
         }
+        // remove swipe background if there is one
+        const swipebackground = document.querySelector(".item__swipeBckg");
+        swipebackground && swipebackground.remove();
     }
     // reset styles
     container.style.position = "static";
@@ -157,6 +170,9 @@ export function onTouchCancel(e, container) {
     container.style.width = "initial";
     container.style.touchAction = "initial";
     touchDirection = undefined; //unset movement direction
+    // remove swipe background if there is one
+    const swipebackground = document.querySelector(".item__swipeBckg");
+    swipebackground && swipebackground.remove();
     if (container.classList.contains("item--sec"))
         container.style.backgroundColor = "grey";
 }

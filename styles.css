@@ -452,6 +452,12 @@ ol {
   padding: var(--space-md) var(--space-lg);
 }
 
+.item__swipeBckg {
+  position: fixed;
+  background-color: #ffd700;
+  border: 1px solid white;
+}
+
 .item--sec {
   background-color: grey;
 }
