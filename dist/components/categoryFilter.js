@@ -1,7 +1,18 @@
 import { Categories } from "../types/types.js";
 import { addClasses } from "../utils/addClasses.js";
 import { onLongPress } from "../utils/longPress.js";
+import { useState } from "../utils/useState.js";
 import { mountRecurringItem } from "./recurringItem.js";
+//state management for the filter component
+const filterStates = useState(new Set());
+const { state, setState } = filterStates;
+/**
+ * Singleton method to make the same instance of the filter states available throughout the app
+ * @returns return the same instance of filter states
+ */
+export function FilterStates() {
+    return filterStates;
+}
 export function mountCategoryFilter() {
     // page wrapper container
     const pageWrapper = document.querySelector(".page-wrapper__page-content");
@@ -35,7 +46,18 @@ export function mountCategoryFilter() {
     }
     //   add categories
     Categories.forEach((category) => {
-        container.append(mountRecurringItem({ label: category }));
+        // mount recurring items
+        const recurringItemButton = mountRecurringItem({ label: category });
+        // add event listener to filter list on category click
+        recurringItemButton.addEventListener("click", () => {
+            const label = recurringItemButton.innerText;
+            if (state.has(label))
+                state.delete(label);
+            else
+                state.add(label);
+            setState(state);
+        });
+        container.append(recurringItemButton);
     });
     pageWrapper.prepend(container);
 }
