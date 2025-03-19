@@ -307,7 +307,10 @@ export function mountListItem({
   // touch events (drag and drop)
   container.addEventListener("touchstart", onTouchStart);
   container.addEventListener("touchmove", (e) => {
-    onTouchMove(e, container);
+    // only list items on the list.html page are allowed to be swipe-able
+    const isSwipeable = actionButtonType === "checkbox";
+
+    onTouchMove(e, container, isSwipeable);
 
     // close expanded items
     description_.classList.add("hidden");

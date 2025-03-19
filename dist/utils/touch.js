@@ -15,7 +15,7 @@ export function onTouchStart(e) {
  * @param e touch event
  * @param container item to be moved
  */
-export function onTouchMove(e, container) {
+export function onTouchMove(e, container, swipeEnabled = false) {
     // to calculate width of item when being dragged
     const pageWrapper = document.querySelector(".page-wrapper");
     if (!pageWrapper)
@@ -27,7 +27,9 @@ export function onTouchMove(e, container) {
     if (!touchDirection && Math.abs(startY - topPosition) > Y_OFFSET) {
         touchDirection = "vertical";
     }
-    else if (!touchDirection && Math.abs(startX - leftPosition) > X_OFFSET) {
+    else if (swipeEnabled &&
+        !touchDirection &&
+        Math.abs(startX - leftPosition) > X_OFFSET) {
         touchDirection = "horizontal";
     }
     // perform verical movement

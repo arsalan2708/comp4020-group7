@@ -19,7 +19,11 @@ export function onTouchStart(e: TouchEvent) {
  * @param e touch event
  * @param container item to be moved
  */
-export function onTouchMove(e: TouchEvent, container: HTMLElement) {
+export function onTouchMove(
+  e: TouchEvent,
+  container: HTMLElement,
+  swipeEnabled = false
+) {
   // to calculate width of item when being dragged
   const pageWrapper = document.querySelector(".page-wrapper");
   if (!pageWrapper) return;
@@ -32,7 +36,11 @@ export function onTouchMove(e: TouchEvent, container: HTMLElement) {
   // if touch movement passes threshold enable vertical/horizontal, once for every element until touch end/cancel
   if (!touchDirection && Math.abs(startY - topPosition) > Y_OFFSET) {
     touchDirection = "vertical";
-  } else if (!touchDirection && Math.abs(startX - leftPosition) > X_OFFSET) {
+  } else if (
+    swipeEnabled &&
+    !touchDirection &&
+    Math.abs(startX - leftPosition) > X_OFFSET
+  ) {
     touchDirection = "horizontal";
   }
 
