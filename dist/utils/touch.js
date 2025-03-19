@@ -5,7 +5,6 @@ const Y_OFFSET = 50; //offset before movement is registered as vertical
 const X_OFFSET = 10; //offset before movement is registered as horizontal
 const RECURRING_OFFSET = 50; //offset to register swipe as a recurring item
 export function onTouchStart(e) {
-    e.preventDefault();
     // get the start position of the touch event
     const touch = e.touches[0];
     startX = touch.clientX; // X coordinate relative to the viewport
