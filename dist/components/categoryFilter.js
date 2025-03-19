@@ -21,6 +21,16 @@ export function mountCategoryFilter() {
     // options button
     const options = mountRecurringItem({ label: "i" });
     addClasses(options, "filter__button");
+    options.addEventListener("click", () => {
+        const selectedRec = pageWrapper.querySelectorAll(".recurring--selected");
+        if (!selectedRec)
+            return;
+        selectedRec.forEach((element) => element.classList.remove("recurring--selected"));
+        setState(new Set());
+        setTimeout(() => {
+            options.classList.remove("recurring--selected");
+        }, 300);
+    });
     //   container for the button to give sticky effect
     const optContainer = document.createElement("div");
     addClasses(optContainer, "filter__buttonCont", "center");
