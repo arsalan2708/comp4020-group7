@@ -4,6 +4,7 @@ import { Icon, getImage } from "../utils/getImage.js";
 import { nameIteratorNext } from "../utils/listNameIterator.js";
 import { routeToPage } from "../utils/routing.js";
 import { createIconButton } from "./iconButton.js";
+import { mountModalContainer, unmountModalContainer, } from "./modalContainer.js";
 import { mountUserNameModal } from "./userNameModal.js";
 /**
  * populates the top navigation bar. Nav bar has to have class ".page-wrapper__top-bar"
@@ -82,14 +83,10 @@ function mountSideBar({ isIndexPage, user, list, }) {
         },
         { label: "Notify Others", displayHome: false },
     ];
-    const pageWrapper = document.querySelector(".page-wrapper");
-    // get modal
-    const modal = document.createElement("div");
-    modal.classList.add("modal", "overflow-hidden");
-    if (!pageWrapper || !modal)
+    // get modal and mount it
+    const modal = mountModalContainer({ onModalClick: onSideBarClose });
+    if (!modal)
         return;
-    // append modal to body
-    pageWrapper.appendChild(modal);
     // header text
     const h2 = document.createElement("h2");
     h2.innerText = "Options";
@@ -123,7 +120,7 @@ function mountSideBar({ isIndexPage, user, list, }) {
     // unmounts modal after close animation
     sidebar.onanimationend = (ev) => {
         if (sidebar.classList.contains("side-bar--close"))
-            pageWrapper.removeChild(modal);
+            unmountModalContainer();
     };
     // add elements to component
     sidebar.append(h2, closeButton, ul, username);

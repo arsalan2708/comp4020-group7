@@ -5,6 +5,10 @@ import { Icon, getImage } from "../utils/getImage.js";
 import { nameIteratorNext } from "../utils/listNameIterator.js";
 import { routeToPage } from "../utils/routing.js";
 import { createIconButton } from "./iconButton.js";
+import {
+  mountModalContainer,
+  unmountModalContainer,
+} from "./modalContainer.js";
 import { mountUserNameModal } from "./userNameModal.js";
 
 /**
@@ -116,16 +120,9 @@ function mountSideBar({
     { label: "Notify Others", displayHome: false },
   ];
 
-  const pageWrapper = document.querySelector(".page-wrapper");
-
-  // get modal
-  const modal = document.createElement("div");
-  modal.classList.add("modal", "overflow-hidden");
-
-  if (!pageWrapper || !modal) return;
-
-  // append modal to body
-  pageWrapper.appendChild(modal);
+  // get modal and mount it
+  const modal = mountModalContainer({ onModalClick: onSideBarClose });
+  if (!modal) return;
 
   // header text
   const h2 = document.createElement("h2");
@@ -169,8 +166,7 @@ function mountSideBar({
 
   // unmounts modal after close animation
   sidebar.onanimationend = (ev: AnimationEvent) => {
-    if (sidebar.classList.contains("side-bar--close"))
-      pageWrapper.removeChild(modal);
+    if (sidebar.classList.contains("side-bar--close")) unmountModalContainer();
   };
 
   // add elements to component
