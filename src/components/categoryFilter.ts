@@ -40,8 +40,10 @@ export function mountCategoryFilter() {
     );
 
     // remove selection styling for selected recurring items
-    selectedRec.forEach((element) =>
-      element.classList.remove("recurring--selected")
+    selectedRec.forEach(
+      (element) =>
+        element.innerText !== options.innerText &&
+        element.classList.remove("recurring--selected")
     );
   });
 

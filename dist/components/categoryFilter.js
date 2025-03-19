@@ -30,7 +30,8 @@ export function mountCategoryFilter() {
         // get all selected recurring items
         const selectedRec = pageWrapper.querySelectorAll(".recurring--selected");
         // remove selection styling for selected recurring items
-        selectedRec.forEach((element) => element.classList.remove("recurring--selected"));
+        selectedRec.forEach((element) => element.innerText !== options.innerText &&
+            element.classList.remove("recurring--selected"));
     });
     //   container for the button to give sticky effect
     const optContainer = document.createElement("div");
