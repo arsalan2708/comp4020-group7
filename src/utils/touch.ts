@@ -186,7 +186,7 @@ export function onTouchEnd(
   } else if (touchDirection === "horizontal") {
     const leftPosition = e.changedTouches[0].pageX; //x coordinate of touch
     const totalWidth = listElement.getBoundingClientRect().width; //width of list element
-    const percentageMoved = Math.abs(leftPosition - startX) / totalWidth; //percentage moved by item
+    const percentageMoved = (leftPosition - startX) / totalWidth; //percentage moved by item
 
     // if percentage moved by item is greater than offset, toggle recurring
     if (percentageMoved > RECURRING_OFFSET && list) {
