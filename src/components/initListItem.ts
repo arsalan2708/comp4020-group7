@@ -111,7 +111,11 @@ export function mountInitListItem({
 
   // touch events (drag and drop)
   container.addEventListener("touchstart", onTouchStart);
-  container.addEventListener("touchmove", (e) => onTouchMove(e, container));
+  container.addEventListener("touchmove", (e) => {
+    const swippable = false;
+    const initListItem = true;
+    onTouchMove(e, container, swippable, initListItem);
+  });
   container.addEventListener("touchend", (e) =>
     onTouchEnd(e, container, listID, isInitItem)
   );

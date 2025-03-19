@@ -18,7 +18,7 @@ export function onTouchStart(e) {
  * @param e touch event
  * @param container item to be moved
  */
-export function onTouchMove(e, container, swipeEnabled = false) {
+export function onTouchMove(e, container, swipeEnabled = false, isInitListItem = false) {
     // to calculate width of item when being dragged
     const pageWrapper = document.querySelector(".page-wrapper");
     if (!pageWrapper)
@@ -74,7 +74,7 @@ export function onTouchMove(e, container, swipeEnabled = false) {
     // overlapped items enlarged
     if (touchDirection === "vertical") {
         // get all items from list
-        const selector = ".item";
+        const selector = isInitListItem ? ".initList__container" : ".item";
         const listItemsArray = Array.from(document.querySelectorAll(selector));
         // find overlapped item
         const overlappedItem = listItemsArray
