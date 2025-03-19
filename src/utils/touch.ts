@@ -6,13 +6,15 @@ let startX: number; //starting X position
 let startY: number; //starting Y position
 const Y_OFFSET = 50; //offset before movement is registered as vertical
 const X_OFFSET = 10; //offset before movement is registered as horizontal
-const RECURRING_OFFSET = 25; //% offset to register swipe as a recurring item
+const RECURRING_OFFSET = 0.25; //% offset to register swipe as a recurring item
+let maxSwipe: number; //max swipe distance
 
 export function onTouchStart(e: TouchEvent) {
   // get the start position of the touch event
   const touch = e.touches[0];
   startX = touch.clientX; // X coordinate relative to the viewport
   startY = touch.clientY;
+  maxSwipe = (e.currentTarget as HTMLElement).offsetWidth * 0.25; // 25% of item width
 }
 
 /**
@@ -81,7 +83,15 @@ export function onTouchMove(
   } else if (touchDirection === "horizontal") {
     // swipe gesture
     container.style.position = "relative";
-    container.style.transform = `translateX(${leftPosition - startX}px)`;
+
+    // current X coordinate
+    let currentX = leftPosition - startX;
+
+    // Limit swipe within 25% of width
+    if (currentX > maxSwipe) currentX = maxSwipe;
+    if (currentX < 0) currentX = 0; // Optional: Prevent left swipe
+
+    container.style.transform = `translateX(${currentX}px)`;
   }
 
   // overlapped items enlarged
@@ -176,8 +186,7 @@ export function onTouchEnd(
   } else if (touchDirection === "horizontal") {
     const leftPosition = e.changedTouches[0].pageX; //x coordinate of touch
     const totalWidth = listElement.getBoundingClientRect().width; //width of list element
-    const percentageMoved =
-      (Math.abs(leftPosition - startX) / totalWidth) * 100; //percentage moved by item
+    const percentageMoved = Math.abs(leftPosition - startX) / totalWidth; //percentage moved by item
 
     // if percentage moved by item is greater than offset, toggle recurring
     if (percentageMoved > RECURRING_OFFSET && list) {

@@ -454,7 +454,8 @@ ol {
 
 .item__swipeBckg {
   position: fixed;
-  background-color: #4cec41;
+  background: #4cec41; /*fall back*/
+  background: linear-gradient(to left, #4cec41 75%, transparent);
   border: 1px solid white;
 }
 
