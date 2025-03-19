@@ -4,7 +4,12 @@ import { createInput } from "../utils/createInput.js";
 import { Icon, getImage } from "../utils/getImage.js";
 import { getUser } from "../utils/getUser.js";
 import { onLongPress } from "../utils/longPress.js";
-import { onTouchCancel, onTouchEnd, onTouchMove } from "../utils/touch.js";
+import {
+  onTouchCancel,
+  onTouchEnd,
+  onTouchMove,
+  onTouchStart,
+} from "../utils/touch.js";
 import { FilterStates } from "./categoryFilter.js";
 import { createIconButton } from "./iconButton.js";
 
@@ -300,6 +305,7 @@ export function mountListItem({
   container.append(topContainer);
 
   // touch events (drag and drop)
+  container.addEventListener("touchstart", onTouchStart);
   container.addEventListener("touchmove", (e) => {
     onTouchMove(e, container);
 

@@ -4,7 +4,12 @@ import { Icon, getImage } from "../utils/getImage.js";
 import { getUser } from "../utils/getUser.js";
 import { routeToList } from "../utils/routing.js";
 import { sendEmail } from "../utils/sendInvite.js";
-import { onTouchCancel, onTouchEnd, onTouchMove } from "../utils/touch.js";
+import {
+  onTouchCancel,
+  onTouchEnd,
+  onTouchMove,
+  onTouchStart,
+} from "../utils/touch.js";
 import { createIconButton } from "./iconButton.js";
 import { mountMenu } from "./menu.js";
 
@@ -105,6 +110,7 @@ export function mountInitListItem({
   container.role = "button";
 
   // touch events (drag and drop)
+  container.addEventListener("touchstart", onTouchStart);
   container.addEventListener("touchmove", (e) => onTouchMove(e, container));
   container.addEventListener("touchend", (e) =>
     onTouchEnd(e, container, listID, isInitItem)

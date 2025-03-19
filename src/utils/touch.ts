@@ -1,3 +1,18 @@
+let touchDirection: "horizontal" | "vertical" | undefined; //direction of movememnt
+let startX: number; //starting X position
+let startY: number; //starting Y position
+const Y_OFFSET = 50; //offset before movement is registered as vertical
+const X_OFFSET = 10; //offset before movement is registered as horizontal
+
+export function onTouchStart(e: TouchEvent) {
+  e.preventDefault();
+
+  // get the start position of the touch event
+  const touch = e.touches[0];
+  startX = touch.clientX; // X coordinate relative to the viewport
+  startY = touch.clientY;
+}
+
 /**
  * touch mouve event call back
  * @param e touch event
@@ -8,12 +23,27 @@ export function onTouchMove(e: TouchEvent, container: HTMLElement) {
   const pageWrapper = document.querySelector(".page-wrapper");
   if (!pageWrapper) return;
 
-  // move the current target with these
-  container.style.position = "fixed";
-  container.style.top =
-    e.changedTouches[0].pageY - document.documentElement.scrollTop + "px";
-  container.style.left = e.changedTouches[0].pageX + "px";
-  container.style.transform = "translate(-50%, -50%)";
+  // top position of touch
+  const topPosition =
+    e.changedTouches[0].pageY - document.documentElement.scrollTop;
+
+  // if touch movement passes threshold enable vertical
+  if (Math.abs(startY - topPosition) > Y_OFFSET) {
+    touchDirection = "vertical";
+  }
+
+  // perform verical movement
+  if (touchDirection === "vertical") {
+    // move the current target with these
+    container.style.position = "fixed";
+    container.style.top = topPosition + "px";
+    container.style.left = "50%";
+    container.style.transform = "translateY(-50%) translateX(-50%)";
+  }
+
+  // container.style.left = e.changedTouches[0].pageX + "px";
+  // container.style.transform = "translate(-50%, -50%)";
+
   container.style.backgroundColor = "white";
   container.style.zIndex = "1";
   container.style.touchAction = "none";
@@ -73,6 +103,7 @@ export function onTouchEnd(
   container.style.backgroundColor = "inherit";
   container.style.width = "initial";
   container.style.touchAction = "initial";
+  touchDirection = undefined; //unset movement direction
 
   if (container.classList.contains("item--sec"))
     container.style.backgroundColor = "grey";
@@ -93,6 +124,7 @@ export function onTouchCancel(e: TouchEvent, container: HTMLElement) {
   container.style.backgroundColor = "inherit";
   container.style.width = "initial";
   container.style.touchAction = "initial";
+  touchDirection = undefined; //unset movement direction
 
   if (container.classList.contains("item--sec"))
     container.style.backgroundColor = "grey";
