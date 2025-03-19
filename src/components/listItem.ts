@@ -5,6 +5,7 @@ import { Icon, getImage } from "../utils/getImage.js";
 import { getUser } from "../utils/getUser.js";
 import { onLongPress } from "../utils/longPress.js";
 import { onTouchCancel, onTouchEnd, onTouchMove } from "../utils/touch.js";
+import { FilterStates } from "./categoryFilter.js";
 import { createIconButton } from "./iconButton.js";
 
 interface Props {
@@ -311,6 +312,23 @@ export function mountListItem({
   );
   container.addEventListener("touchcancel", (e) => onTouchCancel(e, container));
 
+  // current filter states. intend to subscribe to the changes
+  const { subscribe } = FilterStates();
+
+  const unsubscribe = subscribe((state) => {
+    // if its a suggested item stop here
+    const isSuggestedItem = container.classList.contains("item--sec");
+    if (isSuggestedItem) return;
+
+    // create array from current list of filter items
+    const categories = Array.from(state);
+    const isCategory = state.has(item.categoryID);
+
+    // if there is a category filter and item is not one of those make invisible else, make visible
+    if (categories.length && !isCategory) addClasses(container, "hidden");
+    else container.classList.remove("hidden");
+  });
+
   //   if item is not expandle stop here
   if (!expandable) return { container };
 
@@ -381,7 +399,12 @@ export function mountListItem({
   const deleteButton = createIconButton({ src: getImage(Icon.Delete) });
   deleteButton.addEventListener("click", (ev) => {
     ev.stopPropagation();
+
+    // delete list item
     list.deleteItem(itemID);
+
+    // unsubscribe from listen
+    unsubscribe();
   });
   addClasses(deleteButton, "item__bottomButton");
 

@@ -14,7 +14,6 @@ export function useState(initialValue) {
     const setState = (newValue) => {
         state = newValue;
         callBacks.forEach((callBack) => callBack(state));
-        console.log("new state...", state);
     };
     /**
      * objects can subscribe to the state change by passing a call back function to be called
