@@ -454,8 +454,14 @@ ol {
 
 .item__swipeBckg {
   position: fixed;
-  background-color: #ffd700;
+  background-color: #4cec41;
   border: 1px solid white;
+}
+
+.item_swipeIcon {
+  height: 100%;
+  padding-left: var(--space-md);
+  line-height: unset !important;
 }
 
 .item--sec {

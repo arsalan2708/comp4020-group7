@@ -41,6 +41,12 @@ export function onTouchMove(e, container, swipeEnabled = false) {
         swipebackground.style.width = draggedItemRect.width + "px";
         swipebackground.style.height = draggedItemRect.height + "px";
         addClasses(swipebackground, "item__swipeBckg", "border-radius");
+        // add icon
+        const swipeIcon = document.createElement("p");
+        swipeIcon.innerText = "⭐";
+        addClasses(swipeIcon, "item_swipeIcon", "display-row", "align--center", "text-xl");
+        // add icon to background and add bacground to page
+        swipebackground.append(swipeIcon);
         pageWrapper.append(swipebackground);
     }
     // perform verical movement
